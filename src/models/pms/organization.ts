@@ -8,46 +8,53 @@ import {
 } from '../common/primitives'
 import { OrgTierTypeSchema } from '../common/enums'
 
-export const OrgUnitSchema = z
+function refineOrgUnitProcessTag(
+  data: { TierType: z.infer<typeof OrgTierTypeSchema>; ProcessTag: string | null },
+  ctx: z.RefinementCtx,
+): void {
+  if (data.TierType === 'process' && !data.ProcessTag) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Process-type organizations must bind a production process tag',
+      path: ['ProcessTag'],
+    })
+  }
+  if (data.TierType !== 'process' && data.ProcessTag) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Process tag is only allowed for process-tier organizations',
+      path: ['ProcessTag'],
+    })
+  }
+}
+
+const OrgUnitFieldsSchema = z.object({
+  Id: UuidSchema,
+  ParentId: UuidSchema.nullable(),
+  Code: NonEmptyStringSchema.max(32),
+  Name: NonEmptyStringSchema.max(200),
+  TierType: OrgTierTypeSchema,
+  ProcessTag: z.string().max(100).nullable(),
+  SortOrder: z.number().int().min(0),
+  IsDisabled: z.boolean().default(false),
+})
+
+export const OrgUnitSchema = OrgUnitFieldsSchema.merge(TenantScopeSchema)
+  .merge(AuditFieldsSchema)
+  .superRefine(refineOrgUnitProcessTag)
+
+export const OrgUnitCreateRequestSchema = z
   .object({
-    Id: UuidSchema,
+    OrganizationId: UuidSchema,
     ParentId: UuidSchema.nullable(),
-    Code: NonEmptyStringSchema.max(32),
     Name: NonEmptyStringSchema.max(200),
     TierType: OrgTierTypeSchema,
     ProcessTag: z.string().max(100).nullable(),
     SortOrder: z.number().int().min(0),
-    IsDisabled: z.boolean().default(false),
+    CreatedBy: UuidSchema,
+    CreatedDatetime: DateTimeSchema,
   })
-  .merge(TenantScopeSchema)
-  .merge(AuditFieldsSchema)
-  .superRefine((data, ctx) => {
-    if (data.TierType === 'process' && !data.ProcessTag) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Process-type organizations must bind a production process tag',
-        path: ['ProcessTag'],
-      })
-    }
-    if (data.TierType !== 'process' && data.ProcessTag) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Process tag is only allowed for process-tier organizations',
-        path: ['ProcessTag'],
-      })
-    }
-  })
-
-export const OrgUnitCreateRequestSchema = OrgUnitSchema.pick({
-  OrganizationId: true,
-  ParentId: true,
-  Name: true,
-  TierType: true,
-  ProcessTag: true,
-  SortOrder: true,
-  CreatedBy: true,
-  CreatedDatetime: true,
-})
+  .superRefine(refineOrgUnitProcessTag)
 
 export const OrgVersionSchema = z.object({
   Id: UuidSchema,
