@@ -157,6 +157,10 @@ export const cockpitDrillDownStore = {
   },
 
   getRootLabel(request: DrillDownRequest): string {
+    if (request.DataPointId.startsWith('status:')) {
+      const band = request.DataPointId.slice(7)
+      return `${band.charAt(0).toUpperCase()}${band.slice(1)} status items`
+    }
     if (request.Level === 1) {
       const nodes = filterByDataPoint(DEPARTMENTS, request.DataPointId)
       return nodes[0]?.Label ?? 'Breakdown'

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
-import { ChevronRight } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { ChevronRight, ArrowUpDown } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
@@ -43,6 +43,8 @@ interface BreadcrumbItem {
   parentId: string | null
 }
 
+type SortDir = 'asc' | 'desc'
+
 export function DrillDownSheet({
   open,
   onOpenChange,
@@ -61,30 +63,37 @@ export function DrillDownSheet({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [profileNode, setProfileNode] = useState<DrillDownNode | null>(null)
+  const [sortColumn, setSortColumn] = useState<string | null>(null)
+  const [sortDir, setSortDir] = useState<SortDir>('asc')
+  const requestSeq = useRef(0)
 
-  const loadLevel = useCallback(
-    async (req: DrillDownRequest) => {
-      setLoading(true)
-      setError(null)
-      try {
-        const result = await fetchDrillDown(req)
-        setNodes(result.nodes)
-        if (req.Level === 1) {
-          setTitle(result.title)
-        }
-      } catch (e) {
-        setError(e instanceof Error ? e.message : 'Failed to load drill-down')
-      } finally {
+  const loadLevel = useCallback(async (req: DrillDownRequest) => {
+    const seq = ++requestSeq.current
+    setLoading(true)
+    setError(null)
+    try {
+      const result = await fetchDrillDown(req)
+      if (seq !== requestSeq.current) return
+      setNodes(result.nodes)
+      if (req.Level === 1) {
+        setTitle(result.title)
+      }
+    } catch (e) {
+      if (seq !== requestSeq.current) return
+      setError(e instanceof Error ? e.message : 'Failed to load drill-down')
+    } finally {
+      if (seq === requestSeq.current) {
         setLoading(false)
       }
-    },
-    [],
-  )
+    }
+  }, [])
 
   useEffect(() => {
     if (!open) return
     setLevel(1)
     setParentId(null)
+    setSortColumn(null)
+    setSortDir('asc')
     setBreadcrumbs([
       { label: 'Cockpit', level: 0, parentId: null },
       { label: metricLabel, level: 1, parentId: null },
@@ -102,8 +111,10 @@ export function DrillDownSheet({
       onOpenChange(false)
       return
     }
+    requestSeq.current += 1
     setLevel(item.level)
     setParentId(item.parentId)
+    setSortColumn(null)
     setBreadcrumbs((prev) => prev.slice(0, prev.findIndex((b) => b.level === item.level) + 1))
     void loadLevel({
       SourceWidgetId: sourceWidgetId,
@@ -120,8 +131,10 @@ export function DrillDownSheet({
       toast.info('No further breakdown for this selection')
       return
     }
+    requestSeq.current += 1
     setLevel(nextLevel)
     setParentId(node.Id)
+    setSortColumn(null)
     setBreadcrumbs((prev) => [...prev, { label: node.Label, level: nextLevel, parentId: node.Id }])
     void loadLevel({
       SourceWidgetId: sourceWidgetId,
@@ -131,18 +144,48 @@ export function DrillDownSheet({
     })
   }
 
+  const toggleSort = (column: string) => {
+    if (level !== 2) return
+    if (sortColumn === column) {
+      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))
+      return
+    }
+    setSortColumn(column)
+    setSortDir('asc')
+  }
+
+  const sortedNodes = [...nodes]
+  if (level === 2 && sortColumn) {
+    sortedNodes.sort((a, b) => {
+      const aMetric = a.Metrics.find((m) => m.Name === sortColumn)
+      const bMetric = b.Metrics.find((m) => m.Name === sortColumn)
+      const aVal = aMetric?.Value ?? a.Label
+      const bVal = bMetric?.Value ?? b.Label
+      if (typeof aVal === 'number' && typeof bVal === 'number') {
+        return sortDir === 'asc' ? aVal - bVal : bVal - aVal
+      }
+      const cmp = String(aVal).localeCompare(String(bVal))
+      return sortDir === 'asc' ? cmp : -cmp
+    })
+  }
+
+  const metricColumns = nodes[0]?.Metrics ?? []
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="flex w-full flex-col sm:max-w-2xl lg:max-w-4xl">
+      <SheetContent className="flex h-full w-full flex-col sm:max-w-2xl lg:max-w-4xl max-sm:max-w-full">
         <SheetHeader>
           <SheetTitle>{title}</SheetTitle>
-          <nav className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground" aria-label="Breadcrumb">
+          <nav
+            className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground"
+            aria-label="Breadcrumb"
+          >
             {breadcrumbs.map((item, i) => (
               <span key={`${item.label}-${item.level}`} className="flex items-center gap-1">
                 {i > 0 ? <ChevronRight className="size-3.5" /> : null}
                 <button
                   type="button"
-                  className="hover:text-primary hover:underline"
+                  className="rounded-sm hover:text-primary hover:underline focus-visible:ring-2 focus-visible:ring-ring"
                   onClick={() => goToLevel(item)}
                 >
                   {item.label}
@@ -193,18 +236,48 @@ export function DrillDownSheet({
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Name</TableHead>
-                  {nodes[0]?.Metrics.map((m) => (
-                    <TableHead key={m.Name}>{m.Name}</TableHead>
+                  <TableHead>
+                    {level === 2 ? (
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1 hover:text-foreground"
+                        onClick={() => toggleSort('Name')}
+                      >
+                        Name
+                        <ArrowUpDown className="size-3.5" />
+                      </button>
+                    ) : (
+                      'Name'
+                    )}
+                  </TableHead>
+                  {metricColumns.map((m) => (
+                    <TableHead key={m.Name}>
+                      {level === 2 ? (
+                        <button
+                          type="button"
+                          className="inline-flex items-center gap-1 hover:text-foreground"
+                          onClick={() => toggleSort(m.Name)}
+                        >
+                          {m.Name}
+                          <ArrowUpDown className="size-3.5" />
+                        </button>
+                      ) : (
+                        m.Name
+                      )}
+                    </TableHead>
                   ))}
                   <TableHead className="w-10" />
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {nodes.map((node) => (
+                {sortedNodes.map((node) => (
                   <TableRow
                     key={node.Id}
-                    className={node.Level !== 'individual' ? 'cursor-pointer hover:bg-muted/50' : undefined}
+                    className={
+                      node.Level !== 'individual'
+                        ? 'cursor-pointer hover:bg-muted/50 focus-visible:ring-2 focus-visible:ring-ring'
+                        : undefined
+                    }
                     tabIndex={node.Level !== 'individual' ? 0 : undefined}
                     onClick={() => drillInto(node)}
                     onKeyDown={(e) => {
@@ -218,7 +291,7 @@ export function DrillDownSheet({
                       {node.Level === 'individual' ? (
                         <button
                           type="button"
-                          className="text-primary hover:underline"
+                          className="text-primary hover:underline focus-visible:ring-2 focus-visible:ring-ring"
                           onClick={(e) => {
                             e.stopPropagation()
                             setProfileNode(node)
