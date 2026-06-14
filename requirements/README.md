@@ -7,7 +7,7 @@ Frontend requirement documents for Marketplace-ERP modules. Each subsection is a
 - **Scope:** Frontend only. All data is mocked to match NyxAPI response shapes (see `docs/nyxapi-route-reference.md`).
 - **UI:** shadcn/ui components, brand palette `#002379`, patterns in `.cursor/rules/ui-ux-standards.mdc`.
 - **States:** Every screen implements loading, empty, error, and success states.
-- **PDA views:** Mobile-first layouts at 360px for warehouse floor operations (scan-centric flows).
+- **PDA / Pad views:** Mobile-first layouts at 360px for floor operations (scan-centric flows). WMS emphasizes PDA; MES emphasizes Pad terminals and workshop displays.
 
 ---
 
@@ -51,3 +51,35 @@ Frontend requirement documents for Marketplace-ERP modules. Each subsection is a
 | 15 | [3.5.6-inventory-counting.md](./3.5.6-inventory-counting.md) | Inventory counting (stock-taking) |
 | 16 | [3.5.7-material-traceability.md](./3.5.7-material-traceability.md) | Full-process material traceability |
 | 17 | [3.5.8-statistics-reports.md](./3.5.8-statistics-reports.md) | Warehousing statistics & reports |
+
+---
+
+## 3.4 Manufacturing Execution System (MES)
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.4.1-module-core-positioning.md](./3.4.1-module-core-positioning.md) | Module core positioning |
+| 2 | [3.4.2.1-work-order-reception-creation.md](./3.4.2.1-work-order-reception-creation.md) | Work order reception & creation |
+| 3 | [3.4.2.2-work-order-splitting-merging.md](./3.4.2.2-work-order-splitting-merging.md) | Work order splitting & merging |
+| 4 | [3.4.2.3-work-order-dispatch-material-picking.md](./3.4.2.3-work-order-dispatch-material-picking.md) | Work order dispatch & material picking |
+| 5 | [3.4.2.4-work-order-production-reporting.md](./3.4.2.4-work-order-production-reporting.md) | Work order production reporting (Bao-Gong) |
+| 6 | [3.4.2.5-work-order-status-closure.md](./3.4.2.5-work-order-status-closure.md) | Work order status & closure |
+| 7 | [3.4.3-workshop-scheduling.md](./3.4.3-workshop-scheduling.md) | Workshop planning & line scheduling |
+| 8 | [3.4.4.1-cutting-process.md](./3.4.4.1-cutting-process.md) | Cutting process management |
+| 9 | [3.4.4.2-sewing-hanging-line.md](./3.4.4.2-sewing-hanging-line.md) | Sewing & hanging line management |
+| 10 | [3.4.4.3-post-processing-packaging.md](./3.4.4.3-post-processing-packaging.md) | Post-processing & packaging |
+| 11 | [3.4.4.4-wip-rfid-traceability.md](./3.4.4.4-wip-rfid-traceability.md) | Full-process WIP RFID traceability |
+| 12 | [3.4.5.1-ipqc.md](./3.4.5.1-ipqc.md) | In-process quality control (IPQC) |
+| 13 | [3.4.5.2-oqc.md](./3.4.5.2-oqc.md) | Outgoing quality control (OQC) |
+| 14 | [3.4.5.3-rework-repair.md](./3.4.5.3-rework-repair.md) | Rework & repair management |
+| 15 | [3.4.5.4-quality-traceability-analysis.md](./3.4.5.4-quality-traceability-analysis.md) | Quality traceability & analysis |
+| 16 | [3.4.6.1-equipment-ledger.md](./3.4.6.1-equipment-ledger.md) | Equipment ledger management |
+| 17 | [3.4.6.2-equipment-status-monitoring.md](./3.4.6.2-equipment-status-monitoring.md) | Real-time equipment status monitoring |
+| 18 | [3.4.6.3-equipment-maintenance.md](./3.4.6.3-equipment-maintenance.md) | Equipment maintenance management |
+| 19 | [3.4.6.4-equipment-oee.md](./3.4.6.4-equipment-oee.md) | Equipment OEE calculation & analysis |
+| 20 | [3.4.6.5-tooling-management.md](./3.4.6.5-tooling-management.md) | Tooling & industrial tool management |
+| 21 | [3.4.7.1-personnel-team-management.md](./3.4.7.1-personnel-team-management.md) | Personnel & team management |
+| 22 | [3.4.7.2-labor-hour-output-collection.md](./3.4.7.2-labor-hour-output-collection.md) | Labor hour & output data collection |
+| 23 | [3.4.7.3-piece-rate-wage-calculation.md](./3.4.7.3-piece-rate-wage-calculation.md) | Piece-rate wage automatic calculation |
+| 24 | [3.4.8-production-cost-management.md](./3.4.8-production-cost-management.md) | Production cost fine-grained management |
+| 25 | [3.4.9-production-statistics-reports.md](./3.4.9-production-statistics-reports.md) | Production data statistics & reports |
