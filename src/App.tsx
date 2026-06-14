@@ -70,6 +70,12 @@ import AlertDisposalPage from './pages/pms/alerts/AlertDisposalPage'
 import PmsAppraisalLayout from './components/pms/PmsAppraisalLayout'
 import AppraisalSchemesPage from './pages/pms/appraisal/AppraisalSchemesPage'
 import AppraisalSchemeEditorPage from './pages/pms/appraisal/AppraisalSchemeEditorPage'
+import AppraisalCyclesPage from './pages/pms/appraisal/AppraisalCyclesPage'
+import AppraisalGeneratePage from './pages/pms/appraisal/AppraisalGeneratePage'
+import AppraisalPreliminaryPage from './pages/pms/appraisal/AppraisalPreliminaryPage'
+import AppraisalHrPage from './pages/pms/appraisal/AppraisalHrPage'
+import AppraisalSecondaryPage from './pages/pms/appraisal/AppraisalSecondaryPage'
+import AppraisalFinalPage from './pages/pms/appraisal/AppraisalFinalPage'
 
 export default function App() {
   return (
@@ -101,6 +107,12 @@ export default function App() {
               <Route path="schemes" element={<AppraisalSchemesPage />} />
               <Route path="schemes/new" element={<AppraisalSchemeEditorPage />} />
               <Route path="schemes/:id" element={<AppraisalSchemeEditorPage />} />
+              <Route path="cycles" element={<AppraisalCyclesPage />} />
+              <Route path="cycles/:id/generate" element={<AppraisalGeneratePage />} />
+              <Route path="preliminary" element={<AppraisalPreliminaryPage />} />
+              <Route path="hr" element={<AppraisalHrPage />} />
+              <Route path="secondary" element={<AppraisalSecondaryPage />} />
+              <Route path="final" element={<AppraisalFinalPage />} />
             </Route>
 
             <Route path="pms/kpi" element={<PmsKpiLayout />}>

@@ -107,6 +107,67 @@ export const AppraisalSchemeSchema = z
     }
   })
 
+export const AppraisalCycleSchema = z.object({
+  Id: UuidSchema,
+  OrganizationId: UuidSchema,
+  Label: NonEmptyStringSchema,
+  SchemeId: UuidSchema,
+  SchemeName: NonEmptyStringSchema,
+  PeriodStart: DateTimeSchema,
+  PeriodEnd: DateTimeSchema,
+  KpiCompletenessPct: z.number().min(0).max(100),
+  Status: z.enum(['not_started', 'ready', 'generated', 'published']),
+})
+
+export const AppraisalIndicatorDetailSchema = z.object({
+  KpiId: UuidSchema,
+  KpiName: NonEmptyStringSchema,
+  RawScore: z.number(),
+  WeightPct: PercentSchema,
+  WeightedContribution: z.number(),
+  Target: z.number(),
+  Actual: z.number(),
+})
+
+export const AppraisalEmployeeRecordSchema = z.object({
+  Id: UuidSchema,
+  OrganizationId: UuidSchema,
+  CycleId: UuidSchema,
+  EmployeeId: NonEmptyStringSchema,
+  EmployeeName: NonEmptyStringSchema,
+  Department: NonEmptyStringSchema,
+  Role: NonEmptyStringSchema,
+  TotalScore: z.number(),
+  AutoGrade: PerformanceGradeSchema,
+  ConfirmedGrade: PerformanceGradeSchema.nullable(),
+  ReviewOpinion: z.string().max(2000).nullable(),
+  Status: z.enum([
+    'pending_preliminary',
+    'pending_hr',
+    'hr_processed',
+    'pending_secondary',
+    'pending_final_review',
+    'published',
+    'returned_auditor',
+    're_rectification',
+  ]),
+  RoutingSource: z.enum(['direct_ab', 'post_hr']).nullable(),
+  IndicatorDetails: z.array(AppraisalIndicatorDetailSchema),
+  HrAssistanceSummary: z.string().max(4000).nullable(),
+  HrAssistanceType: z.string().nullable(),
+  SecondaryOpinion: z.string().max(4000).nullable(),
+  FinalOpinion: z.string().max(4000).nullable(),
+  LinkedPdcaProposalId: UuidSchema.nullable(),
+  ShuntingLog: z.array(
+    z.object({
+      At: DateTimeSchema,
+      Actor: NonEmptyStringSchema,
+      Action: NonEmptyStringSchema,
+      Detail: z.string(),
+    }),
+  ),
+})
+
 export const PdcaProposalSchema = z.object({
   Id: UuidSchema,
   OrganizationId: UuidSchema,
@@ -210,6 +271,8 @@ export const DrillDownRequestSchema = z.object({
 export type AlertRule = z.infer<typeof AlertRuleSchema>
 export type AlertRecord = z.infer<typeof AlertRecordSchema>
 export type AppraisalScheme = z.infer<typeof AppraisalSchemeSchema>
+export type AppraisalCycle = z.infer<typeof AppraisalCycleSchema>
+export type AppraisalEmployeeRecord = z.infer<typeof AppraisalEmployeeRecordSchema>
 export type PdcaProposal = z.infer<typeof PdcaProposalSchema>
 export type RoleCockpit = z.infer<typeof RoleCockpitSchema>
 export type DrillDownRequest = z.infer<typeof DrillDownRequestSchema>
