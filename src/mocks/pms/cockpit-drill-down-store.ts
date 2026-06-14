@@ -117,8 +117,16 @@ function findNode(id: string, nodes: DrillDownNode[]): DrillDownNode | undefined
   return undefined
 }
 
+function filterByStatusBand(nodes: DrillDownNode[], band: string): DrillDownNode[] {
+  const color = band as 'green' | 'yellow' | 'red'
+  return nodes.filter((n) => n.Metrics.some((m) => m.StatusColor === color))
+}
+
 function filterByDataPoint(nodes: DrillDownNode[], dataPointId: string): DrillDownNode[] {
   if (!dataPointId || dataPointId === 'all') return nodes
+  if (dataPointId.startsWith('status:')) {
+    return filterByStatusBand(nodes, dataPointId.slice(7))
+  }
   const match = nodes.find(
     (n) => n.Id === dataPointId || n.Label.toLowerCase() === dataPointId.toLowerCase(),
   )

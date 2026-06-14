@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/table'
 import { PageHeader } from '@/components/pms/PageHeader'
 import { PermissionGate } from '@/components/pms/PermissionGate'
+import { CockpitStatusLegend } from '@/components/pms/cockpit/CockpitStatusLegend'
 import { CockpitSummaryCard } from '@/components/pms/cockpit/CockpitSummaryCard'
 import { CockpitChart } from '@/components/pms/cockpit/CockpitChart'
 import { CockpitWidgetSlot } from '@/components/pms/cockpit/CockpitWidgetSlot'
@@ -243,6 +244,16 @@ export default function CockpitPage() {
           </CardContent>
         </Card>
       ) : null}
+
+      <CockpitStatusLegend
+        onDrillDown={(band) =>
+          openDrill(
+            'status-legend',
+            `status:${band}`,
+            `${band.charAt(0).toUpperCase()}${band.slice(1)} status band`,
+          )
+        }
+      />
 
       <section className="mb-6">
         <h2 className="type-section-title mb-4">Summary</h2>

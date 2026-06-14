@@ -37,7 +37,15 @@ import { deleteRole, fetchRoles, saveRole } from '@/services/pms/admin/account-s
 import type { SystemRole } from '@/models/pms/identity'
 import type { DataScope } from '@/models/common/enums'
 
-const MENU_OPTIONS = ['pms.admin', 'pms.kpi', 'pms.projects', 'pms.appraisal', 'pms.alerts']
+const MENU_OPTIONS = [
+  'pms.admin',
+  'pms.kpi',
+  'pms.projects',
+  'pms.cockpit',
+  'pms.settings',
+  'pms.appraisal',
+  'pms.alerts',
+]
 
 export default function RolesPage() {
   const { hasPermission } = usePmsAuth()

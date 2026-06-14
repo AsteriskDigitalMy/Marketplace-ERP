@@ -96,7 +96,8 @@ export function CockpitChart({ chart, onSegmentClick }: CockpitChartProps) {
                 <li key={s.Label}>
                   <button
                     type="button"
-                    className="flex items-center gap-2 hover:underline"
+                    className="flex min-h-11 w-full items-center gap-2 rounded-md px-1 text-left hover:underline focus-visible:ring-2 focus-visible:ring-ring"
+                    aria-label={`Drill down into ${s.Label}`}
                     onClick={() => onSegmentClick(s.Label, i)}
                   >
                     <span

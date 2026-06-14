@@ -1,4 +1,5 @@
 import { randomDelay } from '@/lib/api/delay'
+import { withTimeout } from '@/lib/api/timeout'
 import { ApiError } from '@/lib/api/errors'
 import type { CockpitRole } from '@/models/common/enums'
 import type { DrillDownNode, DrillDownRequest, RoleCockpit } from '@/models/pms/operations'
@@ -32,16 +33,24 @@ export async function fetchRoleCockpit(role: CockpitRole): Promise<RoleCockpit> 
   return roleCockpitStore.getCockpit(role)
 }
 
+const WIDGET_TIMEOUT_MS = 10_000
+
 export async function fetchCockpitSection(
   role: CockpitRole,
   section: CockpitWidgetSection,
 ): Promise<RoleCockpit[CockpitWidgetSection]> {
-  await randomDelay()
-  try {
-    return roleCockpitStore.getSection(role, section)
-  } catch (e) {
-    throw new ApiError(e instanceof Error ? e.message : 'Widget load failed', 500)
-  }
+  return withTimeout(
+    (async () => {
+      await randomDelay()
+      try {
+        return roleCockpitStore.getSection(role, section)
+      } catch (e) {
+        throw new ApiError(e instanceof Error ? e.message : 'Widget load failed', 500)
+      }
+    })(),
+    WIDGET_TIMEOUT_MS,
+    'Widget load timed out — try again',
+  )
 }
 
 export async function fetchDrillDown(
