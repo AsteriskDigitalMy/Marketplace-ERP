@@ -9,6 +9,7 @@ import {
   Gauge,
   Bell,
   ClipboardCheck,
+  RefreshCw,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -78,6 +79,14 @@ const modules = [
     section: '3.1.8',
     icon: ClipboardCheck,
     accent: 'bg-indigo-500/10 text-indigo-600',
+  },
+  {
+    title: 'PDCA Improvement',
+    description: 'Online improvement proposals, auditor evaluation, and execution task tracking.',
+    to: '/pms/pdca/proposals',
+    section: '3.1.9',
+    icon: RefreshCw,
+    accent: 'bg-teal-500/10 text-teal-600',
   },
 ]
 

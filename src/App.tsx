@@ -68,6 +68,7 @@ import AlertRulesPage from './pages/pms/alerts/AlertRulesPage'
 import AlertRuleEditorPage from './pages/pms/alerts/AlertRuleEditorPage'
 import AlertDisposalPage from './pages/pms/alerts/AlertDisposalPage'
 import PmsAppraisalLayout from './components/pms/PmsAppraisalLayout'
+import PmsPdcaLayout from './components/pms/PmsPdcaLayout'
 import AppraisalSchemesPage from './pages/pms/appraisal/AppraisalSchemesPage'
 import AppraisalSchemeEditorPage from './pages/pms/appraisal/AppraisalSchemeEditorPage'
 import AppraisalCyclesPage from './pages/pms/appraisal/AppraisalCyclesPage'
@@ -76,6 +77,11 @@ import AppraisalPreliminaryPage from './pages/pms/appraisal/AppraisalPreliminary
 import AppraisalHrPage from './pages/pms/appraisal/AppraisalHrPage'
 import AppraisalSecondaryPage from './pages/pms/appraisal/AppraisalSecondaryPage'
 import AppraisalFinalPage from './pages/pms/appraisal/AppraisalFinalPage'
+import PdcaProposalsPage from './pages/pms/pdca/PdcaProposalsPage'
+import PdcaProposalEditorPage from './pages/pms/pdca/PdcaProposalEditorPage'
+import PdcaProposalDetailPage from './pages/pms/pdca/PdcaProposalDetailPage'
+import PdcaExecutionPage from './pages/pms/pdca/PdcaExecutionPage'
+import PdcaTasksPage from './pages/pms/pdca/PdcaTasksPage'
 
 export default function App() {
   return (
@@ -113,6 +119,15 @@ export default function App() {
               <Route path="hr" element={<AppraisalHrPage />} />
               <Route path="secondary" element={<AppraisalSecondaryPage />} />
               <Route path="final" element={<AppraisalFinalPage />} />
+            </Route>
+
+            <Route path="pms/pdca" element={<PmsPdcaLayout />}>
+              <Route index element={<Navigate to="proposals" replace />} />
+              <Route path="proposals" element={<PdcaProposalsPage />} />
+              <Route path="proposals/new" element={<PdcaProposalEditorPage />} />
+              <Route path="proposals/:id" element={<PdcaProposalDetailPage />} />
+              <Route path="proposals/:id/execution" element={<PdcaExecutionPage />} />
+              <Route path="tasks" element={<PdcaTasksPage />} />
             </Route>
 
             <Route path="pms/kpi" element={<PmsKpiLayout />}>

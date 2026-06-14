@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -16,6 +17,7 @@ import { PageHeader } from '@/components/pms/PageHeader'
 import { AsyncState } from '@/components/pms/AsyncState'
 import { PermissionGate } from '@/components/pms/PermissionGate'
 import { AppraisalGradeBadge } from '@/components/pms/appraisal/AppraisalGradeBadge'
+import { PdcaStatusBadge } from '@/components/pms/pdca/PdcaStatusBadge'
 import { usePmsAuth } from '@/contexts/pms-auth-context'
 import type { AppraisalEmployeeRecord } from '@/models/pms/operations'
 import {
@@ -23,6 +25,8 @@ import {
   fetchAppraisalRecords,
   submitSecondaryReview,
 } from '@/services/pms/appraisal/appraisal-workflow-service'
+import { fetchPdcaProposal } from '@/services/pms/pdca/pdca-proposal-service'
+import type { PdcaProposal } from '@/models/pms/operations'
 
 export default function AppraisalSecondaryPage() {
   const { hasPermission } = usePmsAuth()
@@ -32,6 +36,7 @@ export default function AppraisalSecondaryPage() {
   const [activeId, setActiveId] = useState<string | null>(null)
   const [pass, setPass] = useState<boolean | null>(null)
   const [opinion, setOpinion] = useState('')
+  const [linkedProposal, setLinkedProposal] = useState<PdcaProposal | null>(null)
 
   const load = async () => {
     try {
@@ -55,6 +60,16 @@ export default function AppraisalSecondaryPage() {
   }, [])
 
   const active = records.find((r) => r.Id === activeId)
+
+  useEffect(() => {
+    if (!active?.LinkedPdcaProposalId) {
+      setLinkedProposal(null)
+      return
+    }
+    void fetchPdcaProposal(active.LinkedPdcaProposalId)
+      .then(setLinkedProposal)
+      .catch(() => setLinkedProposal(null))
+  }, [active?.LinkedPdcaProposalId])
 
   return (
     <PermissionGate allowed={hasPermission('appraisal.review')}>
@@ -93,7 +108,27 @@ export default function AppraisalSecondaryPage() {
                 <AppraisalGradeBadge grade={active.ConfirmedGrade ?? active.AutoGrade} />
                 <p className="text-sm text-muted-foreground">{active.HrAssistanceSummary}</p>
                 {active.LinkedPdcaProposalId ? (
-                  <p className="text-xs text-muted-foreground">Linked PDCA: {active.LinkedPdcaProposalId.slice(0, 8)}…</p>
+                  <div className="space-y-2 rounded-lg border bg-muted/30 p-3">
+                    <p className="text-xs font-medium text-muted-foreground">Linked PDCA</p>
+                    {linkedProposal ? (
+                      <div className="flex flex-wrap items-center gap-2">
+                        <PdcaStatusBadge status={linkedProposal.Status} />
+                        <Link
+                          to={`/pms/pdca/proposals/${linkedProposal.Id}`}
+                          className="text-sm font-medium text-primary hover:underline"
+                        >
+                          {linkedProposal.Title}
+                        </Link>
+                      </div>
+                    ) : (
+                      <Link
+                        to={`/pms/pdca/proposals/${active.LinkedPdcaProposalId}`}
+                        className="text-sm text-primary hover:underline"
+                      >
+                        View proposal
+                      </Link>
+                    )}
+                  </div>
                 ) : null}
                 <div className="flex gap-4">
                   <label className="flex items-center gap-2 text-sm">

@@ -46,6 +46,7 @@ const pmsNav: NavLeaf[] = [
   { to: '/pms/cockpit', label: 'KPI Cockpit', icon: Gauge },
   { to: '/pms/alerts', label: 'Exception Alerts', icon: Bell },
   { to: '/pms/appraisal/schemes', label: 'Performance Appraisal', icon: ClipboardCheck },
+  { to: '/pms/pdca/proposals', label: 'PDCA Improvement', icon: ClipboardList },
 ]
 
 function MenuBullet() {

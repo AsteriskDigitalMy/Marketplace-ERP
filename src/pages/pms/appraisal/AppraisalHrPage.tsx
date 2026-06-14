@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -33,7 +34,7 @@ import {
 } from '@/services/pms/appraisal/appraisal-workflow-service'
 
 export default function AppraisalHrPage() {
-  const { hasPermission } = usePmsAuth()
+  const { hasPermission, userId, displayName } = usePmsAuth()
   const [records, setRecords] = useState<AppraisalEmployeeRecord[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -41,6 +42,8 @@ export default function AppraisalHrPage() {
   const [assistanceType, setAssistanceType] = useState('coaching')
   const [summary, setSummary] = useState('')
   const [createPdca, setCreatePdca] = useState(false)
+
+  const [createdProposalId, setCreatedProposalId] = useState<string | null>(null)
 
   const load = async () => {
     setError(null)
@@ -142,13 +145,18 @@ export default function AppraisalHrPage() {
                       toast.error('Assistance record is required')
                       return
                     }
-                    void submitHrRectification(active.Id, {
-                      assistanceType,
-                      summary,
-                      createPdca,
-                    }).then(() => {
+                    void submitHrRectification(
+                      active.Id,
+                      { assistanceType, summary, createPdca },
+                      { id: userId, name: displayName },
+                    ).then((record) => {
                       toast.success('Submitted for secondary review')
+                      if (record.LinkedPdcaProposalId && createPdca) {
+                        setCreatedProposalId(record.LinkedPdcaProposalId)
+                        toast.success('PDCA proposal created')
+                      }
                       setSummary('')
+                      setCreatePdca(false)
                       void load()
                       setActiveId(null)
                     })
@@ -156,6 +164,16 @@ export default function AppraisalHrPage() {
                 >
                   Submit HR assistance
                 </Button>
+                {createdProposalId ? (
+                  <p className="text-sm">
+                    <Link
+                      to={`/pms/pdca/proposals/${createdProposalId}`}
+                      className="font-medium text-primary hover:underline"
+                    >
+                      Open PDCA proposal
+                    </Link>
+                  </p>
+                ) : null}
               </CardContent>
             </Card>
           ) : null}

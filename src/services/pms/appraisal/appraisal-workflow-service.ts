@@ -4,6 +4,7 @@ import type { PerformanceGrade } from '@/models/common/enums'
 import type { AppraisalCycle, AppraisalEmployeeRecord } from '@/models/pms/operations'
 import { appraisalSchemesStore } from '@/mocks/pms/appraisal-schemes-store'
 import { appraisalWorkflowStore } from '@/mocks/pms/appraisal-workflow-store'
+import { createPdcaFromHrRectification } from '@/services/pms/pdca/pdca-proposal-service'
 
 export async function fetchAppraisalCycles(): Promise<AppraisalCycle[]> {
   await randomDelay()
@@ -89,6 +90,7 @@ export async function submitHrRectification(
     summary: string
     createPdca?: boolean
   },
+  submitter?: { id: string; name: string },
 ): Promise<AppraisalEmployeeRecord> {
   await randomDelay()
   const record = appraisalWorkflowStore.getRecord(recordId)
@@ -96,12 +98,21 @@ export async function submitHrRectification(
   if (!['pending_hr', 're_rectification'].includes(record.Status)) {
     throw new ApiError('Employee not in HR queue', 400)
   }
+
+  let linkedProposalId = record.LinkedPdcaProposalId
+  if (input.createPdca && submitter) {
+    const proposal = await createPdcaFromHrRectification(recordId, submitter)
+    linkedProposalId = proposal.Id
+  } else if (input.createPdca) {
+    linkedProposalId = crypto.randomUUID()
+  }
+
   const updated: AppraisalEmployeeRecord = {
     ...record,
     HrAssistanceType: input.assistanceType,
     HrAssistanceSummary: input.summary,
     Status: 'hr_processed',
-    LinkedPdcaProposalId: input.createPdca ? crypto.randomUUID() : record.LinkedPdcaProposalId,
+    LinkedPdcaProposalId: linkedProposalId,
   }
   appraisalWorkflowStore.appendShuntLog(updated, 'HR assistance submitted', input.summary, 'HR Specialist')
   return appraisalWorkflowStore.saveRecord(updated)

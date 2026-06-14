@@ -185,6 +185,26 @@ export const PdcaProposalSchema = z.object({
   AuditorComments: z.string().max(4000).nullable(),
 })
 
+export const PdcaProgressNoteSchema = z.object({
+  At: DateTimeSchema,
+  Note: z.string(),
+  ProgressPct: z.number().min(0).max(100),
+})
+
+export const PdcaExecutionTaskSchema = z.object({
+  Id: UuidSchema,
+  ProposalId: UuidSchema,
+  ProposalTitle: NonEmptyStringSchema,
+  StepOrder: z.number().int().positive(),
+  Description: NonEmptyStringSchema.max(2000),
+  OwnerId: UuidSchema,
+  OwnerName: NonEmptyStringSchema,
+  PlannedDeadline: DateTimeSchema,
+  ProgressPct: z.number().min(0).max(100),
+  Status: z.enum(['not_started', 'in_progress', 'completed', 'overdue']),
+  ProgressNotes: z.array(PdcaProgressNoteSchema),
+})
+
 export const RoleCockpitCardSchema = z.object({
   Id: UuidSchema,
   Label: NonEmptyStringSchema,
@@ -274,5 +294,7 @@ export type AppraisalScheme = z.infer<typeof AppraisalSchemeSchema>
 export type AppraisalCycle = z.infer<typeof AppraisalCycleSchema>
 export type AppraisalEmployeeRecord = z.infer<typeof AppraisalEmployeeRecordSchema>
 export type PdcaProposal = z.infer<typeof PdcaProposalSchema>
+export type PdcaExecutionTask = z.infer<typeof PdcaExecutionTaskSchema>
+export type PdcaProgressNote = z.infer<typeof PdcaProgressNoteSchema>
 export type RoleCockpit = z.infer<typeof RoleCockpitSchema>
 export type DrillDownRequest = z.infer<typeof DrillDownRequestSchema>

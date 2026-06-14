@@ -15,6 +15,9 @@ const SEGMENT_LABELS: Record<string, string> = {
   cockpit: 'KPI Cockpit',
   alerts: 'Alerts',
   appraisal: 'Performance Appraisal',
+  pdca: 'PDCA Improvement',
+  proposals: 'Proposals',
+  execution: 'Execution',
   schemes: 'Appraisal Schemes',
   'traffic-lights': 'Traffic Lights',
   kpi: 'KPI Indicator Library',
@@ -52,6 +55,7 @@ const MODULE_ROOTS: { prefix: string; label: string; href: string }[] = [
   { prefix: '/pms/cockpit', label: 'KPI Visualization', href: '/pms/cockpit' },
   { prefix: '/pms/alerts', label: 'Exception Alerts', href: '/pms/alerts' },
   { prefix: '/pms/appraisal', label: 'Performance Appraisal', href: '/pms/appraisal/schemes' },
+  { prefix: '/pms/pdca', label: 'PDCA Improvement', href: '/pms/pdca/proposals' },
   { prefix: '/pms/settings', label: 'PMS Settings', href: '/pms/settings/traffic-lights' },
 ]
 
