@@ -67,6 +67,8 @@
 @theme {
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: calc(1.125 / 0.6875);
+  --text-2sm: 0.8125rem;
+  --text-2sm--line-height: calc(1.25 / 0.8125);
   --text-md: 0.9375rem;
   --text-md--line-height: calc(1.375 / 0.9375);
   --text-1_5xl: 1.375rem;
@@ -262,28 +264,78 @@ select {
     @apply flex size-9 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground shadow-sm;
   }
 
-  .sidebar-section-label {
-    @apply px-5 pb-2 pt-5 text-2xs font-semibold uppercase tracking-wider text-muted-foreground;
+  .sidebar-scroll {
+    @apply flex flex-1 flex-col overflow-y-auto py-5 pe-2 ps-2 lg:ps-3;
   }
 
-  .sidebar-nav {
-    @apply flex flex-1 flex-col gap-0.5 overflow-y-auto px-3 pb-4;
+  .kt-menu {
+    @apply flex grow flex-col gap-1 px-0.5;
   }
 
-  .sidebar-link {
-    @apply flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground;
+  .kt-menu-item--heading {
+    @apply pt-2.5 pb-px;
   }
 
-  .sidebar-link--active {
-    @apply bg-sidebar-accent text-sidebar-accent-foreground;
+  .kt-menu-heading {
+    @apply px-2.5 text-xs font-medium uppercase tracking-wide text-muted-foreground;
   }
 
-  .sidebar-link-icon {
-    @apply size-[18px] shrink-0 opacity-70;
+  .kt-menu-link {
+    @apply flex grow cursor-pointer items-center border border-transparent text-foreground transition-colors;
   }
 
-  .sidebar-link--active .sidebar-link-icon {
-    @apply text-primary opacity-100;
+  .kt-menu-link--top {
+    @apply gap-2.5 px-2.5 py-1.5 text-sm font-medium hover:text-primary;
+  }
+
+  .kt-menu-link--leaf {
+    @apply gap-3.5 rounded-lg px-2.5 py-2 text-2sm font-normal hover:bg-accent/60 hover:text-primary;
+  }
+
+  .kt-menu-link--active.kt-menu-link--top {
+    @apply text-primary;
+  }
+
+  .kt-menu-link--active.kt-menu-link--leaf {
+    @apply bg-accent/60 font-semibold text-primary;
+  }
+
+  .kt-menu-icon {
+    @apply flex w-5 shrink-0 items-start text-muted-foreground;
+  }
+
+  .kt-menu-link--active .kt-menu-icon,
+  .kt-menu-item--here > .kt-menu-link .kt-menu-icon {
+    @apply text-primary;
+  }
+
+  .kt-menu-title {
+    @apply min-w-0 truncate;
+  }
+
+  .kt-menu-arrow {
+    @apply ms-1 me-[-10px] flex w-5 shrink-0 items-center justify-end text-muted-foreground;
+  }
+
+  .kt-menu-item--here > .kt-menu-link {
+    @apply text-primary;
+  }
+
+  .kt-menu-accordion {
+    @apply relative hidden gap-1 ps-2.5 before:absolute before:start-5 before:top-0 before:bottom-0 before:border-s before:border-border;
+  }
+
+  .kt-menu-item--show > .kt-menu-accordion {
+    @apply flex flex-col;
+  }
+
+  .kt-menu-bullet {
+    @apply relative -start-[3px] flex w-1.5 shrink-0 before:absolute before:top-1/2 before:size-1.5 before:-translate-y-1/2 before:rounded-full before:bg-border before:content-[''];
+  }
+
+  .kt-menu-link--active .kt-menu-bullet::before,
+  .kt-menu-link--leaf:hover .kt-menu-bullet::before {
+    @apply bg-primary;
   }
 
   .metronic-card {
@@ -365,11 +417,23 @@ select {
     @apply sticky top-0 z-40 h-auto w-full border-b border-r-0;
   }
 
-  .sidebar-nav {
-    @apply max-h-none flex-row flex-wrap pb-3;
+  .sidebar-scroll {
+    @apply max-h-48 py-3;
   }
 
-  .sidebar-section-label {
+  .kt-menu-heading {
     @apply hidden;
+  }
+
+  .kt-menu-item--heading {
+    @apply hidden;
+  }
+
+  .kt-menu-accordion {
+    @apply before:hidden;
+  }
+
+  .kt-menu-item--show > .kt-menu-accordion {
+    @apply flex-row flex-wrap ps-0;
   }
 }

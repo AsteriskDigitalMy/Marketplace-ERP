@@ -1,12 +1,18 @@
-import type { ComponentType } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useEffect, useState, type ComponentType } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 import {
   BarChart3,
   Bell,
-  ClipboardCheck,
   Boxes,
+  Building2,
+  Calculator,
+  ClipboardCheck,
+  ClipboardList,
+  FolderKanban,
   Gauge,
   LayoutDashboard,
+  Minus,
+  Plus,
   Settings,
   ShoppingCart,
   Users,
@@ -14,7 +20,14 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const erpNav = [
+interface NavLeaf {
+  to: string
+  label: string
+  icon?: ComponentType<{ className?: string }>
+  end?: boolean
+}
+
+const erpNav: NavLeaf[] = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/inventory', label: 'Inventory', icon: Boxes },
   { to: '/orders', label: 'Orders', icon: ShoppingCart },
@@ -23,39 +36,110 @@ const erpNav = [
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
 
-const pmsNav = [
-  { to: '/pms', label: 'Performance Management', icon: Workflow, end: true },
+const pmsNav: NavLeaf[] = [
+  { to: '/pms', label: 'Overview', icon: Workflow, end: true },
+  { to: '/pms/admin/org', label: 'Administration', icon: Building2 },
+  { to: '/pms/kpi/indicators', label: 'KPI Indicators', icon: BarChart3 },
+  { to: '/pms/projects', label: 'Projects', icon: FolderKanban },
+  { to: '/pms/data-collection/my-tasks', label: 'Data Collection', icon: ClipboardList },
+  { to: '/pms/kpi/calculation/jobs', label: 'KPI Calculation', icon: Calculator },
   { to: '/pms/cockpit', label: 'KPI Cockpit', icon: Gauge },
-  { to: '/pms/alerts', label: 'Alerts', icon: Bell },
-  { to: '/pms/appraisal/schemes', label: 'Appraisal', icon: ClipboardCheck },
+  { to: '/pms/alerts', label: 'Exception Alerts', icon: Bell },
+  { to: '/pms/appraisal/schemes', label: 'Performance Appraisal', icon: ClipboardCheck },
 ]
 
-function NavItem({
-  to,
-  label,
-  icon: Icon,
-  end,
-}: {
-  to: string
-  label: string
-  icon: ComponentType<{ className?: string }>
-  end?: boolean
-}) {
+function MenuBullet() {
+  return <span className="kt-menu-bullet" aria-hidden />
+}
+
+function MenuIcon({ icon: Icon }: { icon: ComponentType<{ className?: string }> }) {
   return (
-    <NavLink
-      to={to}
-      end={end}
-      className={({ isActive }) =>
-        cn('sidebar-link', isActive && 'sidebar-link--active')
-      }
-    >
-      <Icon className="sidebar-link-icon" aria-hidden />
-      {label}
-    </NavLink>
+    <span className="kt-menu-icon">
+      <Icon className="size-[18px]" aria-hidden />
+    </span>
+  )
+}
+
+function MenuHeading({ children }: { children: string }) {
+  return (
+    <div className="kt-menu-item kt-menu-item--heading">
+      <span className="kt-menu-heading">{children}</span>
+    </div>
+  )
+}
+
+function MenuLeafLink({ to, label, end }: NavLeaf) {
+  return (
+    <div className="kt-menu-item">
+      <NavLink
+        to={to}
+        end={end}
+        className={({ isActive }) =>
+          cn('kt-menu-link kt-menu-link--leaf', isActive && 'kt-menu-link--active')
+        }
+      >
+        <MenuBullet />
+        <span className="kt-menu-title">{label}</span>
+      </NavLink>
+    </div>
+  )
+}
+
+function MenuTopLink({ to, label, icon: Icon, end }: NavLeaf & { icon: ComponentType<{ className?: string }> }) {
+  return (
+    <div className="kt-menu-item">
+      <NavLink
+        to={to}
+        end={end}
+        className={({ isActive }) =>
+          cn('kt-menu-link kt-menu-link--top', isActive && 'kt-menu-link--active')
+        }
+      >
+        <MenuIcon icon={Icon} />
+        <span className="kt-menu-title">{label}</span>
+      </NavLink>
+    </div>
+  )
+}
+
+function PmsAccordion({ open, onToggle }: { open: boolean; onToggle: () => void }) {
+  const location = useLocation()
+  const isGroupActive = location.pathname.startsWith('/pms')
+
+  return (
+    <div className={cn('kt-menu-item', open && 'kt-menu-item--show', isGroupActive && 'kt-menu-item--here')}>
+      <button
+        type="button"
+        className="kt-menu-link kt-menu-link--top w-full"
+        onClick={onToggle}
+        aria-expanded={open}
+      >
+        <MenuIcon icon={Workflow} />
+        <span className="kt-menu-title">Performance Management</span>
+        <span className="kt-menu-arrow">
+          {open ? <Minus className="size-2.5" aria-hidden /> : <Plus className="size-2.5" aria-hidden />}
+        </span>
+      </button>
+      <div className="kt-menu-accordion">
+        {pmsNav.map((item) => (
+          <MenuLeafLink key={item.to} {...item} />
+        ))}
+      </div>
+    </div>
   )
 }
 
 export default function AppSidebar() {
+  const location = useLocation()
+  const isPmsRoute = location.pathname.startsWith('/pms')
+  const [pmsOpen, setPmsOpen] = useState(isPmsRoute)
+
+  useEffect(() => {
+    if (isPmsRoute) {
+      setPmsOpen(true)
+    }
+  }, [isPmsRoute])
+
   return (
     <aside className="app-sidebar">
       <div className="sidebar-brand">
@@ -66,19 +150,17 @@ export default function AppSidebar() {
         </div>
       </div>
 
-      <p className="sidebar-section-label">Applications</p>
-      <nav className="sidebar-nav" aria-label="Main navigation">
-        {erpNav.map((item) => (
-          <NavItem key={item.to} {...item} />
-        ))}
-      </nav>
+      <div className="sidebar-scroll">
+        <nav className="kt-menu" aria-label="Main navigation">
+          <MenuHeading>Applications</MenuHeading>
+          {erpNav.map((item) => (
+            <MenuTopLink key={item.to} {...item} icon={item.icon!} />
+          ))}
 
-      <p className="sidebar-section-label">Modules</p>
-      <nav className="sidebar-nav border-t-0 pt-0" aria-label="PMS navigation">
-        {pmsNav.map((item) => (
-          <NavItem key={item.to} {...item} />
-        ))}
-      </nav>
+          <MenuHeading>Modules</MenuHeading>
+          <PmsAccordion open={pmsOpen} onToggle={() => setPmsOpen((value) => !value)} />
+        </nav>
+      </div>
     </aside>
   )
 }
