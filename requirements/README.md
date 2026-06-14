@@ -125,3 +125,22 @@ Frontend requirement documents for Marketplace-ERP modules. Each subsection is a
 | 6 | [3.6.6-production-cost-accounting.md](./3.6.6-production-cost-accounting.md) | Production & cost accounting integration |
 | 7 | [3.6.7-inventory-valuation.md](./3.6.7-inventory-valuation.md) | Inventory & stock valuation integration |
 | 8 | [3.6.8-sync-monitoring-exceptions.md](./3.6.8-sync-monitoring-exceptions.md) | Sync monitoring & exception handling |
+
+---
+
+## 3.7 Business Intelligence (BI) Visualization Dashboard
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.7.1-module-core-positioning.md](./3.7.1-module-core-positioning.md) | Module core positioning |
+| 2 | [3.7.2.1-strategic-executive-cockpit.md](./3.7.2.1-strategic-executive-cockpit.md) | Strategic layer — group management cockpit |
+| 3 | [3.7.2.2-scm-dashboard.md](./3.7.2.2-scm-dashboard.md) | Operational layer — SCM dashboard |
+| 4 | [3.7.2.3-mes-dashboard.md](./3.7.2.3-mes-dashboard.md) | Operational layer — MES dashboard |
+| 5 | [3.7.2.4-wms-dashboard.md](./3.7.2.4-wms-dashboard.md) | Operational layer — WMS dashboard |
+| 6 | [3.7.2.5-sap-financial-dashboard.md](./3.7.2.5-sap-financial-dashboard.md) | Operational layer — SAP financial dashboard |
+| 7 | [3.7.2.6-kpi-pms-dashboard.md](./3.7.2.6-kpi-pms-dashboard.md) | Operational layer — KPI/PMS dashboard |
+| 8 | [3.7.2.7-execution-site-kanban.md](./3.7.2.7-execution-site-kanban.md) | Execution layer — site electronic kanban |
+| 9 | [3.7.3-rt-olap-engine.md](./3.7.3-rt-olap-engine.md) | Real-time performance (RT-OLAP) engine |
+| 10 | [3.7.4-custom-reporting-self-service.md](./3.7.4-custom-reporting-self-service.md) | Custom reporting & self-service analysis |
+| 11 | [3.7.5-alerts-trend-forecasting.md](./3.7.5-alerts-trend-forecasting.md) | Exception alerts & AI trend forecasting |
+| 12 | [3.7.6-multi-terminal-layout.md](./3.7.6-multi-terminal-layout.md) | UI layout & multi-terminal adaptation |
