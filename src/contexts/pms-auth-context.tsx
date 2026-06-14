@@ -1,4 +1,5 @@
-import { createContext, useContext, useMemo, type ReactNode } from 'react'
+import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
+import type { CockpitRole } from '@/models/common/enums'
 import { MOCK_ADMIN_USER_ID } from '@/lib/pms/constants'
 
 export type PmsPermission =
@@ -8,8 +9,10 @@ export type PmsPermission =
   | 'dictionary.manage'
   | 'audit.read'
   | 'parameter.manage'
+  | 'settings.manage'
   | 'kpi.manage'
   | 'kpi.calculate'
+  | 'cockpit.view'
   | 'project.initiate'
   | 'project.approve'
   | 'project.manage'
@@ -22,6 +25,8 @@ interface PmsAuthContextValue {
   displayName: string
   loginAccount: string
   permissions: PmsPermission[]
+  cockpitRole: CockpitRole
+  setCockpitRole: (role: CockpitRole) => void
   hasPermission: (permission: PmsPermission) => boolean
 }
 
@@ -34,8 +39,10 @@ const ADMIN_PERMISSIONS: PmsPermission[] = [
   'dictionary.manage',
   'audit.read',
   'parameter.manage',
+  'settings.manage',
   'kpi.manage',
   'kpi.calculate',
+  'cockpit.view',
   'project.initiate',
   'project.approve',
   'project.manage',
@@ -45,15 +52,19 @@ const ADMIN_PERMISSIONS: PmsPermission[] = [
 ]
 
 export function PmsAuthProvider({ children }: { children: ReactNode }) {
+  const [cockpitRole, setCockpitRole] = useState<CockpitRole>('executive')
+
   const value = useMemo<PmsAuthContextValue>(
     () => ({
       userId: MOCK_ADMIN_USER_ID,
       displayName: 'System Administrator',
       loginAccount: 'admin@marketplace-erp.local',
       permissions: ADMIN_PERMISSIONS,
+      cockpitRole,
+      setCockpitRole,
       hasPermission: (permission) => ADMIN_PERMISSIONS.includes(permission),
     }),
-    [],
+    [cockpitRole],
   )
 
   return <PmsAuthContext.Provider value={value}>{children}</PmsAuthContext.Provider>

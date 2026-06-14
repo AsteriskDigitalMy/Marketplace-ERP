@@ -41,6 +41,18 @@ export const PerformanceGradeSchema = z.enum(['A', 'B', 'C', 'D'])
 
 export const TrafficLightColorSchema = z.enum(['green', 'yellow', 'red'])
 
+export const TrafficLightCategorySchema = z.enum(['progress', 'delay', 'performance'])
+
+export const CockpitRoleSchema = z.enum([
+  'executive',
+  'department_manager',
+  'auditor',
+  'hr',
+  'employee',
+])
+
+export const CockpitChartTypeSchema = z.enum(['bar', 'line', 'donut'])
+
 export const AlertLevelSchema = z.enum(['general', 'important', 'urgent'])
 
 export const AlertChannelSchema = z.enum(['in_app', 'sms', 'email'])
@@ -82,5 +94,8 @@ export type DataScope = z.infer<typeof DataScopeSchema>
 export type AccountStatus = z.infer<typeof AccountStatusSchema>
 export type KpiCycle = z.infer<typeof KpiCycleSchema>
 export type PerformanceGrade = z.infer<typeof PerformanceGradeSchema>
+export type TrafficLightColor = z.infer<typeof TrafficLightColorSchema>
+export type TrafficLightCategory = z.infer<typeof TrafficLightCategorySchema>
+export type CockpitRole = z.infer<typeof CockpitRoleSchema>
 export type ProjectStatus = z.infer<typeof ProjectStatusSchema>
 export type TaskStatus = z.infer<typeof TaskStatusSchema>

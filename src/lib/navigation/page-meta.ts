@@ -12,6 +12,8 @@ const SEGMENT_LABELS: Record<string, string> = {
   dictionaries: 'Dictionaries',
   logs: 'Operation Logs',
   parameters: 'Parameters',
+  cockpit: 'KPI Cockpit',
+  'traffic-lights': 'Traffic Lights',
   kpi: 'KPI Indicator Library',
   indicators: 'Indicators',
   calculation: 'KPI Calculation',
@@ -44,6 +46,8 @@ const MODULE_ROOTS: { prefix: string; label: string; href: string }[] = [
   { prefix: '/pms/projects', label: 'Project Management', href: '/pms/projects' },
   { prefix: '/pms/tasks', label: 'Project Management', href: '/pms/projects' },
   { prefix: '/pms/data-collection', label: 'Data Collection', href: '/pms/data-collection/my-tasks' },
+  { prefix: '/pms/cockpit', label: 'KPI Visualization', href: '/pms/cockpit' },
+  { prefix: '/pms/settings', label: 'PMS Settings', href: '/pms/settings/traffic-lights' },
 ]
 
 function labelForSegment(segment: string): string {

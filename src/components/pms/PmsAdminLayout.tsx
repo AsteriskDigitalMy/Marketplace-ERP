@@ -8,6 +8,7 @@ const adminNav = [
   { to: '/pms/admin/dictionaries', label: 'Dictionaries' },
   { to: '/pms/admin/logs', label: 'Operation Logs' },
   { to: '/pms/admin/parameters', label: 'Parameters' },
+  { to: '/pms/settings/traffic-lights', label: 'Traffic Lights' },
 ]
 
 export default function PmsAdminLayout() {

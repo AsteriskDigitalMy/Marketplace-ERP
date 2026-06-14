@@ -8,6 +8,8 @@ import {
 import {
   AlertChannelSchema,
   AlertLevelSchema,
+  CockpitChartTypeSchema,
+  CockpitRoleSchema,
   PerformanceGradeSchema,
   TrafficLightColorSchema,
 } from '../common/enums'
@@ -108,14 +110,80 @@ export const RoleCockpitCardSchema = z.object({
   Unit: z.string(),
   StatusColor: TrafficLightColorSchema,
   TrendPct: z.number().nullable(),
+  Category: z.enum(['progress', 'delay', 'performance']).optional(),
+})
+
+export const RoleCockpitChartSchema = z.object({
+  Id: UuidSchema,
+  Title: NonEmptyStringSchema,
+  Type: CockpitChartTypeSchema,
+  Category: z.enum(['progress', 'delay', 'performance']).default('progress'),
+  Series: z.array(
+    z.object({
+      Label: NonEmptyStringSchema,
+      Value: z.number(),
+    }),
+  ),
+})
+
+export const RoleCockpitTableSchema = z.object({
+  Columns: z.array(NonEmptyStringSchema),
+  Rows: z.array(z.record(z.string(), z.union([z.string(), z.number()]))),
 })
 
 export const RoleCockpitSchema = z.object({
-  Role: NonEmptyStringSchema,
+  Role: CockpitRoleSchema,
   CockpitTitle: NonEmptyStringSchema,
   LastRefreshedAt: DateTimeSchema,
   RefreshIntervalSec: z.number().int().positive(),
   Cards: z.array(RoleCockpitCardSchema),
+  Charts: z.array(RoleCockpitChartSchema),
+  Table: RoleCockpitTableSchema,
+})
+
+export const DrillDownMetricSchema = z.object({
+  Name: NonEmptyStringSchema,
+  Value: z.number(),
+  Unit: z.string(),
+  StatusColor: TrafficLightColorSchema,
+})
+
+export const DrillDownNodeSchema: z.ZodType<DrillDownNode> = z.lazy(() =>
+  z.object({
+    Id: UuidSchema,
+    Label: NonEmptyStringSchema,
+    Level: z.enum(['department', 'team', 'individual']),
+    ParentId: UuidSchema.nullable(),
+    Metrics: z.array(DrillDownMetricSchema),
+    EmployeeId: z.string().optional(),
+    EmployeeEmail: z.string().optional(),
+    EmployeeTitle: z.string().optional(),
+    Children: z.array(DrillDownNodeSchema).optional(),
+  }),
+)
+
+export interface DrillDownNode {
+  Id: string
+  Label: string
+  Level: 'department' | 'team' | 'individual'
+  ParentId: string | null
+  Metrics: {
+    Name: string
+    Value: number
+    Unit: string
+    StatusColor: 'green' | 'yellow' | 'red'
+  }[]
+  EmployeeId?: string
+  EmployeeEmail?: string
+  EmployeeTitle?: string
+  Children?: DrillDownNode[]
+}
+
+export const DrillDownRequestSchema = z.object({
+  SourceWidgetId: UuidSchema,
+  DataPointId: z.string(),
+  Level: z.number().int().min(1).max(3),
+  ParentId: UuidSchema.nullable().optional(),
 })
 
 export type AlertRule = z.infer<typeof AlertRuleSchema>
@@ -123,3 +191,4 @@ export type AlertRecord = z.infer<typeof AlertRecordSchema>
 export type AppraisalScheme = z.infer<typeof AppraisalSchemeSchema>
 export type PdcaProposal = z.infer<typeof PdcaProposalSchema>
 export type RoleCockpit = z.infer<typeof RoleCockpitSchema>
+export type DrillDownRequest = z.infer<typeof DrillDownRequestSchema>

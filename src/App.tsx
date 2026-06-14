@@ -60,6 +60,8 @@ import DataFillPage from './pages/pms/data-collection/DataFillPage'
 import DataReviewQueuePage from './pages/pms/data-collection/DataReviewQueuePage'
 import DataReviewDetailPage from './pages/pms/data-collection/DataReviewDetailPage'
 import { FillingReminderDialog } from './components/pms/data-collection/FillingReminderDialog'
+import CockpitPage from './pages/pms/cockpit/CockpitPage'
+import TrafficLightRulesPage from './pages/pms/settings/TrafficLightRulesPage'
 
 export default function App() {
   return (
@@ -75,6 +77,9 @@ export default function App() {
             <Route path="settings" element={<Settings />} />
 
             <Route path="pms" element={<PmsHomePage />} />
+            <Route path="pms/cockpit" element={<CockpitPage />} />
+            <Route path="pms/settings/traffic-lights" element={<TrafficLightRulesPage />} />
+
             <Route path="pms/kpi" element={<PmsKpiLayout />}>
               <Route index element={<Navigate to="indicators" replace />} />
               <Route path="indicators" element={<KpiIndicatorsPage />} />

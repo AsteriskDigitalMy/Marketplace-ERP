@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import {
   BarChart3,
   Boxes,
+  Gauge,
   LayoutDashboard,
   Settings,
   ShoppingCart,
@@ -20,7 +21,10 @@ const erpNav = [
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
 
-const pmsNav = [{ to: '/pms', label: 'Performance Management', icon: Workflow, end: true }]
+const pmsNav = [
+  { to: '/pms', label: 'Performance Management', icon: Workflow, end: true },
+  { to: '/pms/cockpit', label: 'KPI Cockpit', icon: Gauge },
+]
 
 function NavItem({
   to,

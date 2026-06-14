@@ -6,6 +6,7 @@ import {
   Calculator,
   ClipboardList,
   FolderKanban,
+  Gauge,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -51,6 +52,14 @@ const modules = [
     section: '3.1.5',
     icon: Calculator,
     accent: 'bg-rose-500/10 text-rose-600',
+  },
+  {
+    title: 'KPI Visualization Cockpit',
+    description: 'Role-specific dashboards, drill-down analytics, and traffic-light thresholds.',
+    to: '/pms/cockpit',
+    section: '3.1.6',
+    icon: Gauge,
+    accent: 'bg-cyan-500/10 text-cyan-600',
   },
 ]
 
