@@ -1,6 +1,17 @@
-# PDM/ePDM/GST Module — Frontend Requirements
+# Requirements Index
 
-Section **3.2 Product Data Management** broken into frontend requirement documents.
+Frontend requirement documents for Marketplace-ERP modules. Each subsection is a separate markdown file with screens, UI components, mock data shapes, and acceptance criteria.
+
+## Conventions
+
+- **Scope:** Frontend only. All data is mocked to match NyxAPI response shapes (see `docs/nyxapi-route-reference.md`).
+- **UI:** shadcn/ui components, brand palette `#002379`, patterns in `.cursor/rules/ui-ux-standards.mdc`.
+- **States:** Every screen implements loading, empty, error, and success states.
+- **PDA views:** Mobile-first layouts at 360px for warehouse floor operations (scan-centric flows).
+
+---
+
+## 3.2 Product Data Management (PDM/ePDM/GST)
 
 | # | File | Section |
 |---|------|---------|
@@ -17,8 +28,26 @@ Section **3.2 Product Data Management** broken into frontend requirement documen
 | 11 | [3.2.5-product-cost-pricing.md](./3.2.5-product-cost-pricing.md) | Product cost pricing |
 | 12 | [3.2.6-version-change-management.md](./3.2.6-version-change-management.md) | Version & change management |
 
-## Conventions
+---
 
-- **Scope:** Frontend only. All data is mocked to match NyxAPI response shapes (see `docs/nyxapi-route-reference.md`).
-- **UI:** shadcn/ui components, brand palette `#002379`, patterns in `.cursor/rules/ui-ux-standards.mdc`.
-- **States:** Every screen implements loading, empty, error, and success states.
+## 3.5 Warehouse Management System (WMS)
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.5.1-module-core-positioning.md](./3.5.1-module-core-positioning.md) | Module core positioning |
+| 2 | [3.5.2.1-warehouse-zone-location.md](./3.5.2.1-warehouse-zone-location.md) | Warehouse / zone / location management |
+| 3 | [3.5.2.2-material-master-data.md](./3.5.2.2-material-master-data.md) | Material master data (warehouse attributes) |
+| 4 | [3.5.2.3-warehouse-strategy-configuration.md](./3.5.2.3-warehouse-strategy-configuration.md) | Warehouse strategy configuration |
+| 5 | [3.5.3.1-purchase-inbound.md](./3.5.3.1-purchase-inbound.md) | Purchase inbound management |
+| 6 | [3.5.3.2-production-output-inbound.md](./3.5.3.2-production-output-inbound.md) | Production output inbound |
+| 7 | [3.5.3.3-miscellaneous-inbound.md](./3.5.3.3-miscellaneous-inbound.md) | Miscellaneous inbound |
+| 8 | [3.5.4.1-production-material-picking.md](./3.5.4.1-production-material-picking.md) | Production material picking & issuance |
+| 9 | [3.5.4.2-sales-shipping-outbound.md](./3.5.4.2-sales-shipping-outbound.md) | Sales shipping outbound |
+| 10 | [3.5.4.3-miscellaneous-outbound.md](./3.5.4.3-miscellaneous-outbound.md) | Miscellaneous outbound |
+| 11 | [3.5.5.1-inventory-transfer.md](./3.5.5.1-inventory-transfer.md) | Inventory transfer management |
+| 12 | [3.5.5.2-inventory-alert.md](./3.5.5.2-inventory-alert.md) | Inventory alert management |
+| 13 | [3.5.5.3-batch-shelf-life-control.md](./3.5.5.3-batch-shelf-life-control.md) | Batch & shelf-life control |
+| 14 | [3.5.5.4-inventory-reservation-freezing.md](./3.5.5.4-inventory-reservation-freezing.md) | Inventory reservation & freezing |
+| 15 | [3.5.6-inventory-counting.md](./3.5.6-inventory-counting.md) | Inventory counting (stock-taking) |
+| 16 | [3.5.7-material-traceability.md](./3.5.7-material-traceability.md) | Full-process material traceability |
+| 17 | [3.5.8-statistics-reports.md](./3.5.8-statistics-reports.md) | Warehousing statistics & reports |
