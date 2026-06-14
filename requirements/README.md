@@ -11,6 +11,30 @@ Frontend requirement documents for Marketplace-ERP modules. Each subsection is a
 
 ---
 
+## 3.1 KPI / PMS — Performance Management System
+
+Operational workflow modules: role cockpits, exception alerts, appraisal lifecycle, PDCA closed-loop, and standardized reports. Route prefix: `/pms/`. For read-only BI analytics, see [3.7 Business Intelligence](#37-business-intelligence-bi-visualization-dashboard).
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.1.6.1-role-cockpit-auto-loading.md](./3.1.6.1-role-cockpit-auto-loading.md) | F-DASH-001 — Role-specific cockpit auto loading |
+| 2 | [3.1.6.2-cockpit-drill-down.md](./3.1.6.2-cockpit-drill-down.md) | F-DASH-002 — Cockpit hierarchical drill-down |
+| 3 | [3.1.6.3-traffic-light-rules.md](./3.1.6.3-traffic-light-rules.md) | F-DASH-003 — Global traffic light color rules |
+| 4 | [3.1.7.1-alert-rule-configuration.md](./3.1.7.1-alert-rule-configuration.md) | F-ALERT-001 — Alert trigger rule configuration |
+| 5 | [3.1.7.2-alert-closed-loop-disposal.md](./3.1.7.2-alert-closed-loop-disposal.md) | F-ALERT-002 — Alert closed-loop disposal |
+| 6 | [3.1.8.1-appraisal-scheme-configuration.md](./3.1.8.1-appraisal-scheme-configuration.md) | F-PERF-001 — Appraisal scheme configuration |
+| 7 | [3.1.8.2-automatic-scoring-grading.md](./3.1.8.2-automatic-scoring-grading.md) | F-PERF-002 — Automatic scoring & grading |
+| 8 | [3.1.8.3-preliminary-review-list.md](./3.1.8.3-preliminary-review-list.md) | F-PERF-003 — All-staff preliminary review list |
+| 9 | [3.1.8.4-preliminary-review-shunting.md](./3.1.8.4-preliminary-review-shunting.md) | F-PERF-004 — Preliminary review & grade shunting |
+| 10 | [3.1.8.5-hr-rectification.md](./3.1.8.5-hr-rectification.md) | F-PERF-005 — HR performance rectification |
+| 11 | [3.1.8.6-secondary-confirmation.md](./3.1.8.6-secondary-confirmation.md) | F-PERF-006 — Secondary rectification confirmation |
+| 12 | [3.1.8.7-executive-final-review.md](./3.1.8.7-executive-final-review.md) | F-PERF-007 — Executive final performance review |
+| 13 | [3.1.9.1-pdca-proposal-submission.md](./3.1.9.1-pdca-proposal-submission.md) | F-PDCA-001 — Online PDCA proposal submission |
+| 14 | [3.1.9.2-pdca-execution-tracking.md](./3.1.9.2-pdca-execution-tracking.md) | F-PDCA-002 — PDCA execution tracking |
+| 15 | [3.1.10.1-standard-fixed-reports.md](./3.1.10.1-standard-fixed-reports.md) | F-RPT-001 — Industry standardized fixed reports |
+
+---
+
 ## 3.2 Product Data Management (PDM/ePDM/GST)
 
 | # | File | Section |
