@@ -9,6 +9,7 @@ export type PmsPermission =
   | 'audit.read'
   | 'parameter.manage'
   | 'kpi.manage'
+  | 'kpi.calculate'
   | 'project.initiate'
   | 'project.approve'
   | 'project.manage'
@@ -34,6 +35,7 @@ const ADMIN_PERMISSIONS: PmsPermission[] = [
   'audit.read',
   'parameter.manage',
   'kpi.manage',
+  'kpi.calculate',
   'project.initiate',
   'project.approve',
   'project.manage',

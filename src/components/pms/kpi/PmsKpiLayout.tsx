@@ -1,9 +1,21 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { cn } from '@/lib/utils'
+import { usePmsAuth } from '@/contexts/pms-auth-context'
 
-const navItems = [{ to: '/pms/kpi/indicators', label: 'Indicators' }]
+const baseNavItems = [{ to: '/pms/kpi/indicators', label: 'Indicators' }]
+
+const calculationNavItems = [
+  { to: '/pms/kpi/calculation/jobs', label: 'Calculation jobs' },
+  { to: '/pms/kpi/calculation/recalculate', label: 'Re-calculate' },
+]
 
 export default function PmsKpiLayout() {
+  const { hasPermission } = usePmsAuth()
+  const navItems = [
+    ...baseNavItems,
+    ...(hasPermission('kpi.calculate') ? calculationNavItems : []),
+  ]
+
   return (
     <div className="space-y-6">
       <div>

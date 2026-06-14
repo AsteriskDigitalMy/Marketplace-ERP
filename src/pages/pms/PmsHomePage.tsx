@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BarChart3, Building2, ChevronRight, ClipboardList, FolderKanban } from 'lucide-react'
+import { BarChart3, Building2, Calculator, ChevronRight, ClipboardList, FolderKanban } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { PageHeader } from '@/components/pms/PageHeader'
 
@@ -31,6 +31,13 @@ const modules = [
     to: '/pms/data-collection/my-tasks',
     section: '3.1.4',
     icon: ClipboardList,
+  },
+  {
+    title: 'KPI Calculation',
+    description: 'Scheduled batch calculation, anomaly monitoring, and manual re-calculation.',
+    to: '/pms/kpi/calculation/jobs',
+    section: '3.1.5',
+    icon: Calculator,
   },
 ]
 

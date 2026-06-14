@@ -28,6 +28,11 @@ import KpiIndicatorsPage from './pages/pms/kpi/KpiIndicatorsPage'
 import KpiIndicatorCreatePage from './pages/pms/kpi/KpiIndicatorCreatePage'
 import KpiIndicatorDetailPage from './pages/pms/kpi/KpiIndicatorDetailPage'
 import KpiFormulaEditorPage from './pages/pms/kpi/KpiFormulaEditorPage'
+import CalculationJobsPage from './pages/pms/kpi/calculation/CalculationJobsPage'
+import CalculationJobDetailPage from './pages/pms/kpi/calculation/CalculationJobDetailPage'
+import ManualRecalculatePage from './pages/pms/kpi/calculation/ManualRecalculatePage'
+import RecalculateHistoryPage from './pages/pms/kpi/calculation/RecalculateHistoryPage'
+import { RecalculationBanner } from './components/pms/kpi/calculation/RecalculationBanner'
 import PmsProjectLayout from './components/pms/project/PmsProjectLayout'
 import ProjectsListPage from './pages/pms/project/ProjectsListPage'
 import ProjectCreatePage from './pages/pms/project/ProjectCreatePage'
@@ -76,6 +81,13 @@ export default function App() {
               <Route path="indicators/new" element={<KpiIndicatorCreatePage />} />
               <Route path="indicators/:id" element={<KpiIndicatorDetailPage />} />
               <Route path="indicators/:id/formula" element={<KpiFormulaEditorPage />} />
+              <Route path="calculation/jobs" element={<CalculationJobsPage />} />
+              <Route path="calculation/jobs/:jobId" element={<CalculationJobDetailPage />} />
+              <Route path="calculation/recalculate" element={<ManualRecalculatePage />} />
+              <Route
+                path="calculation/recalculate/history"
+                element={<RecalculateHistoryPage />}
+              />
             </Route>
 
             <Route path="pms/projects" element={<PmsProjectLayout />}>
@@ -136,6 +148,7 @@ export default function App() {
         </Routes>
         <Toaster richColors position="top-right" />
         <FillingReminderDialog />
+        <RecalculationBanner />
       </TooltipProvider>
     </PmsAuthProvider>
   )
