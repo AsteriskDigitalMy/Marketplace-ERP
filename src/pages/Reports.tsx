@@ -34,7 +34,7 @@ export default function Reports() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-2xl font-semibold tracking-tight">{report.value}</p>
-                <Button variant="outline" size="sm" className="w-full">
+                <Button variant="light" size="sm" className="w-full">
                   <Download className="mr-2 size-3.5" />
                   Export CSV
                 </Button>

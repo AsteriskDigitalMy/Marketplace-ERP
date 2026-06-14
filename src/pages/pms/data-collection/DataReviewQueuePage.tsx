@@ -143,7 +143,7 @@ export default function DataReviewQueuePage() {
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="sm" asChild>
+                      <Button variant="light" size="sm" asChild>
                         <Link to={`/pms/data-collection/reviews/${r.RecordId}`}>Review</Link>
                       </Button>
                     </TableCell>

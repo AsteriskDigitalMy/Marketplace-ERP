@@ -168,7 +168,7 @@ export default function RolesPage() {
                   <TableCell>{role.DataScope}</TableCell>
                   <TableCell>{role.BoundUserCount}</TableCell>
                   <TableCell className="space-x-2 text-right">
-                    <Button type="button" variant="ghost" size="sm" onClick={() => openEdit(role)}>
+                    <Button type="button" variant="light" size="sm" onClick={() => openEdit(role)}>
                       Edit
                     </Button>
                     <Button
@@ -242,7 +242,7 @@ export default function RolesPage() {
             ) : null}
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => setEditorOpen(false)}>
+            <Button type="button" variant="light" onClick={() => setEditorOpen(false)}>
               Cancel
             </Button>
             <Button type="button" onClick={() => void handleSave()} disabled={submitting}>

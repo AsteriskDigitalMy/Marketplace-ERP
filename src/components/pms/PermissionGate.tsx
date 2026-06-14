@@ -23,7 +23,7 @@ export function PermissionGate({ allowed, children }: PermissionGateProps) {
       </CardHeader>
       <CardContent className="space-y-4 text-sm text-muted-foreground">
         <p>You do not have permission to view this page. Contact your system administrator.</p>
-        <Button asChild variant="outline">
+        <Button asChild variant="light">
           <Link to="/pms">Back to PMS</Link>
         </Button>
       </CardContent>

@@ -88,7 +88,7 @@ export default function AccountsPage() {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button asChild variant="ghost" size="sm">
+                    <Button asChild variant="light" size="sm">
                       <Link to={`/pms/admin/accounts/${a.Id}`}>Manage</Link>
                     </Button>
                   </TableCell>

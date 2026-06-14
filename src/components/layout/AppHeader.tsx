@@ -46,7 +46,7 @@ export default function AppHeader() {
             className="h-9 w-56 border-border bg-muted/40 pl-9 text-sm shadow-none focus-visible:bg-card"
           />
         </div>
-        <Button variant="outline" size="icon" className="size-9 shrink-0">
+        <Button variant="light" size="icon" className="size-9 shrink-0">
           <Bell className="size-4" />
           <span className="sr-only">Notifications</span>
         </Button>

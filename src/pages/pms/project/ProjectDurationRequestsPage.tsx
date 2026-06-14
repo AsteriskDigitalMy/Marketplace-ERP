@@ -109,7 +109,7 @@ export default function ProjectDurationRequestsPage() {
                   </TableCell>
                   <TableCell className="text-right">
                     {r.Status === 'pending' ? (
-                      <Button size="sm" variant="ghost" onClick={() => setReviewing(r)}>
+                      <Button variant="light" size="sm" onClick={() => setReviewing(r)}>
                         Review
                       </Button>
                     ) : (

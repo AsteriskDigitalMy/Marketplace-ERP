@@ -135,7 +135,7 @@ export function ProjectKpiPickerDialog({
         )}
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <Button variant="light" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
           <Button onClick={() => { onConfirm(draft); onOpenChange(false) }} disabled={draft.length === 0}>

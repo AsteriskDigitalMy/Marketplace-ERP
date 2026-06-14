@@ -110,7 +110,7 @@ export default function CalculationJobsPage() {
             : 'Scheduled batch calculation monitor'
         }
         actions={
-          <Button variant="outline" size="sm" onClick={() => void load()}>
+          <Button variant="light" size="sm" onClick={() => void load()}>
             <RefreshCw className="mr-2 size-4" />
             Refresh
           </Button>
@@ -182,7 +182,7 @@ export default function CalculationJobsPage() {
         emptyTitle="No calculation jobs"
         emptyDescription="Configure system parameters to enable scheduled batch calculation."
         emptyAction={
-          <Button asChild variant="outline">
+          <Button asChild variant="light">
             <Link to="/pms/admin/parameters">System parameters</Link>
           </Button>
         }
@@ -220,7 +220,7 @@ export default function CalculationJobsPage() {
                     {counts.anomaly > 0 ? ` / ${counts.anomaly} anomaly` : ''}
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button asChild variant="ghost" size="sm">
+                    <Button asChild variant="light" size="sm">
                       <Link to={`/pms/kpi/calculation/jobs/${job.Id}`}>View</Link>
                     </Button>
                   </TableCell>

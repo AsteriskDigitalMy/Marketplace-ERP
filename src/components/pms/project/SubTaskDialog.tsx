@@ -213,7 +213,7 @@ export function SubTaskDialog({
             </div>
           ) : null}
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button type="button" variant="light" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
             <Button type="submit">Save sub-task</Button>

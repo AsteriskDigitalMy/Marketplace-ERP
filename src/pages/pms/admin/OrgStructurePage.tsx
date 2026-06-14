@@ -95,7 +95,7 @@ export default function OrgStructurePage() {
         description={`${totalUnits} unit${totalUnits === 1 ? '' : 's'} in hierarchy`}
         actions={
           <>
-            <Button type="button" variant="ghost" size="sm" onClick={() => void loadTree()}>
+            <Button type="button" variant="light" size="sm" onClick={() => void loadTree()}>
               <RefreshCw className="mr-2 size-4" />
               Refresh
             </Button>
@@ -188,7 +188,7 @@ export default function OrgStructurePage() {
                 <Button asChild variant="outline" size="sm">
                   <Link to={`/pms/admin/org/${selectedNode.Id}/edit`}>Edit / Disable</Link>
                 </Button>
-                <Button asChild variant="ghost" size="sm">
+                <Button asChild variant="light" size="sm">
                   <Link to={`/pms/admin/org/${selectedNode.Id}/history`}>Version history</Link>
                 </Button>
               </div>

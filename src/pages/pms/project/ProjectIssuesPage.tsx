@@ -166,16 +166,16 @@ export default function ProjectIssuesPage() {
                       <Badge>{issue.Status}</Badge>
                     </TableCell>
                     <TableCell className="text-right space-x-1">
-                      <Button size="sm" variant="ghost" onClick={() => setTimeline(issue)}>
+                      <Button variant="light" size="sm" onClick={() => setTimeline(issue)}>
                         Timeline
                       </Button>
                       {issue.Status === 'assigned' && issue.HandlerId === userId ? (
-                        <Button size="sm" variant="ghost" onClick={() => setDisposalTarget(issue)}>
+                        <Button variant="light" size="sm" onClick={() => setDisposalTarget(issue)}>
                           Dispose
                         </Button>
                       ) : null}
                       {issue.Status === 'resolved' ? (
-                        <Button size="sm" variant="ghost" onClick={() => setVerifyTarget(issue)}>
+                        <Button variant="light" size="sm" onClick={() => setVerifyTarget(issue)}>
                           Verify
                         </Button>
                       ) : null}

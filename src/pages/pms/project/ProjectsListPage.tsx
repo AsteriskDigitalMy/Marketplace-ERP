@@ -143,7 +143,7 @@ export default function ProjectsListPage() {
                   </TableCell>
                   <TableCell>{formatBudget(p.BudgetAmount)}</TableCell>
                   <TableCell className="text-right">
-                    <Button variant="ghost" size="sm" asChild>
+                    <Button variant="light" size="sm" asChild>
                       <Link to={`/pms/projects/${p.Id}`}>View</Link>
                     </Button>
                   </TableCell>

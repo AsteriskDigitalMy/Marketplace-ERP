@@ -86,7 +86,7 @@ export default function RecalculateHistoryPage() {
         title="Re-calculation history"
         description="Audit trail of manual KPI re-calculation runs."
         actions={
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="light" size="sm">
             <Link to="/pms/kpi/calculation/recalculate">Back to panel</Link>
           </Button>
         }

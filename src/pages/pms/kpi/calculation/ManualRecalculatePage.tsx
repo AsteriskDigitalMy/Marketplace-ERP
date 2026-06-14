@@ -138,7 +138,7 @@ export default function ManualRecalculatePage() {
         title="Manual Re-calculation"
         description="Trigger targeted or full-volume KPI re-calculation after data corrections."
         actions={
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="light" size="sm">
             <Link to="/pms/kpi/calculation/recalculate/history">
               <History className="mr-2 size-4" />
               View history
@@ -164,7 +164,7 @@ export default function ManualRecalculatePage() {
             <span>
               Partial overwrite: {failedJob.OverwrittenCount} value(s) before failure.
             </span>
-            <Button size="sm" variant="outline" onClick={() => void handleRetry()} disabled={submitting}>
+            <Button size="sm" variant="light" onClick={() => void handleRetry()} disabled={submitting}>
               Retry
             </Button>
           </AlertDescription>
@@ -250,7 +250,7 @@ export default function ManualRecalculatePage() {
                   <p className="text-muted-foreground">
                     Started {new Date(active.StartedAt).toLocaleString()}
                   </p>
-                  <Button asChild variant="ghost" size="sm">
+                  <Button asChild variant="light" size="sm">
                     <Link to="/pms/kpi/calculation/recalculate/history">View history</Link>
                   </Button>
                 </CardContent>

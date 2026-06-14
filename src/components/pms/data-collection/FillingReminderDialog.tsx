@@ -93,7 +93,7 @@ export function FillingReminderDialog() {
           Don&apos;t show again today
         </label>
         <DialogFooter>
-          <Button variant="outline" onClick={dismiss}>
+          <Button variant="light" onClick={dismiss}>
             Remind me later
           </Button>
           <Button asChild onClick={dismiss}>

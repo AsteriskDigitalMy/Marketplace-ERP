@@ -115,7 +115,7 @@ export default function ProjectApprovalInboxPage() {
                     {p.SubmittedAt ? new Date(p.SubmittedAt).toLocaleString() : '—'}
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button variant="ghost" size="sm" asChild>
+                    <Button variant="light" size="sm" asChild>
                       <Link to={`/pms/projects/approvals/${p.Id}`}>Review</Link>
                     </Button>
                   </TableCell>

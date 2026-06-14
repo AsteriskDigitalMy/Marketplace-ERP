@@ -107,7 +107,7 @@ export default function ProjectAcceptanceReviewInboxPage() {
                     : '—'}
                 </TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" size="sm" asChild>
+                  <Button variant="light" size="sm" asChild>
                     <Link to={`/pms/projects/acceptance-reviews/${p.Id}`}>Review</Link>
                   </Button>
                 </TableCell>

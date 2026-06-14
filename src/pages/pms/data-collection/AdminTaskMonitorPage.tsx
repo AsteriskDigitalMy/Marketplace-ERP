@@ -139,7 +139,7 @@ export default function AdminTaskMonitorPage() {
                   </TableCell>
                   <TableCell className="text-right">
                     {t.Status === 'submitted' || t.Status === 'approved' ? (
-                      <Button variant="ghost" size="sm" asChild>
+                      <Button variant="light" size="sm" asChild>
                         <Link to={`/pms/data-collection/fill/${t.Id}`}>View</Link>
                       </Button>
                     ) : null}

@@ -160,10 +160,10 @@ export default function ParametersPage() {
                     {new Date(param.EffectiveAt).toLocaleString()}
                   </TableCell>
                   <TableCell className="space-x-2 text-right">
-                    <Button type="button" variant="ghost" size="sm" onClick={() => openEdit(param)}>
+                    <Button type="button" variant="light" size="sm" onClick={() => openEdit(param)}>
                       Edit
                     </Button>
-                    <Button type="button" variant="ghost" size="sm" onClick={() => setHistoryParam(param)}>
+                    <Button type="button" variant="light" size="sm" onClick={() => setHistoryParam(param)}>
                       History
                     </Button>
                   </TableCell>

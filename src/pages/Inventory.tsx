@@ -30,7 +30,7 @@ export default function Inventory() {
       <ContentPanel
         title="Stock Overview"
         actions={
-          <Button size="sm">Add Product</Button>
+          <Button>Add Product</Button>
         }
         noPadding
       >

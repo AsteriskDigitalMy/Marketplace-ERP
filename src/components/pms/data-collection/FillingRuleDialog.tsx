@@ -198,7 +198,7 @@ export function FillingRuleDialog({
             <Label>Active</Label>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button type="button" variant="light" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
             <Button type="submit">Save rule</Button>

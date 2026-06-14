@@ -48,7 +48,7 @@ export function AsyncState({
         <AlertDescription className="flex flex-col gap-3">
           <span>{error}</span>
           {onRetry ? (
-            <Button type="button" variant="outline" size="sm" className="w-fit" onClick={onRetry}>
+            <Button type="button" variant="light" size="sm" className="w-fit" onClick={onRetry}>
               Try again
             </Button>
           ) : null}

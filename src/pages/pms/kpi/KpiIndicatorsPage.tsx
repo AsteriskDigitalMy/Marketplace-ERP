@@ -156,7 +156,7 @@ export default function KpiIndicatorsPage() {
                   </TableCell>
                   <TableCell className="font-mono text-sm">{ind.Version}</TableCell>
                   <TableCell className="text-right">
-                    <Button variant="ghost" size="sm" asChild>
+                    <Button variant="light" size="sm" asChild>
                       <Link to={`/pms/kpi/indicators/${ind.Id}`}>View</Link>
                     </Button>
                   </TableCell>

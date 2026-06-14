@@ -262,7 +262,7 @@ export default function CalculationJobDetailPage() {
               <TabsContent value="log">
                 <AsyncState loading={logLoading} skeleton={<div className="h-48" />}>
                   <div className="space-y-3">
-                    <Button variant="outline" size="sm" onClick={downloadLog}>
+                    <Button variant="light" size="sm" onClick={downloadLog}>
                       <Download className="mr-2 size-4" />
                       Download log
                     </Button>

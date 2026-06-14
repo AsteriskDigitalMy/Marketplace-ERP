@@ -118,7 +118,7 @@ export default function OperationLogsPage() {
                   <TableCell>{log.Action}</TableCell>
                   <TableCell className="font-mono text-xs">{log.LoginIp}</TableCell>
                   <TableCell>
-                    <Button type="button" variant="ghost" size="sm" onClick={() => void openDetail(log.Id)}>
+                    <Button type="button" variant="light" size="sm" onClick={() => void openDetail(log.Id)}>
                       Detail
                     </Button>
                   </TableCell>

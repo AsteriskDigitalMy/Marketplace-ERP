@@ -222,7 +222,7 @@ export default function DictionariesPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => setEditorOpen(false)}>
+            <Button type="button" variant="light" onClick={() => setEditorOpen(false)}>
               Cancel
             </Button>
             <Button type="button" onClick={() => void saveItem()} disabled={submitting}>

@@ -27,7 +27,7 @@ export default function Customers() {
 
       <ContentPanel
         title="Customer Directory"
-        actions={<Button size="sm">Add Customer</Button>}
+        actions={<Button>Add Customer</Button>}
         noPadding
       >
         <Table>

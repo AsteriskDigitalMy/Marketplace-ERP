@@ -205,7 +205,7 @@ export default function FillingRulesPage() {
                   >
                     Edit
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={() => setDeleteTarget(rule)}>
+                  <Button variant="light" size="sm" onClick={() => setDeleteTarget(rule)}>
                     Delete
                   </Button>
                 </TableCell>

@@ -38,7 +38,7 @@ export default function Orders() {
 
       <ContentPanel
         title="Order Queue"
-        actions={<Button size="sm">Create Order</Button>}
+        actions={<Button>Create Order</Button>}
         noPadding
       >
         <Table>

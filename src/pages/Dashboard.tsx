@@ -83,7 +83,7 @@ export default function Dashboard() {
         title="Recent Orders"
         description="Last 24 hours"
         actions={
-          <Button variant="outline" size="sm">
+          <Button variant="light" size="sm">
             View all
           </Button>
         }
