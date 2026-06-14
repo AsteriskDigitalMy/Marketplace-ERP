@@ -1,0 +1,58 @@
+---
+description: Marketplace-ERP is frontend-only — no backend implementation here. All screen data must be mocked to match NyxAPI response shapes from docs/nyxapi-route-reference.md.
+globs:
+  - "src/**/*"
+  - "docs/**/*"
+alwaysApply: true
+---
+
+# Frontend Scope & Data Mocking
+
+## Frontend only
+
+This repository is **frontend-only**. The backend (NyxAPI) is developed and deployed separately.
+
+- Build UI, routing, state management, and client-side logic in this project.
+- Do **not** add backend code: no API controllers, database models, server middleware, or infrastructure for NyxAPI.
+- Do **not** implement real API server endpoints in this repo.
+- When integration is needed, define **client-side** API modules (fetch wrappers, types, hooks) that call the external API host — but leave actual backend implementation out of scope.
+
+## Mock all screen data
+
+Any data used to populate screens must be **mocked** until live API integration is explicitly requested.
+
+### Rules
+
+1. **Shape mocks from the backend contract** — use `docs/nyxapi-route-reference.md` as the source of truth for DTO field names, nesting, pagination envelopes (`PagedList<T>` with `Records` + `TotalCount`), and `APIResponse` wrappers.
+2. **Match real response types** — define TypeScript types/interfaces that mirror the documented DTOs (e.g. `RecordDto`, `ObjectDto`, `UserDto`). Mocks must satisfy those types.
+3. **Keep mocks in dedicated modules** — place mock data under `src/mocks/` (or `src/data/mocks/`) and import from there. Do not scatter inline fake objects across components.
+4. **Simulate realistic states** — mocks should support loading, empty, error, and success states where the UI requires them (see UI/UX rules).
+5. **Wire through the same abstractions as production** — prefer hooks or service functions (e.g. `useOrders()`, `fetchRecords()`) that return mocked data today and can swap to real `fetch` calls later without rewriting components.
+
+### Example
+
+```ts
+// src/mocks/records.ts
+import type { RecordDto } from '@/types/record'
+
+export const mockContactRecords: RecordDto[] = [
+  {
+    Id: '00000000-0000-0000-0000-000000000001',
+    Name: 'John Doe',
+    Lookupnames: {},
+    Data: { email: 'john@example.com' },
+    CreatedBy: 'admin',
+    CreatedDatetime: '2026-06-12T00:00:00Z',
+    ModifiedBy: 'admin',
+    ModifiedDatetime: null,
+    AiData: {},
+  },
+]
+```
+
+### When adding a new screen
+
+1. Find the relevant endpoint(s) in `docs/nyxapi-route-reference.md`.
+2. Define or reuse TypeScript types matching the documented response.
+3. Create mock data and a data-access hook/service that returns it.
+4. Build the UI against that hook/service — not against hardcoded props in the page component.
