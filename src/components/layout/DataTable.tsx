@@ -117,7 +117,7 @@ export function DataTablePagination({
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <p className="text-2sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground">
         {totalItems === 0
           ? 'No records to display'
           : `Showing ${rangeStart}–${rangeEnd} of ${totalItems}`}
@@ -137,7 +137,7 @@ export function DataTablePagination({
           </Button>
           {pages.map((p, i) =>
             p === 'ellipsis' ? (
-              <span key={`ellipsis-${i}`} className="px-1 text-2sm text-muted-foreground">
+              <span key={`ellipsis-${i}`} className="px-1 text-sm text-muted-foreground">
                 …
               </span>
             ) : (
@@ -165,7 +165,7 @@ export function DataTablePagination({
           </Button>
         </div>
 
-        <div className="flex items-center gap-2 text-2sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <span>Show</span>
           <Select
             value={String(pageSize)}

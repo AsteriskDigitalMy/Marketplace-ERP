@@ -67,8 +67,6 @@
 @theme {
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: calc(1.125 / 0.6875);
-  --text-2sm: 0.8125rem;
-  --text-2sm--line-height: calc(1.25 / 0.8125);
   --text-md: 0.9375rem;
   --text-md--line-height: calc(1.375 / 0.9375);
   --text-1_5xl: 1.375rem;
@@ -196,7 +194,7 @@ select {
     @apply font-sans antialiased;
   }
   body {
-    @apply bg-background text-2sm leading-relaxed text-foreground;
+    @apply bg-background text-sm leading-relaxed text-foreground;
   }
   h1,
   h2,
@@ -222,10 +220,10 @@ select {
     @apply text-sm leading-snug;
   }
   h6 {
-    @apply text-2sm leading-snug;
+    @apply text-sm leading-snug;
   }
   p {
-    @apply text-2sm leading-relaxed;
+    @apply text-sm leading-relaxed;
   }
   code,
   kbd,
@@ -273,7 +271,7 @@ select {
   }
 
   .sidebar-link {
-    @apply flex items-center gap-3 rounded-lg px-3 py-2.5 text-2sm font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground;
+    @apply flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground;
   }
 
   .sidebar-link--active {
@@ -301,7 +299,7 @@ select {
   }
 
   .page-toolbar-breadcrumb {
-    @apply flex flex-wrap items-center gap-1 text-2sm font-medium;
+    @apply flex flex-wrap items-center gap-1 text-sm font-medium;
   }
 
   .page-toolbar-breadcrumb-link {
@@ -317,7 +315,7 @@ select {
   }
 
   .page-toolbar-description {
-    @apply max-w-3xl text-2sm leading-relaxed text-muted-foreground;
+    @apply max-w-3xl text-sm leading-relaxed text-muted-foreground;
   }
 
   /* Semantic typography — Metronic text roles */
@@ -330,15 +328,15 @@ select {
   }
 
   .type-card-description {
-    @apply text-2sm leading-relaxed text-muted-foreground;
+    @apply text-sm leading-relaxed text-muted-foreground;
   }
 
   .type-body {
-    @apply text-2sm leading-relaxed text-foreground;
+    @apply text-sm leading-relaxed text-foreground;
   }
 
   .type-muted {
-    @apply text-2sm leading-relaxed text-muted-foreground;
+    @apply text-sm leading-relaxed text-muted-foreground;
   }
 
   .type-caption {
@@ -350,11 +348,11 @@ select {
   }
 
   .type-label {
-    @apply text-2sm font-medium leading-none text-foreground;
+    @apply text-sm font-medium leading-none text-foreground;
   }
 
   .type-link {
-    @apply text-2sm font-medium text-primary transition-colors hover:text-primary-hover hover:underline hover:underline-offset-4;
+    @apply text-sm font-medium text-primary transition-colors hover:text-primary-hover hover:underline hover:underline-offset-4;
   }
 }
 
