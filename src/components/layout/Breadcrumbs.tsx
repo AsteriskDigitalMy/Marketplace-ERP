@@ -1,75 +1,43 @@
-import { Link, useLocation } from 'react-router-dom'
-import { ChevronRight, Home } from 'lucide-react'
 import { Fragment } from 'react'
+import { Link } from 'react-router-dom'
+import { ChevronRight } from 'lucide-react'
+import type { BreadcrumbItem } from '@/lib/navigation/page-meta'
+import { cn } from '@/lib/utils'
 
-const LABELS: Record<string, string> = {
-  pms: 'PMS',
-  admin: 'Admin',
-  org: 'Organization',
-  accounts: 'Accounts',
-  roles: 'Roles',
-  dictionaries: 'Dictionaries',
-  logs: 'Logs',
-  parameters: 'Parameters',
-  kpi: 'KPI',
-  indicators: 'Indicators',
-  calculation: 'Calculation',
-  jobs: 'Jobs',
-  recalculate: 'Re-calculate',
-  history: 'History',
-  projects: 'Projects',
-  approvals: 'Approvals',
-  'acceptance-reviews': 'Acceptance',
-  tasks: 'Tasks',
-  my: 'My Tasks',
-  'data-collection': 'Data Collection',
-  rules: 'Rules',
-  reviews: 'Reviews',
-  fill: 'Fill',
-  inventory: 'Inventory',
-  orders: 'Orders',
-  customers: 'Customers',
-  reports: 'Reports',
-  settings: 'Settings',
+interface BreadcrumbsProps {
+  items: BreadcrumbItem[]
+  className?: string
 }
 
-export function Breadcrumbs() {
-  const { pathname } = useLocation()
-  const segments = pathname.split('/').filter(Boolean)
-
-  if (segments.length === 0) {
-    return (
-      <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-muted-foreground">
-        <Home className="size-3.5" />
-        <span className="font-medium text-foreground">Home</span>
-      </nav>
-    )
-  }
-
-  const crumbs = segments.map((seg, i) => {
-    const href = '/' + segments.slice(0, i + 1).join('/')
-    const isLast = i === segments.length - 1
-    const label = LABELS[seg] ?? (seg.length > 12 ? `${seg.slice(0, 8)}…` : seg)
-    return { href, label, isLast }
-  })
+export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
+  if (items.length === 0) return null
 
   return (
-    <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
-      <Link to="/" className="transition-colors hover:text-foreground">
-        <Home className="size-3.5" />
-      </Link>
-      {crumbs.map((crumb) => (
-        <Fragment key={crumb.href}>
-          <ChevronRight className="size-3 opacity-50" aria-hidden />
-          {crumb.isLast ? (
-            <span className="font-medium text-foreground">{crumb.label}</span>
-          ) : (
-            <Link to={crumb.href} className="transition-colors hover:text-foreground">
-              {crumb.label}
-            </Link>
-          )}
-        </Fragment>
-      ))}
+    <nav aria-label="Breadcrumb" className={cn('page-toolbar-breadcrumb', className)}>
+      {items.map((item, index) => {
+        const isLast = index === items.length - 1
+        return (
+          <Fragment key={`${item.label}-${index}`}>
+            {index > 0 ? (
+              <ChevronRight className="page-toolbar-breadcrumb-sep size-3 shrink-0" aria-hidden />
+            ) : null}
+            {item.href && !isLast ? (
+              <Link to={item.href} className="page-toolbar-breadcrumb-link">
+                {item.label}
+              </Link>
+            ) : (
+              <span
+                className={cn(
+                  'page-toolbar-breadcrumb-current',
+                  isLast && 'text-foreground',
+                )}
+              >
+                {item.label}
+              </span>
+            )}
+          </Fragment>
+        )
+      })}
     </nav>
   )
 }

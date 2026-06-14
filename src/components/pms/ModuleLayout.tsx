@@ -11,33 +11,16 @@ export interface ModuleNavItem {
 }
 
 interface ModuleLayoutProps {
-  section: string
-  title: string
-  description?: string
   navItems: ModuleNavItem[]
   children: ReactNode
 }
 
-export function ModuleLayout({
-  section,
-  title,
-  description,
-  navItems,
-  children,
-}: ModuleLayoutProps) {
+export function ModuleLayout({ navItems, children }: ModuleLayoutProps) {
   return (
     <div className="space-y-6">
-      <div className="rounded-xl border border-border bg-card p-5 shadow-[var(--shadow-card)]">
-        <p className="text-xs font-semibold uppercase tracking-wider text-primary">{section}</p>
-        <h2 className="mt-1 text-xl font-semibold tracking-tight text-foreground">{title}</h2>
-        {description ? (
-          <p className="mt-1.5 max-w-3xl text-sm text-muted-foreground">{description}</p>
-        ) : null}
-      </div>
-
       <nav
         className="flex flex-wrap gap-0 border-b border-border"
-        aria-label={`${title} navigation`}
+        aria-label="Module navigation"
       >
         {navItems.map((item) => (
           <NavLink

@@ -36,12 +36,7 @@ export default function PmsDataCollectionLayout() {
   ]
 
   return (
-    <ModuleLayout
-      section="PMS · 3.1.4"
-      title="Data Collection & Filling"
-      description="Periodic filling tasks, manual entry forms, and multi-level data review workflows."
-      navItems={navItems}
-    >
+    <ModuleLayout navItems={navItems}>
       <Outlet />
     </ModuleLayout>
   )

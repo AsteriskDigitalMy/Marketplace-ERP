@@ -118,19 +118,10 @@ export default function CalculationJobDetailPage() {
 
   return (
     <PermissionGate allowed={hasPermission('kpi.calculate')}>
-      <div className="mb-4 text-sm text-muted-foreground">
-        <Link to="/pms/kpi/calculation/jobs" className="hover:underline">
-          KPI Calculation
-        </Link>
-        {' > '}
-        <Link to="/pms/kpi/calculation/jobs" className="hover:underline">
-          Jobs
-        </Link>
-        {' > '}
-        <span className="text-foreground">{jobId?.slice(0, 8)}…</span>
-      </div>
-
-      <PageHeader title="Job detail" description="Per-indicator calculation outcomes." />
+      <PageHeader
+        title="Job Detail"
+        description="Per-indicator calculation outcomes for this batch run."
+      />
 
       <AsyncState loading={loading} error={error} onRetry={() => void loadJob()} empty={!job && !loading}>
         {job ? (

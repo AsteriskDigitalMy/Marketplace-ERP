@@ -59,7 +59,7 @@ export default function PmsHomePage() {
     <div className="space-y-6">
       <PageHeader
         title="Performance Management"
-        description="KPI and project management subsystem — select a module to get started."
+        description="Central hub for KPI and project management modules."
       />
 
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">

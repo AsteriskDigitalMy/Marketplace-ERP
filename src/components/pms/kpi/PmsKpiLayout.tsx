@@ -17,12 +17,7 @@ export default function PmsKpiLayout() {
   ]
 
   return (
-    <ModuleLayout
-      section="PMS · 3.1.2 / 3.1.5"
-      title="KPI Indicator Library"
-      description="Define indicators, formulas, versions, scheduled calculation, and manual re-calculation."
-      navItems={navItems}
-    >
+    <ModuleLayout navItems={navItems}>
       <Outlet />
     </ModuleLayout>
   )

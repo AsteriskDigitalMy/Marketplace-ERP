@@ -12,12 +12,7 @@ const adminNav = [
 
 export default function PmsAdminLayout() {
   return (
-    <ModuleLayout
-      section="PMS · 3.1.1"
-      title="System Basic Management"
-      description="Organization structure, accounts, roles, dictionaries, audit logs, and system parameters."
-      navItems={adminNav}
-    >
+    <ModuleLayout navItems={adminNav}>
       <Outlet />
     </ModuleLayout>
   )

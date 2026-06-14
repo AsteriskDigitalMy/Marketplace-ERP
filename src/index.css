@@ -223,7 +223,7 @@ select {
   }
 
   .app-header {
-    @apply sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between gap-4 border-b border-border bg-card px-6;
+    @apply sticky top-0 z-30 flex h-14 shrink-0 items-center justify-end gap-4 border-b border-border bg-card px-6;
   }
 
   .app-content {
@@ -272,6 +272,26 @@ select {
 
   .metronic-stat-icon {
     @apply flex size-11 items-center justify-center rounded-lg;
+  }
+
+  .page-toolbar-breadcrumb {
+    @apply flex flex-wrap items-center gap-1 text-xs font-medium sm:text-sm;
+  }
+
+  .page-toolbar-breadcrumb-link {
+    @apply text-muted-foreground transition-colors hover:text-primary;
+  }
+
+  .page-toolbar-breadcrumb-current {
+    @apply text-muted-foreground;
+  }
+
+  .page-toolbar-title {
+    @apply text-2xl font-semibold tracking-tight text-foreground lg:text-[1.75rem] lg:leading-tight;
+  }
+
+  .page-toolbar-description {
+    @apply max-w-3xl text-sm leading-relaxed text-muted-foreground;
   }
 }
 

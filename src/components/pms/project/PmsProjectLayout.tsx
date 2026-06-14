@@ -30,12 +30,7 @@ export default function PmsProjectLayout() {
   ]
 
   return (
-    <ModuleLayout
-      section="PMS · 3.1.3"
-      title="Project Management"
-      description="Initiation, tasks, progress tracking, issues, Gantt charts, and acceptance workflows."
-      navItems={navItems}
-    >
+    <ModuleLayout navItems={navItems}>
       <Outlet />
     </ModuleLayout>
   )
