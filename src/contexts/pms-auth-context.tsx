@@ -8,6 +8,7 @@ export type PmsPermission =
   | 'dictionary.manage'
   | 'audit.read'
   | 'parameter.manage'
+  | 'kpi.manage'
 
 interface PmsAuthContextValue {
   userId: string
@@ -26,6 +27,7 @@ const ADMIN_PERMISSIONS: PmsPermission[] = [
   'dictionary.manage',
   'audit.read',
   'parameter.manage',
+  'kpi.manage',
 ]
 
 export function PmsAuthProvider({ children }: { children: ReactNode }) {

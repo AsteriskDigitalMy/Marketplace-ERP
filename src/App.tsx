@@ -23,6 +23,11 @@ import RolesPage from './pages/pms/admin/RolesPage'
 import DictionariesPage from './pages/pms/admin/DictionariesPage'
 import OperationLogsPage from './pages/pms/admin/OperationLogsPage'
 import ParametersPage from './pages/pms/admin/ParametersPage'
+import PmsKpiLayout from './components/pms/kpi/PmsKpiLayout'
+import KpiIndicatorsPage from './pages/pms/kpi/KpiIndicatorsPage'
+import KpiIndicatorCreatePage from './pages/pms/kpi/KpiIndicatorCreatePage'
+import KpiIndicatorDetailPage from './pages/pms/kpi/KpiIndicatorDetailPage'
+import KpiFormulaEditorPage from './pages/pms/kpi/KpiFormulaEditorPage'
 
 export default function App() {
   return (
@@ -38,6 +43,14 @@ export default function App() {
             <Route path="settings" element={<Settings />} />
 
             <Route path="pms" element={<PmsHomePage />} />
+            <Route path="pms/kpi" element={<PmsKpiLayout />}>
+              <Route index element={<Navigate to="indicators" replace />} />
+              <Route path="indicators" element={<KpiIndicatorsPage />} />
+              <Route path="indicators/new" element={<KpiIndicatorCreatePage />} />
+              <Route path="indicators/:id" element={<KpiIndicatorDetailPage />} />
+              <Route path="indicators/:id/formula" element={<KpiFormulaEditorPage />} />
+            </Route>
+
             <Route path="pms/admin" element={<PmsAdminLayout />}>
               <Route index element={<Navigate to="org" replace />} />
               <Route path="org" element={<OrgStructurePage />} />

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Building2, ChevronRight } from 'lucide-react'
+import { BarChart3, Building2, ChevronRight } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { PageHeader } from '@/components/pms/PageHeader'
 
@@ -9,6 +9,14 @@ const modules = [
     description: 'Organization, accounts, roles, dictionaries, audit logs, and parameters.',
     to: '/pms/admin/org',
     section: '3.1.1',
+    icon: Building2,
+  },
+  {
+    title: 'KPI Indicator Library',
+    description: 'Define indicators, formulas, versions, and lifecycle management.',
+    to: '/pms/kpi/indicators',
+    section: '3.1.2',
+    icon: BarChart3,
   },
 ]
 
@@ -20,12 +28,14 @@ export default function PmsHomePage() {
         description="KPI and project management subsystem — implemented section by section."
       />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {modules.map((mod) => (
+        {modules.map((mod) => {
+          const Icon = mod.icon
+          return (
           <Link key={mod.to} to={mod.to} className="group">
             <Card className="h-full transition-shadow group-hover:shadow-md">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-base">
-                  <Building2 className="size-5 text-primary" />
+                  <Icon className="size-5 text-primary" />
                   {mod.title}
                 </CardTitle>
                 <CardDescription>Section {mod.section}</CardDescription>
@@ -36,7 +46,8 @@ export default function PmsHomePage() {
               </CardContent>
             </Card>
           </Link>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

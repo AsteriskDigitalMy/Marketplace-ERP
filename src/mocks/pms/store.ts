@@ -165,6 +165,18 @@ const dictionaries: DictionaryCategory[] = [
       { Code: 'CAP', DisplayName: 'Capacity Project', SortOrder: 1, IsEnabled: true },
     ],
   },
+  {
+    OrganizationId: MOCK_ORGANIZATION_ID,
+    Code: 'kpi_category',
+    Name: 'KPI Categories',
+    IsBuiltin: false,
+    Items: [
+      { Code: 'PROD', DisplayName: 'Production Quality', SortOrder: 0, IsEnabled: true },
+      { Code: 'SCM', DisplayName: 'Supply Chain', SortOrder: 1, IsEnabled: true },
+      { Code: 'COST', DisplayName: 'Cost Efficiency', SortOrder: 2, IsEnabled: true },
+      { Code: 'SAFETY', DisplayName: 'Safety', SortOrder: 3, IsEnabled: true },
+    ],
+  },
 ]
 
 const operationLogs: OperationLog[] = [
