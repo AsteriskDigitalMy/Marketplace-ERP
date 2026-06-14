@@ -55,3 +55,19 @@ Update the base path in these places:
 - [React 19](https://react.dev/)
 - [React Router](https://reactrouter.com/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/) (Radix Nova preset)
+
+## shadcn/ui
+
+shadcn/ui is initialized with the **Radix Nova** preset. Add components with:
+
+```bash
+npx shadcn@latest add card
+```
+
+Import from `@/components/ui/*`:
+
+```tsx
+import { Button } from '@/components/ui/button'
+```
