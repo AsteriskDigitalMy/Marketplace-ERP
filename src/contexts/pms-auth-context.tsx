@@ -13,6 +13,8 @@ export type PmsPermission =
   | 'project.approve'
   | 'project.manage'
   | 'acceptance.approve'
+  | 'data.manage'
+  | 'data.review'
 
 interface PmsAuthContextValue {
   userId: string
@@ -36,6 +38,8 @@ const ADMIN_PERMISSIONS: PmsPermission[] = [
   'project.approve',
   'project.manage',
   'acceptance.approve',
+  'data.manage',
+  'data.review',
 ]
 
 export function PmsAuthProvider({ children }: { children: ReactNode }) {

@@ -47,6 +47,14 @@ import ProjectGanttPage from './pages/pms/project/ProjectGanttPage'
 import ProjectAcceptancePage from './pages/pms/project/ProjectAcceptancePage'
 import ProjectAcceptanceReviewInboxPage from './pages/pms/project/ProjectAcceptanceReviewInboxPage'
 import ProjectAcceptanceReviewDetailPage from './pages/pms/project/ProjectAcceptanceReviewDetailPage'
+import PmsDataCollectionLayout from './components/pms/data-collection/PmsDataCollectionLayout'
+import FillingRulesPage from './pages/pms/data-collection/FillingRulesPage'
+import AdminTaskMonitorPage from './pages/pms/data-collection/AdminTaskMonitorPage'
+import MyFillingTasksPage from './pages/pms/data-collection/MyFillingTasksPage'
+import DataFillPage from './pages/pms/data-collection/DataFillPage'
+import DataReviewQueuePage from './pages/pms/data-collection/DataReviewQueuePage'
+import DataReviewDetailPage from './pages/pms/data-collection/DataReviewDetailPage'
+import { FillingReminderDialog } from './components/pms/data-collection/FillingReminderDialog'
 
 export default function App() {
   return (
@@ -97,6 +105,16 @@ export default function App() {
             <Route path="pms/tasks/my" element={<MyTasksPage />} />
             <Route path="pms/tasks/:id/duration-change" element={<TaskDurationChangePage />} />
 
+            <Route path="pms/data-collection" element={<PmsDataCollectionLayout />}>
+              <Route index element={<Navigate to="my-tasks" replace />} />
+              <Route path="rules" element={<FillingRulesPage />} />
+              <Route path="tasks" element={<AdminTaskMonitorPage />} />
+              <Route path="my-tasks" element={<MyFillingTasksPage />} />
+              <Route path="fill/:taskId" element={<DataFillPage />} />
+              <Route path="reviews" element={<DataReviewQueuePage />} />
+              <Route path="reviews/:recordId" element={<DataReviewDetailPage />} />
+            </Route>
+
             <Route path="pms/admin" element={<PmsAdminLayout />}>
               <Route index element={<Navigate to="org" replace />} />
               <Route path="org" element={<OrgStructurePage />} />
@@ -117,6 +135,7 @@ export default function App() {
           </Route>
         </Routes>
         <Toaster richColors position="top-right" />
+        <FillingReminderDialog />
       </TooltipProvider>
     </PmsAuthProvider>
   )
