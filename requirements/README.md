@@ -4,9 +4,10 @@ Frontend requirement documents for Marketplace-ERP modules. Each subsection is a
 
 ## Conventions
 
-- **Scope:** Frontend only. All data is mocked to match NyxAPI response shapes (see `docs/nyxapi-route-reference.md`).
+- **Scope:** Frontend only. All data is mocked to match NyxAPI response shapes (see `docs/nyxapi-route-reference.md`) and validated domain models in `src/models/`.
 - **UI:** shadcn/ui components, brand palette `#002379`, patterns in `.cursor/rules/ui-ux-standards.mdc`.
 - **States:** Every screen implements loading, empty, error, and success states.
+- **BA/UX structure (Section 3.1 PMS):** Each requirement file includes **Phase 1** (personas, FR-xxx capabilities, edge cases), **Phase 2** (screen-by-screen field specs and functional logic), and **Phase 3** (transition flow table), followed by mock DTO shapes and acceptance criteria.
 - **PDA / Pad views:** Mobile-first layouts at 360px for floor operations (scan-centric flows). WMS emphasizes PDA; MES emphasizes Pad terminals and workshop displays.
 
 ---
