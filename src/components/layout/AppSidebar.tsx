@@ -2,6 +2,7 @@ import type { ComponentType } from 'react'
 import { NavLink } from 'react-router-dom'
 import {
   BarChart3,
+  Bell,
   Boxes,
   Gauge,
   LayoutDashboard,
@@ -24,6 +25,7 @@ const erpNav = [
 const pmsNav = [
   { to: '/pms', label: 'Performance Management', icon: Workflow, end: true },
   { to: '/pms/cockpit', label: 'KPI Cockpit', icon: Gauge },
+  { to: '/pms/alerts', label: 'Alerts', icon: Bell },
 ]
 
 function NavItem({

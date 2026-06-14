@@ -13,6 +13,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   logs: 'Operation Logs',
   parameters: 'Parameters',
   cockpit: 'KPI Cockpit',
+  alerts: 'Alerts',
   'traffic-lights': 'Traffic Lights',
   kpi: 'KPI Indicator Library',
   indicators: 'Indicators',
@@ -47,6 +48,7 @@ const MODULE_ROOTS: { prefix: string; label: string; href: string }[] = [
   { prefix: '/pms/tasks', label: 'Project Management', href: '/pms/projects' },
   { prefix: '/pms/data-collection', label: 'Data Collection', href: '/pms/data-collection/my-tasks' },
   { prefix: '/pms/cockpit', label: 'KPI Visualization', href: '/pms/cockpit' },
+  { prefix: '/pms/alerts', label: 'Exception Alerts', href: '/pms/alerts' },
   { prefix: '/pms/settings', label: 'PMS Settings', href: '/pms/settings/traffic-lights' },
 ]
 

@@ -62,6 +62,10 @@ import DataReviewDetailPage from './pages/pms/data-collection/DataReviewDetailPa
 import { FillingReminderDialog } from './components/pms/data-collection/FillingReminderDialog'
 import CockpitPage from './pages/pms/cockpit/CockpitPage'
 import TrafficLightRulesPage from './pages/pms/settings/TrafficLightRulesPage'
+import PmsAlertsLayout from './components/pms/PmsAlertsLayout'
+import AlertInboxPage from './pages/pms/alerts/AlertInboxPage'
+import AlertRulesPage from './pages/pms/alerts/AlertRulesPage'
+import AlertRuleEditorPage from './pages/pms/alerts/AlertRuleEditorPage'
 
 export default function App() {
   return (
@@ -79,6 +83,13 @@ export default function App() {
             <Route path="pms" element={<PmsHomePage />} />
             <Route path="pms/cockpit" element={<CockpitPage />} />
             <Route path="pms/settings/traffic-lights" element={<TrafficLightRulesPage />} />
+
+            <Route path="pms/alerts" element={<PmsAlertsLayout />}>
+              <Route index element={<AlertInboxPage />} />
+              <Route path="rules" element={<AlertRulesPage />} />
+              <Route path="rules/new" element={<AlertRuleEditorPage />} />
+              <Route path="rules/:id/edit" element={<AlertRuleEditorPage />} />
+            </Route>
 
             <Route path="pms/kpi" element={<PmsKpiLayout />}>
               <Route index element={<Navigate to="indicators" replace />} />

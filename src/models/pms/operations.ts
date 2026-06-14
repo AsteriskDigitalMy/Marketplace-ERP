@@ -36,18 +36,39 @@ export const AlertRecordSchema = z.object({
   Id: UuidSchema,
   OrganizationId: UuidSchema,
   RuleId: UuidSchema,
+  RuleName: NonEmptyStringSchema,
   Type: z.enum(['kpi', 'project', 'filing']),
+  MonitoredObjectLabel: NonEmptyStringSchema,
   Level: AlertLevelSchema,
+  EffectiveLevel: AlertLevelSchema.optional(),
   TriggeredAt: DateTimeSchema,
   DeadlineAt: DateTimeSchema,
   IsOverdue: z.boolean(),
+  EscalationHistory: z.array(
+    z.object({
+      At: DateTimeSchema,
+      FromLevel: AlertLevelSchema,
+      ToLevel: AlertLevelSchema,
+      Reason: NonEmptyStringSchema,
+    }),
+  ),
   Status: z.enum(['open', 'investigating', 'rectifying', 'pending_verification', 'closed']),
   OwnerId: UuidSchema,
   Cause: z.string().max(4000).nullable(),
+  ImpactScope: z.string().max(4000).nullable(),
   RectificationMeasures: z.string().max(4000).nullable(),
   PlannedCompletionDate: DateTimeSchema.nullable(),
   CompletionResult: z.string().max(4000).nullable(),
   VerificationOpinion: z.string().max(4000).nullable(),
+  Attachments: z.array(z.string()),
+  DisposalLog: z.array(
+    z.object({
+      At: DateTimeSchema,
+      Actor: NonEmptyStringSchema,
+      Action: NonEmptyStringSchema,
+      Detail: z.string(),
+    }),
+  ),
 })
 
 export const AppraisalSchemeSchema = z

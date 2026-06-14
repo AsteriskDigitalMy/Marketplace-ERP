@@ -97,5 +97,7 @@ export type PerformanceGrade = z.infer<typeof PerformanceGradeSchema>
 export type TrafficLightColor = z.infer<typeof TrafficLightColorSchema>
 export type TrafficLightCategory = z.infer<typeof TrafficLightCategorySchema>
 export type CockpitRole = z.infer<typeof CockpitRoleSchema>
+export type AlertLevel = z.infer<typeof AlertLevelSchema>
+export type AlertChannel = z.infer<typeof AlertChannelSchema>
 export type ProjectStatus = z.infer<typeof ProjectStatusSchema>
 export type TaskStatus = z.infer<typeof TaskStatusSchema>

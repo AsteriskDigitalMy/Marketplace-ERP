@@ -232,9 +232,9 @@ export default function CockpitPage() {
             <Button
               variant="link"
               size="link"
-              onClick={() => toast.info('Alerts module (3.1.7) — coming soon')}
+              asChild
             >
-              View all
+              <Link to="/pms/alerts?status=open">View all</Link>
             </Button>
           </CardHeader>
           <CardContent>

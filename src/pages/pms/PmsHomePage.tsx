@@ -7,6 +7,7 @@ import {
   ClipboardList,
   FolderKanban,
   Gauge,
+  Bell,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -60,6 +61,14 @@ const modules = [
     section: '3.1.6',
     icon: Gauge,
     accent: 'bg-cyan-500/10 text-cyan-600',
+  },
+  {
+    title: 'Exception Alerts',
+    description: 'Alert rule configuration, inbox triage, and closed-loop disposal workflows.',
+    to: '/pms/alerts',
+    section: '3.1.7',
+    icon: Bell,
+    accent: 'bg-orange-500/10 text-orange-600',
   },
 ]
 
