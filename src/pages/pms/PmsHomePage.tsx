@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BarChart3, Building2, ChevronRight } from 'lucide-react'
+import { BarChart3, Building2, ChevronRight, FolderKanban } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { PageHeader } from '@/components/pms/PageHeader'
 
@@ -17,6 +17,13 @@ const modules = [
     to: '/pms/kpi/indicators',
     section: '3.1.2',
     icon: BarChart3,
+  },
+  {
+    title: 'Project Management',
+    description: 'Initiation, tasks, progress, issues, Gantt, and acceptance workflows.',
+    to: '/pms/projects',
+    section: '3.1.3',
+    icon: FolderKanban,
   },
 ]
 

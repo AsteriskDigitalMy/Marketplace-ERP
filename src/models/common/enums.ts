@@ -46,6 +46,7 @@ export const AlertLevelSchema = z.enum(['general', 'important', 'urgent'])
 export const AlertChannelSchema = z.enum(['in_app', 'sms', 'email'])
 
 export const ProjectStatusSchema = z.enum([
+  'draft',
   'pending_approval',
   'returned',
   'in_progress',

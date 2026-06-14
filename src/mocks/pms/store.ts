@@ -3,6 +3,8 @@ import type { SystemRole, UserAccount } from '@/models/pms/identity'
 import type { DictionaryCategory, OperationLog, SystemParameter } from '@/models/pms/configuration'
 import {
   MOCK_ADMIN_USER_ID,
+  MOCK_EXECUTOR_USER_ID,
+  MOCK_LEADER_USER_ID,
   MOCK_ORGANIZATION_ID,
 } from '@/lib/pms/constants'
 
@@ -136,6 +138,30 @@ const accounts: UserAccount[] = [
     EmployeeName: 'System Administrator',
     DepartmentId: '10000000-0000-0000-0000-000000000003',
     Position: 'IT Administrator',
+    Status: 'active',
+    RoleIds: ['20000000-0000-0000-0000-000000000001'],
+    LastLoginAt: nowIso(),
+    ...auditFields(),
+  },
+  {
+    Id: MOCK_LEADER_USER_ID,
+    LoginAccount: 'leader@marketplace-erp.local',
+    EmployeeId: 'EMP-0002',
+    EmployeeName: 'Ahmad Rahman',
+    DepartmentId: '10000000-0000-0000-0000-000000000003',
+    Position: 'Project Leader',
+    Status: 'active',
+    RoleIds: ['20000000-0000-0000-0000-000000000001'],
+    LastLoginAt: nowIso(),
+    ...auditFields(),
+  },
+  {
+    Id: MOCK_EXECUTOR_USER_ID,
+    LoginAccount: 'executor@marketplace-erp.local',
+    EmployeeId: 'EMP-0003',
+    EmployeeName: 'Siti Nurhaliza',
+    DepartmentId: '10000000-0000-0000-0000-000000000003',
+    Position: 'Production Specialist',
     Status: 'active',
     RoleIds: ['20000000-0000-0000-0000-000000000001'],
     LastLoginAt: nowIso(),

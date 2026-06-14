@@ -28,6 +28,25 @@ import KpiIndicatorsPage from './pages/pms/kpi/KpiIndicatorsPage'
 import KpiIndicatorCreatePage from './pages/pms/kpi/KpiIndicatorCreatePage'
 import KpiIndicatorDetailPage from './pages/pms/kpi/KpiIndicatorDetailPage'
 import KpiFormulaEditorPage from './pages/pms/kpi/KpiFormulaEditorPage'
+import PmsProjectLayout from './components/pms/project/PmsProjectLayout'
+import ProjectsListPage from './pages/pms/project/ProjectsListPage'
+import ProjectCreatePage from './pages/pms/project/ProjectCreatePage'
+import { ProjectDetailLayout } from './components/pms/project/ProjectDetailLayout'
+import ProjectOverviewPage from './pages/pms/project/ProjectOverviewPage'
+import ProjectApprovalInboxPage from './pages/pms/project/ProjectApprovalInboxPage'
+import ProjectApprovalReviewPage from './pages/pms/project/ProjectApprovalReviewPage'
+import ProjectTasksPage from './pages/pms/project/ProjectTasksPage'
+import MyTasksPage from './pages/pms/project/MyTasksPage'
+import ProjectProgressPage from './pages/pms/project/ProjectProgressPage'
+import ProjectProgressImportPage from './pages/pms/project/ProjectProgressImportPage'
+import TaskDurationChangePage from './pages/pms/project/TaskDurationChangePage'
+import ProjectDurationRequestsPage from './pages/pms/project/ProjectDurationRequestsPage'
+import ProjectIssuesPage from './pages/pms/project/ProjectIssuesPage'
+import ProjectKpiSyncPage from './pages/pms/project/ProjectKpiSyncPage'
+import ProjectGanttPage from './pages/pms/project/ProjectGanttPage'
+import ProjectAcceptancePage from './pages/pms/project/ProjectAcceptancePage'
+import ProjectAcceptanceReviewInboxPage from './pages/pms/project/ProjectAcceptanceReviewInboxPage'
+import ProjectAcceptanceReviewDetailPage from './pages/pms/project/ProjectAcceptanceReviewDetailPage'
 
 export default function App() {
   return (
@@ -50,6 +69,33 @@ export default function App() {
               <Route path="indicators/:id" element={<KpiIndicatorDetailPage />} />
               <Route path="indicators/:id/formula" element={<KpiFormulaEditorPage />} />
             </Route>
+
+            <Route path="pms/projects" element={<PmsProjectLayout />}>
+              <Route index element={<ProjectsListPage />} />
+              <Route path="new" element={<ProjectCreatePage />} />
+              <Route path="approvals" element={<ProjectApprovalInboxPage />} />
+              <Route path="approvals/:projectId" element={<ProjectApprovalReviewPage />} />
+              <Route path="acceptance-reviews" element={<ProjectAcceptanceReviewInboxPage />} />
+              <Route
+                path="acceptance-reviews/:projectId"
+                element={<ProjectAcceptanceReviewDetailPage />}
+              />
+              <Route path=":id" element={<ProjectDetailLayout />}>
+                <Route index element={<ProjectOverviewPage />} />
+                <Route path="edit" element={<ProjectCreatePage />} />
+                <Route path="tasks" element={<ProjectTasksPage />} />
+                <Route path="progress" element={<ProjectProgressPage />} />
+                <Route path="progress/import" element={<ProjectProgressImportPage />} />
+                <Route path="duration-requests" element={<ProjectDurationRequestsPage />} />
+                <Route path="issues" element={<ProjectIssuesPage />} />
+                <Route path="kpi-sync" element={<ProjectKpiSyncPage />} />
+                <Route path="gantt" element={<ProjectGanttPage />} />
+                <Route path="acceptance" element={<ProjectAcceptancePage />} />
+              </Route>
+            </Route>
+
+            <Route path="pms/tasks/my" element={<MyTasksPage />} />
+            <Route path="pms/tasks/:id/duration-change" element={<TaskDurationChangePage />} />
 
             <Route path="pms/admin" element={<PmsAdminLayout />}>
               <Route index element={<Navigate to="org" replace />} />
