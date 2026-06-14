@@ -273,18 +273,6 @@ select {
   .metronic-stat-icon {
     @apply flex size-11 items-center justify-center rounded-lg;
   }
-
-  .module-nav {
-    @apply inline-flex flex-wrap gap-1 rounded-lg border border-border bg-card p-1 shadow-[var(--shadow-card)];
-  }
-
-  .module-nav-link {
-    @apply inline-flex items-center gap-2 rounded-md px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground;
-  }
-
-  .module-nav-link--active {
-    @apply bg-primary text-primary-foreground shadow-sm hover:text-primary-foreground;
-  }
 }
 
 @media (max-width: 1024px) {

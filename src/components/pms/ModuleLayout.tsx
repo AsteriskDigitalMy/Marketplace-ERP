@@ -35,21 +35,27 @@ export function ModuleLayout({
         ) : null}
       </div>
 
-      <nav className="module-nav" aria-label={`${title} navigation`}>
+      <nav
+        className="flex flex-wrap gap-0 border-b border-border"
+        aria-label={`${title} navigation`}
+      >
         {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             end={item.end}
             className={({ isActive }) =>
-              cn('module-nav-link', isActive && 'module-nav-link--active')
+              cn(
+                'inline-flex items-center gap-2 border-b-2 border-transparent px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground',
+                isActive && '-mb-px border-primary text-primary',
+              )
             }
           >
             {item.label}
             {item.badge ? (
               <Badge
                 variant="secondary"
-                className="h-5 min-w-5 justify-center bg-primary/15 px-1.5 text-[0.65rem] text-primary"
+                className="h-5 min-w-5 justify-center bg-primary/10 px-1.5 text-[0.65rem] text-primary"
               >
                 {item.badge}
               </Badge>

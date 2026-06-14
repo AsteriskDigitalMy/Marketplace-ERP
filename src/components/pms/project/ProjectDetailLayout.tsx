@@ -107,7 +107,7 @@ export function ProjectDetailLayout() {
             </Alert>
           ) : null}
 
-          <nav className="flex flex-wrap gap-1 border-b pb-2">
+          <nav className="flex flex-wrap gap-0 border-b border-border">
             {tabs.map((tab) => (
               <NavLink
                 key={tab.suffix}
@@ -115,10 +115,8 @@ export function ProjectDetailLayout() {
                 end={tab.suffix === ''}
                 className={({ isActive }) =>
                   cn(
-                    'rounded-md px-3 py-1.5 text-sm font-medium',
-                    isActive
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:bg-muted',
+                    'inline-flex items-center border-b-2 border-transparent px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground',
+                    isActive && '-mb-px border-primary text-primary',
                   )
                 }
               >
