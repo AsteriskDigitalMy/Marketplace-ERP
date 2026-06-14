@@ -77,6 +77,7 @@ export const WorkOrderStatusSchema = z.enum([
 export const ApprovalDecisionSchema = z.enum(['approve', 'reject', 'pass', 'fail'])
 
 export type OrgTierType = z.infer<typeof OrgTierTypeSchema>
+export type DataScope = z.infer<typeof DataScopeSchema>
 export type AccountStatus = z.infer<typeof AccountStatusSchema>
 export type KpiCycle = z.infer<typeof KpiCycleSchema>
 export type PerformanceGrade = z.infer<typeof PerformanceGradeSchema>
