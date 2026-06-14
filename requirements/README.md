@@ -110,3 +110,18 @@ Frontend requirement documents for Marketplace-ERP modules. Each subsection is a
 | 15 | [3.5.6-inventory-counting.md](./3.5.6-inventory-counting.md) | Inventory counting (stock-taking) |
 | 16 | [3.5.7-material-traceability.md](./3.5.7-material-traceability.md) | Full-process material traceability |
 | 17 | [3.5.8-statistics-reports.md](./3.5.8-statistics-reports.md) | Warehousing statistics & reports |
+
+---
+
+## 3.6 SAP Financial System Integration
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.6.1-module-core-positioning.md](./3.6.1-module-core-positioning.md) | Module core positioning |
+| 2 | [3.6.2-integration-architecture.md](./3.6.2-integration-architecture.md) | Integration architecture & specifications |
+| 3 | [3.6.3-master-data-synchronization.md](./3.6.3-master-data-synchronization.md) | Master data synchronization |
+| 4 | [3.6.4-procure-to-pay.md](./3.6.4-procure-to-pay.md) | Procure-to-Pay (P2P) integration |
+| 5 | [3.6.5-order-to-cash.md](./3.6.5-order-to-cash.md) | Order-to-Cash (O2C) integration |
+| 6 | [3.6.6-production-cost-accounting.md](./3.6.6-production-cost-accounting.md) | Production & cost accounting integration |
+| 7 | [3.6.7-inventory-valuation.md](./3.6.7-inventory-valuation.md) | Inventory & stock valuation integration |
+| 8 | [3.6.8-sync-monitoring-exceptions.md](./3.6.8-sync-monitoring-exceptions.md) | Sync monitoring & exception handling |
