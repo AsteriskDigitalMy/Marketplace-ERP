@@ -21,6 +21,10 @@ export type PmsPermission =
   | 'data.review'
   | 'alerts.manage'
   | 'alerts.view'
+  | 'appraisal.manage'
+  | 'appraisal.review'
+  | 'appraisal.hr'
+  | 'appraisal.final'
 
 interface PmsAuthContextValue {
   userId: string
@@ -53,6 +57,10 @@ const ADMIN_PERMISSIONS: PmsPermission[] = [
   'data.review',
   'alerts.manage',
   'alerts.view',
+  'appraisal.manage',
+  'appraisal.review',
+  'appraisal.hr',
+  'appraisal.final',
 ]
 
 export function PmsAuthProvider({ children }: { children: ReactNode }) {

@@ -8,6 +8,7 @@ import {
   FolderKanban,
   Gauge,
   Bell,
+  ClipboardCheck,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -69,6 +70,14 @@ const modules = [
     section: '3.1.7',
     icon: Bell,
     accent: 'bg-orange-500/10 text-orange-600',
+  },
+  {
+    title: 'Performance Appraisal',
+    description: 'Scheme configuration, scoring, preliminary review, HR rectification, and final approval.',
+    to: '/pms/appraisal/schemes',
+    section: '3.1.8',
+    icon: ClipboardCheck,
+    accent: 'bg-indigo-500/10 text-indigo-600',
   },
 ]
 

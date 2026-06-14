@@ -67,6 +67,9 @@ import AlertInboxPage from './pages/pms/alerts/AlertInboxPage'
 import AlertRulesPage from './pages/pms/alerts/AlertRulesPage'
 import AlertRuleEditorPage from './pages/pms/alerts/AlertRuleEditorPage'
 import AlertDisposalPage from './pages/pms/alerts/AlertDisposalPage'
+import PmsAppraisalLayout from './components/pms/PmsAppraisalLayout'
+import AppraisalSchemesPage from './pages/pms/appraisal/AppraisalSchemesPage'
+import AppraisalSchemeEditorPage from './pages/pms/appraisal/AppraisalSchemeEditorPage'
 
 export default function App() {
   return (
@@ -92,6 +95,13 @@ export default function App() {
               <Route path="rules/:id/edit" element={<AlertRuleEditorPage />} />
             </Route>
             <Route path="pms/alerts/:id/disposal" element={<AlertDisposalPage />} />
+
+            <Route path="pms/appraisal" element={<PmsAppraisalLayout />}>
+              <Route index element={<Navigate to="schemes" replace />} />
+              <Route path="schemes" element={<AppraisalSchemesPage />} />
+              <Route path="schemes/new" element={<AppraisalSchemeEditorPage />} />
+              <Route path="schemes/:id" element={<AppraisalSchemeEditorPage />} />
+            </Route>
 
             <Route path="pms/kpi" element={<PmsKpiLayout />}>
               <Route index element={<Navigate to="indicators" replace />} />

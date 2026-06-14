@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import {
   BarChart3,
   Bell,
+  ClipboardCheck,
   Boxes,
   Gauge,
   LayoutDashboard,
@@ -26,6 +27,7 @@ const pmsNav = [
   { to: '/pms', label: 'Performance Management', icon: Workflow, end: true },
   { to: '/pms/cockpit', label: 'KPI Cockpit', icon: Gauge },
   { to: '/pms/alerts', label: 'Alerts', icon: Bell },
+  { to: '/pms/appraisal/schemes', label: 'Appraisal', icon: ClipboardCheck },
 ]
 
 function NavItem({
