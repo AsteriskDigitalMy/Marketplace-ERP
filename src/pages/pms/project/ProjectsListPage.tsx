@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Search } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import {
   Select,
@@ -19,9 +18,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { DataTable, DataTablePagination } from '@/components/layout/DataTable'
+import { TableAvatar, TableCellPrimary } from '@/components/layout/TableCellPrimary'
 import { PageHeader } from '@/components/pms/PageHeader'
 import { AsyncState } from '@/components/pms/AsyncState'
 import { usePmsAuth } from '@/contexts/pms-auth-context'
+import { useClientDataTable } from '@/hooks/use-client-data-table'
+import { useDebouncedValue } from '@/hooks/use-debounced-value'
 import { fetchProjects, getLeaderName } from '@/services/pms/project/project-service'
 import type { ProjectRecord } from '@/services/pms/project/project-service'
 import type { Project } from '@/models/pms/project'
@@ -34,13 +37,14 @@ export default function ProjectsListPage() {
   const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
+  const debouncedSearch = useDebouncedValue(search)
 
   const load = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
       const data = await fetchProjects({
-        search: search || undefined,
+        search: debouncedSearch || undefined,
         status: statusFilter !== 'all' ? (statusFilter as Project['Status']) : undefined,
       })
       setProjects(data)
@@ -56,17 +60,19 @@ export default function ProjectsListPage() {
     } finally {
       setLoading(false)
     }
-  }, [search, statusFilter])
+  }, [debouncedSearch, statusFilter])
 
   useEffect(() => {
     void load()
   }, [load])
 
+  const table = useClientDataTable(projects, { pageSize: 10 })
+
   const formatBudget = (n: number) =>
     new Intl.NumberFormat('en-MY', { style: 'currency', currency: 'MYR' }).format(n)
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <PageHeader
         title="Projects"
         description="Initiate, track, and close performance improvement projects."
@@ -82,32 +88,6 @@ export default function ProjectsListPage() {
         }
       />
 
-      <div className="flex flex-wrap gap-3">
-        <div className="relative min-w-[200px] flex-1">
-          <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
-          <Input
-            placeholder="Search by code or name…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
-          />
-        </div>
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
-            <SelectItem value="draft">Draft</SelectItem>
-            <SelectItem value="pending_approval">Pending approval</SelectItem>
-            <SelectItem value="returned">Returned</SelectItem>
-            <SelectItem value="in_progress">In progress</SelectItem>
-            <SelectItem value="pending_acceptance">Pending acceptance</SelectItem>
-            <SelectItem value="archived">Archived</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-
       <AsyncState
         loading={loading}
         error={error}
@@ -116,12 +96,45 @@ export default function ProjectsListPage() {
         emptyDescription="Start a new project or adjust filters."
         onRetry={load}
       >
-        <div className="rounded-md border">
+        <DataTable
+          title="Projects"
+          count={projects.length}
+          search={search}
+          onSearchChange={setSearch}
+          searchPlaceholder="Search by code or name…"
+          filters={
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="h-9 w-[200px]">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All statuses</SelectItem>
+                <SelectItem value="draft">Draft</SelectItem>
+                <SelectItem value="pending_approval">Pending approval</SelectItem>
+                <SelectItem value="returned">Returned</SelectItem>
+                <SelectItem value="in_progress">In progress</SelectItem>
+                <SelectItem value="pending_acceptance">Pending acceptance</SelectItem>
+                <SelectItem value="archived">Archived</SelectItem>
+              </SelectContent>
+            </Select>
+          }
+          footer={
+            <DataTablePagination
+              page={table.page}
+              pageSize={table.pageSize}
+              totalItems={table.totalItems}
+              totalPages={table.totalPages}
+              rangeStart={table.rangeStart}
+              rangeEnd={table.rangeEnd}
+              onPageChange={table.setPage}
+              onPageSizeChange={table.setPageSize}
+            />
+          }
+        >
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Code</TableHead>
-                <TableHead>Name</TableHead>
+                <TableHead>Project</TableHead>
                 <TableHead>Leader</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Planned</TableHead>
@@ -130,18 +143,23 @@ export default function ProjectsListPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {projects.map((p) => (
+              {table.pageData.map((p) => (
                 <TableRow key={p.Id}>
-                  <TableCell className="font-mono text-sm">{p.Code || '—'}</TableCell>
-                  <TableCell className="font-medium">{p.Name}</TableCell>
+                  <TableCell>
+                    <TableCellPrimary
+                      title={p.Name}
+                      subtitle={p.Code || 'Draft project'}
+                      leading={<TableAvatar label={p.Name} />}
+                    />
+                  </TableCell>
                   <TableCell>{leaders[p.LeaderId] ?? '—'}</TableCell>
                   <TableCell>
                     <Badge variant="outline">{p.Status.replace(/_/g, ' ')}</Badge>
                   </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
+                  <TableCell className="text-muted-foreground">
                     {p.PlannedStart} → {p.PlannedEnd}
                   </TableCell>
-                  <TableCell>{formatBudget(p.BudgetAmount)}</TableCell>
+                  <TableCell className="font-medium">{formatBudget(p.BudgetAmount)}</TableCell>
                   <TableCell className="text-right">
                     <Button variant="light" size="sm" asChild>
                       <Link to={`/pms/projects/${p.Id}`}>View</Link>
@@ -151,7 +169,7 @@ export default function ProjectsListPage() {
               ))}
             </TableBody>
           </Table>
-        </div>
+        </DataTable>
       </AsyncState>
     </div>
   )

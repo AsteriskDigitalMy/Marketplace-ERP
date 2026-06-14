@@ -4,6 +4,13 @@ import { Plus, Upload } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import {
   Table,
   TableBody,
   TableCell,
@@ -11,10 +18,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { DataTable, DataTablePagination } from '@/components/layout/DataTable'
+import { TableAvatar, TableCellPrimary } from '@/components/layout/TableCellPrimary'
 import { PageHeader } from '@/components/pms/PageHeader'
 import { PermissionGate } from '@/components/pms/PermissionGate'
 import { AsyncState } from '@/components/pms/AsyncState'
 import { usePmsAuth } from '@/contexts/pms-auth-context'
+import { useClientDataTable } from '@/hooks/use-client-data-table'
+import { useDebouncedValue } from '@/hooks/use-debounced-value'
 import { fetchAccounts } from '@/services/pms/admin/account-service'
 import type { UserAccount } from '@/models/pms/identity'
 
@@ -23,6 +34,23 @@ export default function AccountsPage() {
   const [accounts, setAccounts] = useState<UserAccount[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
+  const [statusFilter, setStatusFilter] = useState('all')
+  const debouncedSearch = useDebouncedValue(search)
+
+  const filteredAccounts = accounts.filter((a) => {
+    if (statusFilter !== 'all' && a.Status !== statusFilter) return false
+    if (!debouncedSearch) return true
+    const q = debouncedSearch.toLowerCase()
+    return (
+      a.EmployeeName.toLowerCase().includes(q) ||
+      a.LoginAccount.toLowerCase().includes(q) ||
+      a.EmployeeId.toLowerCase().includes(q) ||
+      a.Position.toLowerCase().includes(q)
+    )
+  })
+
+  const table = useClientDataTable(filteredAccounts, { pageSize: 10 })
 
   const load = async () => {
     setLoading(true)
@@ -44,10 +72,10 @@ export default function AccountsPage() {
     <PermissionGate allowed={hasPermission('user.manage')}>
       <PageHeader
         title="System Accounts"
-        description="Employee accounts and login credentials"
+        description="Efficient account organization with role assignments and lifecycle controls."
         actions={
           <>
-            <Button asChild variant="outline" size="sm">
+            <Button asChild variant="light" size="sm">
               <Link to="/pms/admin/accounts/import">
                 <Upload className="mr-2 size-4" />
                 Bulk import
@@ -62,13 +90,43 @@ export default function AccountsPage() {
           </>
         }
       />
-      <AsyncState loading={loading} error={error} onRetry={() => void load()} empty={accounts.length === 0}>
-        <div className="rounded-md border">
+
+      <AsyncState loading={loading} error={error} onRetry={() => void load()} empty={false}>
+        <DataTable
+          title="Accounts"
+          count={filteredAccounts.length}
+          search={search}
+          onSearchChange={setSearch}
+          searchPlaceholder="Search accounts…"
+          filters={
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="h-9 w-[140px]">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All statuses</SelectItem>
+                <SelectItem value="active">Active only</SelectItem>
+                <SelectItem value="disabled">Disabled</SelectItem>
+              </SelectContent>
+            </Select>
+          }
+          footer={
+            <DataTablePagination
+              page={table.page}
+              pageSize={table.pageSize}
+              totalItems={table.totalItems}
+              totalPages={table.totalPages}
+              rangeStart={table.rangeStart}
+              rangeEnd={table.rangeEnd}
+              onPageChange={table.setPage}
+              onPageSizeChange={table.setPageSize}
+            />
+          }
+        >
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Employee ID</TableHead>
-                <TableHead>Name</TableHead>
+                <TableHead>Account</TableHead>
                 <TableHead>Login</TableHead>
                 <TableHead>Position</TableHead>
                 <TableHead>Status</TableHead>
@@ -76,27 +134,40 @@ export default function AccountsPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {accounts.map((a) => (
-                <TableRow key={a.Id}>
-                  <TableCell className="font-mono text-sm">{a.EmployeeId}</TableCell>
-                  <TableCell>{a.EmployeeName}</TableCell>
-                  <TableCell>{a.LoginAccount}</TableCell>
-                  <TableCell>{a.Position}</TableCell>
-                  <TableCell>
-                    <Badge variant={a.Status === 'active' ? 'default' : 'secondary'}>
-                      {a.Status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Button asChild variant="light" size="sm">
-                      <Link to={`/pms/admin/accounts/${a.Id}`}>Manage</Link>
-                    </Button>
+              {table.pageData.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={5} className="h-24 text-center text-muted-foreground">
+                    No accounts match your search.
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                table.pageData.map((a) => (
+                  <TableRow key={a.Id}>
+                    <TableCell>
+                      <TableCellPrimary
+                        title={a.EmployeeName}
+                        subtitle={a.EmployeeId}
+                        leading={<TableAvatar label={a.EmployeeName} />}
+                      />
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">{a.LoginAccount}</TableCell>
+                    <TableCell>{a.Position}</TableCell>
+                    <TableCell>
+                      <Badge variant={a.Status === 'active' ? 'success' : 'secondary'}>
+                        {a.Status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button asChild variant="light" size="sm">
+                        <Link to={`/pms/admin/accounts/${a.Id}`}>Manage</Link>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
-        </div>
+        </DataTable>
       </AsyncState>
     </PermissionGate>
   )

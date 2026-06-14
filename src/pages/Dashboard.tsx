@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { DollarSign, Package, ShoppingBag, Users } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -9,9 +10,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { ContentPanel } from '@/components/layout/ContentPanel'
+import { DataTable, DataTablePagination } from '@/components/layout/DataTable'
+import { TableAvatar, TableCellPrimary } from '@/components/layout/TableCellPrimary'
 import { StatCard } from '@/components/layout/StatCard'
 import { PageHeader } from '@/components/pms/PageHeader'
+import { useClientDataTable } from '@/hooks/use-client-data-table'
 
 const stats = [
   {
@@ -53,6 +56,8 @@ const recentOrders = [
   { id: 'ORD-10481', customer: 'Blue Ocean LLC', total: '$890', status: 'Shipped' },
   { id: 'ORD-10480', customer: 'Summit Retail', total: '$4,120', status: 'Pending' },
   { id: 'ORD-10479', customer: 'Apex Supplies', total: '$1,275', status: 'Delivered' },
+  { id: 'ORD-10478', customer: 'Horizon Foods', total: '$3,200', status: 'Processing' },
+  { id: 'ORD-10477', customer: 'Pacific Textiles', total: '$1,890', status: 'Shipped' },
 ]
 
 function statusBadge(status: string) {
@@ -66,6 +71,14 @@ function statusBadge(status: string) {
 }
 
 export default function Dashboard() {
+  const [search, setSearch] = useState('')
+  const filtered = recentOrders.filter((o) => {
+    if (!search.trim()) return true
+    const q = search.toLowerCase()
+    return o.id.toLowerCase().includes(q) || o.customer.toLowerCase().includes(q)
+  })
+  const table = useClientDataTable(filtered, { pageSize: 5 })
+
   return (
     <div className="space-y-6">
       <PageHeader
@@ -79,37 +92,56 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <ContentPanel
+      <DataTable
         title="Recent Orders"
         description="Last 24 hours"
-        actions={
+        count={filtered.length}
+        search={search}
+        onSearchChange={setSearch}
+        searchPlaceholder="Search recent orders…"
+        toolbarActions={
           <Button variant="light" size="sm">
             View all
           </Button>
         }
-        noPadding
+        footer={
+          <DataTablePagination
+            page={table.page}
+            pageSize={table.pageSize}
+            totalItems={table.totalItems}
+            totalPages={table.totalPages}
+            rangeStart={table.rangeStart}
+            rangeEnd={table.rangeEnd}
+            onPageChange={table.setPage}
+            onPageSizeChange={table.setPageSize}
+          />
+        }
       >
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Order</TableHead>
-              <TableHead>Customer</TableHead>
               <TableHead>Total</TableHead>
               <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {recentOrders.map((order) => (
+            {table.pageData.map((order) => (
               <TableRow key={order.id}>
-                <TableCell className="font-medium">{order.id}</TableCell>
-                <TableCell>{order.customer}</TableCell>
-                <TableCell>{order.total}</TableCell>
+                <TableCell>
+                  <TableCellPrimary
+                    title={order.id}
+                    subtitle={order.customer}
+                    leading={<TableAvatar label={order.customer} />}
+                  />
+                </TableCell>
+                <TableCell className="font-medium">{order.total}</TableCell>
                 <TableCell>{statusBadge(order.status)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-      </ContentPanel>
+      </DataTable>
     </div>
   )
 }

@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Search } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import {
   Select,
@@ -19,9 +18,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { DataTable, DataTablePagination } from '@/components/layout/DataTable'
+import { TableAvatar, TableCellPrimary } from '@/components/layout/TableCellPrimary'
 import { PageHeader } from '@/components/pms/PageHeader'
 import { AsyncState } from '@/components/pms/AsyncState'
 import { usePmsAuth } from '@/contexts/pms-auth-context'
+import { useClientDataTable } from '@/hooks/use-client-data-table'
+import { useDebouncedValue } from '@/hooks/use-debounced-value'
 import { fetchKpiIndicators, fetchKpiCategories } from '@/services/pms/kpi/kpi-service'
 import type { KpiIndicator } from '@/models/pms/kpi'
 
@@ -34,6 +37,7 @@ export default function KpiIndicatorsPage() {
   const [search, setSearch] = useState('')
   const [categoryFilter, setCategoryFilter] = useState<string>('all')
   const [statusFilter, setStatusFilter] = useState<string>('all')
+  const debouncedSearch = useDebouncedValue(search)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -41,7 +45,7 @@ export default function KpiIndicatorsPage() {
     try {
       const [data, cats] = await Promise.all([
         fetchKpiIndicators({
-          search: search || undefined,
+          search: debouncedSearch || undefined,
           category: categoryFilter !== 'all' ? categoryFilter : undefined,
           status: statusFilter !== 'all' ? (statusFilter as KpiIndicator['Status']) : undefined,
         }),
@@ -54,14 +58,16 @@ export default function KpiIndicatorsPage() {
     } finally {
       setLoading(false)
     }
-  }, [search, categoryFilter, statusFilter])
+  }, [debouncedSearch, categoryFilter, statusFilter])
 
   useEffect(() => {
     void load()
   }, [load])
 
+  const table = useClientDataTable(indicators, { pageSize: 10 })
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <PageHeader
         title="KPI Indicator Library"
         description="Manage enterprise KPI definitions, formulas, and versions."
@@ -76,41 +82,6 @@ export default function KpiIndicatorsPage() {
           ) : null
         }
       />
-
-      <div className="flex flex-wrap gap-3">
-        <div className="relative min-w-[200px] flex-1">
-          <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
-          <Input
-            placeholder="Search by code or name…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
-          />
-        </div>
-        <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="Category" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All categories</SelectItem>
-            {categories.map((c) => (
-              <SelectItem key={c} value={c}>
-                {c}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[140px]">
-            <SelectValue placeholder="Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
-            <SelectItem value="enabled">Enabled</SelectItem>
-            <SelectItem value="disabled">Disabled</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
 
       <AsyncState
         loading={loading}
@@ -127,12 +98,56 @@ export default function KpiIndicatorsPage() {
         }
         onRetry={load}
       >
-        <div className="rounded-md border">
+        <DataTable
+          title="Indicators"
+          count={indicators.length}
+          search={search}
+          onSearchChange={setSearch}
+          searchPlaceholder="Search by code or name…"
+          filters={
+            <>
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                <SelectTrigger className="h-9 w-[180px]">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All categories</SelectItem>
+                  {categories.map((c) => (
+                    <SelectItem key={c} value={c}>
+                      {c}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger className="h-9 w-[140px]">
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All statuses</SelectItem>
+                  <SelectItem value="enabled">Enabled</SelectItem>
+                  <SelectItem value="disabled">Disabled</SelectItem>
+                </SelectContent>
+              </Select>
+            </>
+          }
+          footer={
+            <DataTablePagination
+              page={table.page}
+              pageSize={table.pageSize}
+              totalItems={table.totalItems}
+              totalPages={table.totalPages}
+              rangeStart={table.rangeStart}
+              rangeEnd={table.rangeEnd}
+              onPageChange={table.setPage}
+              onPageSizeChange={table.setPageSize}
+            />
+          }
+        >
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Code</TableHead>
-                <TableHead>Name</TableHead>
+                <TableHead>Indicator</TableHead>
                 <TableHead>Category</TableHead>
                 <TableHead>Cycle</TableHead>
                 <TableHead>Status</TableHead>
@@ -141,20 +156,25 @@ export default function KpiIndicatorsPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {indicators.map((ind) => (
+              {table.pageData.map((ind) => (
                 <TableRow key={ind.Id}>
-                  <TableCell className="font-mono text-sm">{ind.Code}</TableCell>
-                  <TableCell className="font-medium">{ind.Name}</TableCell>
+                  <TableCell>
+                    <TableCellPrimary
+                      title={ind.Name}
+                      subtitle={ind.Code}
+                      leading={<TableAvatar label={ind.Name} />}
+                    />
+                  </TableCell>
                   <TableCell>
                     <Badge variant="secondary">{ind.Category}</Badge>
                   </TableCell>
                   <TableCell className="capitalize">{ind.Cycle}</TableCell>
                   <TableCell>
-                    <Badge variant={ind.Status === 'enabled' ? 'default' : 'outline'}>
+                    <Badge variant={ind.Status === 'enabled' ? 'success' : 'outline'}>
                       {ind.Status}
                     </Badge>
                   </TableCell>
-                  <TableCell className="font-mono text-sm">{ind.Version}</TableCell>
+                  <TableCell className="font-mono text-xs">{ind.Version}</TableCell>
                   <TableCell className="text-right">
                     <Button variant="light" size="sm" asChild>
                       <Link to={`/pms/kpi/indicators/${ind.Id}`}>View</Link>
@@ -164,7 +184,7 @@ export default function KpiIndicatorsPage() {
               ))}
             </TableBody>
           </Table>
-        </div>
+        </DataTable>
       </AsyncState>
     </div>
   )
