@@ -115,7 +115,7 @@ export default function ProjectTasksPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium">Sub-tasks</h3>
+        <h3 className="type-section-title">Sub-tasks</h3>
         {canManage ? (
           <Button
             size="sm"

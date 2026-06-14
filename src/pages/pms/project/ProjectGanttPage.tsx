@@ -30,7 +30,7 @@ export default function ProjectGanttPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium">Gantt chart</h3>
+        <h3 className="type-section-title">Gantt chart</h3>
         {tasks.length === 0 ? (
           <Link
             to={`/pms/projects/${project.Id}/tasks`}

@@ -41,9 +41,9 @@ export function ContentPanel({
     <Card className={cn('shadow-[var(--shadow-card)]', className)}>
       <CardHeader className="flex flex-row items-start justify-between gap-4 border-b border-border/60 px-5 py-4">
         <div>
-          <CardTitle className="text-base font-semibold">{title}</CardTitle>
+          <CardTitle className="type-card-title">{title}</CardTitle>
           {description ? (
-            <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+            <p className="type-card-description mt-1">{description}</p>
           ) : null}
         </div>
         {headerActions ? (

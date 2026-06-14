@@ -74,7 +74,7 @@ export default function ProjectDurationRequestsPage() {
     <PermissionGate allowed={hasPermission('project.manage')}>
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <h3 className="text-lg font-medium">Duration change requests</h3>
+          <h3 className="type-section-title">Duration change requests</h3>
           {pending > 0 ? <Badge>{pending} pending</Badge> : null}
         </div>
 

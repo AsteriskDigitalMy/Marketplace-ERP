@@ -14,7 +14,7 @@ type TextLinkProps = {
 /** Inline content link — Metronic "Learn more" in card footers. */
 export function TextLink({ children, className, variant = 'primary', to, href, ...rest }: TextLinkProps) {
   const styles = cn(
-    'inline-flex items-center gap-1 text-sm font-medium transition-colors',
+    'inline-flex items-center gap-1 text-2sm font-medium transition-colors',
     variant === 'primary' && 'text-primary hover:text-primary-hover hover:underline hover:underline-offset-4',
     variant === 'muted' && 'text-muted-foreground hover:text-primary hover:underline hover:underline-offset-4',
     className,

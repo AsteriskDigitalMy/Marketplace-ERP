@@ -112,7 +112,7 @@ export default function ProjectIssuesPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium">Project issues</h3>
+        <h3 className="type-section-title">Project issues</h3>
         <Button
           size="sm"
           disabled={selected.length === 0}

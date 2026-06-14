@@ -108,7 +108,7 @@ export default function ProjectAcceptancePage() {
     <PermissionGate allowed={hasPermission('project.manage')}>
       <AsyncState loading={loading}>
         <div className="space-y-4">
-          <h3 className="text-lg font-medium">Acceptance application</h3>
+          <h3 className="type-section-title">Acceptance application</h3>
 
           <Alert variant={allAccepted ? 'default' : 'destructive'}>
             <AlertDescription>

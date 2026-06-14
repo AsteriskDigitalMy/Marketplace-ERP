@@ -50,15 +50,15 @@ const buttonVariants = cva(
           "border-transparent bg-success text-success-foreground shadow-sm hover:bg-success/90",
       },
       size: {
-        default: "h-10 px-4 text-sm",
-        xs: "h-7 gap-1 rounded-md px-2.5 text-xs [&_svg:not([class*='size-'])]:size-3.5",
-        sm: "h-8 gap-1.5 rounded-md px-3 text-xs [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-12 rounded-md px-5 text-base [&_svg:not([class*='size-'])]:size-5",
+        default: "h-10 px-4 text-2sm",
+        xs: "h-7 gap-1 rounded-md px-2.5 text-2xs [&_svg:not([class*='size-'])]:size-3.5",
+        sm: "h-8 gap-1.5 rounded-md px-3 text-2xs [&_svg:not([class*='size-'])]:size-3.5",
+        lg: "h-12 rounded-md px-5 text-sm [&_svg:not([class*='size-'])]:size-5",
         icon: "size-10",
         "icon-xs": "size-7 [&_svg:not([class*='size-'])]:size-3.5",
         "icon-sm": "size-8",
         "icon-lg": "size-12 [&_svg:not([class*='size-'])]:size-5",
-        link: "h-auto px-0 text-sm",
+        link: "h-auto px-0 text-2sm",
       },
     },
     compoundVariants: [
@@ -70,7 +70,7 @@ const buttonVariants = cva(
       {
         variant: ["link", "link-muted"],
         size: "sm",
-        className: "h-auto px-0 text-xs",
+        className: "h-auto px-0 text-2xs",
       },
     ],
     defaultVariants: {

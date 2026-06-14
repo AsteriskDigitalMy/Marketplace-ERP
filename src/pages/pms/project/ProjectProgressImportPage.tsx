@@ -74,7 +74,7 @@ export default function ProjectProgressImportPage() {
     <PermissionGate allowed={hasPermission('project.manage')}>
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium">Excel / CSV import</h3>
+          <h3 className="type-section-title">Excel / CSV import</h3>
           <Button asChild variant="light" size="sm">
             <Link to={`/pms/projects/${project.Id}/progress`}>Back to batch update</Link>
           </Button>

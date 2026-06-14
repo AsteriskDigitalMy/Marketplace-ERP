@@ -23,12 +23,12 @@ export function StatCard({
     <Card className="shadow-[var(--shadow-card)]">
       <CardContent className="flex items-start justify-between gap-4 pt-6">
         <div className="space-y-1">
-          <p className="text-sm font-medium text-muted-foreground">{label}</p>
-          <p className="text-2xl font-semibold tracking-tight text-foreground">{value}</p>
+          <p className="text-2sm font-medium text-muted-foreground">{label}</p>
+          <p className="text-1_5xl font-semibold tracking-tight text-foreground">{value}</p>
           {change ? (
             <p
               className={cn(
-                'text-xs font-medium',
+                'text-2xs font-medium',
                 changeTone === 'positive' && 'text-success',
                 changeTone === 'negative' && 'text-destructive',
                 changeTone === 'neutral' && 'text-muted-foreground',
