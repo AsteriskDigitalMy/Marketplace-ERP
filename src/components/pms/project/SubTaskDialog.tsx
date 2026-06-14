@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -129,11 +130,12 @@ export function SubTaskDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
+      <DialogContent className="max-h-[90vh] sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{initial ? 'Edit sub-task' : 'New sub-task'}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <DialogBody className="space-y-4 overflow-y-auto">
           <input type="hidden" value={projectId} readOnly />
           <div className="space-y-2">
             <Label htmlFor="task-name">Task name</Label>
@@ -212,6 +214,7 @@ export function SubTaskDialog({
               </div>
             </div>
           ) : null}
+          </DialogBody>
           <DialogFooter>
             <Button type="button" variant="light" onClick={() => onOpenChange(false)}>
               Cancel

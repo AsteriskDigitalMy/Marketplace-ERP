@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/table'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -180,7 +181,7 @@ export default function ParametersPage() {
             <DialogTitle>Edit parameter — {editing?.Code}</DialogTitle>
           </DialogHeader>
           {editing ? (
-            <div className="space-y-4">
+            <DialogBody className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="val">Value ({editing.DataType})</Label>
                 {editing.DataType === 'boolean' ? (
@@ -217,7 +218,7 @@ export default function ParametersPage() {
                   />
                 </div>
               ) : null}
-            </div>
+            </DialogBody>
           ) : null}
           <DialogFooter>
             <Button type="button" variant="light" onClick={() => setEditing(null)}>

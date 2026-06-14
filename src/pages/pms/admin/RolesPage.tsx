@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/table'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -189,11 +190,11 @@ export default function RolesPage() {
       </AsyncState>
 
       <Dialog open={editorOpen} onOpenChange={setEditorOpen}>
-        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-lg max-h-[90vh]">
           <DialogHeader>
             <DialogTitle>{editing ? 'Edit role' : 'New role'}</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <DialogBody className="space-y-4 overflow-y-auto">
             <div className="space-y-2">
               <Label htmlFor="rname">Role name</Label>
               <Input id="rname" value={name} onChange={(e) => setName(e.target.value)} maxLength={100} />
@@ -240,7 +241,7 @@ export default function RolesPage() {
                 <Textarea id="filter" value={customFilter} onChange={(e) => setCustomFilter(e.target.value)} />
               </div>
             ) : null}
-          </div>
+          </DialogBody>
           <DialogFooter>
             <Button type="button" variant="light" onClick={() => setEditorOpen(false)}>
               Cancel

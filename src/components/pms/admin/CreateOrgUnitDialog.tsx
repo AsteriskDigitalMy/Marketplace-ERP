@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -161,7 +162,8 @@ export function CreateOrgUnitDialog({
           <DialogHeader>
             <DialogTitle>Add Organizational Unit</DialogTitle>
           </DialogHeader>
-          <form onSubmit={onSubmit} className="space-y-4">
+          <form onSubmit={onSubmit} className="flex flex-col">
+            <DialogBody className="space-y-4">
             <div className="space-y-2">
               <Label>Parent node</Label>
               <Input
@@ -243,6 +245,7 @@ export function CreateOrgUnitDialog({
                 {...form.register('SortOrder', { valueAsNumber: true })}
               />
             </div>
+            </DialogBody>
             <DialogFooter>
               <Button type="button" variant="light" onClick={handleClose} disabled={submitting}>
                 Cancel

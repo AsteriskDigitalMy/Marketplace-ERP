@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/table'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -193,7 +194,7 @@ export default function ProjectIssuesPage() {
           <DialogHeader>
             <DialogTitle>Bulk assign {selected.length} issue(s)</DialogTitle>
           </DialogHeader>
-          <div className="space-y-3">
+          <DialogBody className="space-y-3">
             <div className="space-y-2">
               <Label>Handler</Label>
               <select
@@ -217,7 +218,7 @@ export default function ProjectIssuesPage() {
               <Label>Resolution measures template</Label>
               <Textarea value={measures} onChange={(e) => setMeasures(e.target.value)} rows={3} />
             </div>
-          </div>
+          </DialogBody>
           <DialogFooter>
             <Button onClick={() => void bulkAssign()}>Confirm assign</Button>
           </DialogFooter>
@@ -229,7 +230,8 @@ export default function ProjectIssuesPage() {
           <SheetHeader>
             <SheetTitle>Disposal timeline</SheetTitle>
           </SheetHeader>
-          <ul className="mt-4 space-y-2 text-sm">
+          <div className="flex-1 overflow-y-auto px-6 py-5">
+          <ul className="space-y-2 text-sm">
             {timeline?.DisposalLog.map((entry, i) => (
               <li key={i} className="rounded border p-2">
                 <p className="font-medium">{entry.Action}</p>
@@ -238,6 +240,7 @@ export default function ProjectIssuesPage() {
               </li>
             ))}
           </ul>
+          </div>
         </SheetContent>
       </Sheet>
 
@@ -246,12 +249,14 @@ export default function ProjectIssuesPage() {
           <DialogHeader>
             <DialogTitle>Submit disposal result</DialogTitle>
           </DialogHeader>
+          <DialogBody>
           <Textarea
             rows={4}
             value={disposalResult}
             onChange={(e) => setDisposalResult(e.target.value)}
             placeholder="Describe remediation taken…"
           />
+          </DialogBody>
           <DialogFooter>
             <Button
               onClick={async () => {
@@ -273,11 +278,13 @@ export default function ProjectIssuesPage() {
           <DialogHeader>
             <DialogTitle>Verify issue closure</DialogTitle>
           </DialogHeader>
+          <DialogBody>
           <Textarea
             rows={3}
             value={verifyComment}
             onChange={(e) => setVerifyComment(e.target.value)}
           />
+          </DialogBody>
           <DialogFooter>
             <Button
               variant="light"

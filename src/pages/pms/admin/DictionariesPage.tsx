@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/table'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -197,7 +198,7 @@ export default function DictionariesPage() {
           <DialogHeader>
             <DialogTitle>{editingItem ? 'Edit dictionary item' : 'Add dictionary item'}</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <DialogBody className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="dcode">Code</Label>
               <Input id="dcode" value={code} onChange={(e) => setCode(e.target.value)} maxLength={50} />
@@ -220,7 +221,7 @@ export default function DictionariesPage() {
               <Switch checked={enabled} onCheckedChange={setEnabled} id="enabled" />
               <Label htmlFor="enabled">Enabled</Label>
             </div>
-          </div>
+          </DialogBody>
           <DialogFooter>
             <Button type="button" variant="light" onClick={() => setEditorOpen(false)}>
               Cancel

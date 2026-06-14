@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -107,11 +108,12 @@ export function FillingRuleDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
+      <DialogContent className="max-h-[90vh] sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{initial ? 'Edit filling rule' : 'Add filling rule'}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <DialogBody className="space-y-4 overflow-y-auto">
           <div className="space-y-2">
             <Label>Indicator (manual / mixed only)</Label>
             <Select
@@ -197,6 +199,7 @@ export function FillingRuleDialog({
             />
             <Label>Active</Label>
           </div>
+          </DialogBody>
           <DialogFooter>
             <Button type="button" variant="light" onClick={() => onOpenChange(false)}>
               Cancel

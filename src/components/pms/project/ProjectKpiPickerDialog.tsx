@@ -7,6 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Badge } from '@/components/ui/badge'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -76,6 +77,7 @@ export function ProjectKpiPickerDialog({
           <DialogDescription>Only enabled indicators from the KPI library are shown.</DialogDescription>
         </DialogHeader>
 
+        <DialogBody className="space-y-4">
         {options.length === 0 ? (
           <p className="text-sm text-muted-foreground">
             No enabled KPIs found.{' '}
@@ -133,6 +135,8 @@ export function ProjectKpiPickerDialog({
             </div>
           </>
         )}
+
+        </DialogBody>
 
         <DialogFooter>
           <Button variant="light" onClick={() => onOpenChange(false)}>

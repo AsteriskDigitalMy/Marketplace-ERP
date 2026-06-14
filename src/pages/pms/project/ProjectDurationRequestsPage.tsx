@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/table'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -127,6 +128,7 @@ export default function ProjectDurationRequestsPage() {
             <DialogHeader>
               <DialogTitle>Review duration change</DialogTitle>
             </DialogHeader>
+            <DialogBody className="space-y-4">
             {reviewing ? (
               <div className="space-y-2 text-sm">
                 <p>{reviewing.Reason}</p>
@@ -141,6 +143,7 @@ export default function ProjectDurationRequestsPage() {
               <Label>Opinion</Label>
               <Textarea value={opinion} onChange={(e) => setOpinion(e.target.value)} rows={3} />
             </div>
+            </DialogBody>
             <DialogFooter>
               <Button variant="destructive-solid" onClick={() => void submitReview('rejected')}>
                 Reject

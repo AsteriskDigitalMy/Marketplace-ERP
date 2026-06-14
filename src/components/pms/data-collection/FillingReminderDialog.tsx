@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -62,6 +63,7 @@ export function FillingReminderDialog() {
             You have {tasks.length} filling task(s) requiring attention.
           </DialogDescription>
         </DialogHeader>
+        <DialogBody className="space-y-4">
         <Table>
           <TableHeader>
             <TableRow>
@@ -92,6 +94,7 @@ export function FillingReminderDialog() {
           />
           Don&apos;t show again today
         </label>
+        </DialogBody>
         <DialogFooter>
           <Button variant="light" onClick={dismiss}>
             Remind me later

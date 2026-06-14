@@ -20,6 +20,7 @@ import {
 import {
   AlertDialog,
   AlertDialogAction,
+  AlertDialogBody,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -29,6 +30,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -486,12 +488,14 @@ export default function KpiIndicatorDetailPage() {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               {pendingStatus === 'disabled' && hasActiveUsage ? (
-                <Alert>
-                  <AlertDescription>
-                    This indicator is bound to {usage?.ActiveProjects} active project(s). Disabling
-                    may affect in-progress KPI tracking.
-                  </AlertDescription>
-                </Alert>
+                <AlertDialogBody className="py-4">
+                  <Alert>
+                    <AlertDescription>
+                      This indicator is bound to {usage?.ActiveProjects} active project(s). Disabling
+                      may affect in-progress KPI tracking.
+                    </AlertDescription>
+                  </Alert>
+                </AlertDialogBody>
               ) : null}
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -528,9 +532,11 @@ export default function KpiIndicatorDetailPage() {
                 <DialogTitle>Version diff — {diffVersion?.Version}</DialogTitle>
                 <DialogDescription>Mock snapshot comparison</DialogDescription>
               </DialogHeader>
+              <DialogBody>
               <pre className="max-h-96 overflow-auto rounded-md bg-muted p-4 text-xs">
                 {JSON.stringify(diffVersion?.Snapshot, null, 2)}
               </pre>
+              </DialogBody>
             </DialogContent>
           </Dialog>
         </div>
