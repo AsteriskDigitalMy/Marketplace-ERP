@@ -30,27 +30,30 @@ Frontend requirement documents for Marketplace-ERP modules. Each subsection is a
 
 ---
 
-## 3.5 Warehouse Management System (WMS)
+## 3.3 Supply Chain Management (SCM)
 
 | # | File | Section |
 |---|------|---------|
-| 1 | [3.5.1-module-core-positioning.md](./3.5.1-module-core-positioning.md) | Module core positioning |
-| 2 | [3.5.2.1-warehouse-zone-location.md](./3.5.2.1-warehouse-zone-location.md) | Warehouse / zone / location management |
-| 3 | [3.5.2.2-material-master-data.md](./3.5.2.2-material-master-data.md) | Material master data (warehouse attributes) |
-| 4 | [3.5.2.3-warehouse-strategy-configuration.md](./3.5.2.3-warehouse-strategy-configuration.md) | Warehouse strategy configuration |
-| 5 | [3.5.3.1-purchase-inbound.md](./3.5.3.1-purchase-inbound.md) | Purchase inbound management |
-| 6 | [3.5.3.2-production-output-inbound.md](./3.5.3.2-production-output-inbound.md) | Production output inbound |
-| 7 | [3.5.3.3-miscellaneous-inbound.md](./3.5.3.3-miscellaneous-inbound.md) | Miscellaneous inbound |
-| 8 | [3.5.4.1-production-material-picking.md](./3.5.4.1-production-material-picking.md) | Production material picking & issuance |
-| 9 | [3.5.4.2-sales-shipping-outbound.md](./3.5.4.2-sales-shipping-outbound.md) | Sales shipping outbound |
-| 10 | [3.5.4.3-miscellaneous-outbound.md](./3.5.4.3-miscellaneous-outbound.md) | Miscellaneous outbound |
-| 11 | [3.5.5.1-inventory-transfer.md](./3.5.5.1-inventory-transfer.md) | Inventory transfer management |
-| 12 | [3.5.5.2-inventory-alert.md](./3.5.5.2-inventory-alert.md) | Inventory alert management |
-| 13 | [3.5.5.3-batch-shelf-life-control.md](./3.5.5.3-batch-shelf-life-control.md) | Batch & shelf-life control |
-| 14 | [3.5.5.4-inventory-reservation-freezing.md](./3.5.5.4-inventory-reservation-freezing.md) | Inventory reservation & freezing |
-| 15 | [3.5.6-inventory-counting.md](./3.5.6-inventory-counting.md) | Inventory counting (stock-taking) |
-| 16 | [3.5.7-material-traceability.md](./3.5.7-material-traceability.md) | Full-process material traceability |
-| 17 | [3.5.8-statistics-reports.md](./3.5.8-statistics-reports.md) | Warehousing statistics & reports |
+| 1 | [3.3.1-module-core-positioning.md](./3.3.1-module-core-positioning.md) | Module core positioning |
+| 2 | [3.3.2.1-customer-master-data.md](./3.3.2.1-customer-master-data.md) | Customer & master data management |
+| 3 | [3.3.2.2-sales-order-creation.md](./3.3.2.2-sales-order-creation.md) | Sales order creation & management |
+| 4 | [3.3.2.3-order-review.md](./3.3.2.3-order-review.md) | Multi-dimensional order review |
+| 5 | [3.3.2.4-order-change.md](./3.3.2.4-order-change.md) | Order change management |
+| 6 | [3.3.2.5-order-tracking.md](./3.3.2.5-order-tracking.md) | End-to-end order tracking |
+| 7 | [3.3.2.6-order-shipment-closure.md](./3.3.2.6-order-shipment-closure.md) | Order shipment & closure |
+| 8 | [3.3.3.1-supplier-management.md](./3.3.3.1-supplier-management.md) | Supplier management |
+| 9 | [3.3.3.2-procurement-demand-requisition.md](./3.3.3.2-procurement-demand-requisition.md) | Procurement demand & requisition |
+| 10 | [3.3.3.3-purchase-order.md](./3.3.3.3-purchase-order.md) | Purchase order management |
+| 11 | [3.3.3.4-procurement-arrival-iqc.md](./3.3.3.4-procurement-arrival-iqc.md) | Procurement arrival & IQC |
+| 12 | [3.3.3.5-purchase-reconciliation-settlement.md](./3.3.3.5-purchase-reconciliation-settlement.md) | Purchase reconciliation & settlement |
+| 13 | [3.3.4.1-demand-resource-management.md](./3.3.4.1-demand-resource-management.md) | Demand & resource management |
+| 14 | [3.3.4.2-intelligent-scheduling-engine.md](./3.3.4.2-intelligent-scheduling-engine.md) | Intelligent scheduling engine |
+| 15 | [3.3.4.3-scheduling-visualization.md](./3.3.4.3-scheduling-visualization.md) | Scheduling visualization & adjustment |
+| 16 | [3.3.4.4-schedule-dispatch-rolling.md](./3.3.4.4-schedule-dispatch-rolling.md) | Schedule dispatch & rolling updates |
+| 17 | [3.3.4.5-urgent-orders-changes.md](./3.3.4.5-urgent-orders-changes.md) | Urgent orders & change processing |
+| 18 | [3.3.4.6-plan-achievement-pdca.md](./3.3.4.6-plan-achievement-pdca.md) | Plan achievement analysis & PDCA |
+| 19 | [3.3.5-subcontracting.md](./3.3.5-subcontracting.md) | Subcontracting & collaborative manufacturing |
+| 20 | [3.3.6-import-export-shipping.md](./3.3.6-import-export-shipping.md) | Import/export & shipping management |
 
 ---
 
@@ -83,3 +86,27 @@ Frontend requirement documents for Marketplace-ERP modules. Each subsection is a
 | 23 | [3.4.7.3-piece-rate-wage-calculation.md](./3.4.7.3-piece-rate-wage-calculation.md) | Piece-rate wage automatic calculation |
 | 24 | [3.4.8-production-cost-management.md](./3.4.8-production-cost-management.md) | Production cost fine-grained management |
 | 25 | [3.4.9-production-statistics-reports.md](./3.4.9-production-statistics-reports.md) | Production data statistics & reports |
+
+---
+
+## 3.5 Warehouse Management System (WMS)
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.5.1-module-core-positioning.md](./3.5.1-module-core-positioning.md) | Module core positioning |
+| 2 | [3.5.2.1-warehouse-zone-location.md](./3.5.2.1-warehouse-zone-location.md) | Warehouse / zone / location management |
+| 3 | [3.5.2.2-material-master-data.md](./3.5.2.2-material-master-data.md) | Material master data (warehouse attributes) |
+| 4 | [3.5.2.3-warehouse-strategy-configuration.md](./3.5.2.3-warehouse-strategy-configuration.md) | Warehouse strategy configuration |
+| 5 | [3.5.3.1-purchase-inbound.md](./3.5.3.1-purchase-inbound.md) | Purchase inbound management |
+| 6 | [3.5.3.2-production-output-inbound.md](./3.5.3.2-production-output-inbound.md) | Production output inbound |
+| 7 | [3.5.3.3-miscellaneous-inbound.md](./3.5.3.3-miscellaneous-inbound.md) | Miscellaneous inbound |
+| 8 | [3.5.4.1-production-material-picking.md](./3.5.4.1-production-material-picking.md) | Production material picking & issuance |
+| 9 | [3.5.4.2-sales-shipping-outbound.md](./3.5.4.2-sales-shipping-outbound.md) | Sales shipping outbound |
+| 10 | [3.5.4.3-miscellaneous-outbound.md](./3.5.4.3-miscellaneous-outbound.md) | Miscellaneous outbound |
+| 11 | [3.5.5.1-inventory-transfer.md](./3.5.5.1-inventory-transfer.md) | Inventory transfer management |
+| 12 | [3.5.5.2-inventory-alert.md](./3.5.5.2-inventory-alert.md) | Inventory alert management |
+| 13 | [3.5.5.3-batch-shelf-life-control.md](./3.5.5.3-batch-shelf-life-control.md) | Batch & shelf-life control |
+| 14 | [3.5.5.4-inventory-reservation-freezing.md](./3.5.5.4-inventory-reservation-freezing.md) | Inventory reservation & freezing |
+| 15 | [3.5.6-inventory-counting.md](./3.5.6-inventory-counting.md) | Inventory counting (stock-taking) |
+| 16 | [3.5.7-material-traceability.md](./3.5.7-material-traceability.md) | Full-process material traceability |
+| 17 | [3.5.8-statistics-reports.md](./3.5.8-statistics-reports.md) | Warehousing statistics & reports |
