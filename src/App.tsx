@@ -66,6 +66,7 @@ import PmsAlertsLayout from './components/pms/PmsAlertsLayout'
 import AlertInboxPage from './pages/pms/alerts/AlertInboxPage'
 import AlertRulesPage from './pages/pms/alerts/AlertRulesPage'
 import AlertRuleEditorPage from './pages/pms/alerts/AlertRuleEditorPage'
+import AlertDisposalPage from './pages/pms/alerts/AlertDisposalPage'
 
 export default function App() {
   return (
@@ -90,6 +91,7 @@ export default function App() {
               <Route path="rules/new" element={<AlertRuleEditorPage />} />
               <Route path="rules/:id/edit" element={<AlertRuleEditorPage />} />
             </Route>
+            <Route path="pms/alerts/:id/disposal" element={<AlertDisposalPage />} />
 
             <Route path="pms/kpi" element={<PmsKpiLayout />}>
               <Route index element={<Navigate to="indicators" replace />} />
