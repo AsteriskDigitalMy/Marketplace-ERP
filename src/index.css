@@ -1,19 +1,22 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+@import "@fontsource-variable/inter";
 
 @custom-variant dark (&:is(.dark *));
 
 /* Metronic Demo1-inspired design tokens (light sidebar) */
 :root {
-  font-family: "Geist Variable", Inter, system-ui, -apple-system, sans-serif;
+  font-family: "Inter Variable", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-size: 14px;
   line-height: 1.5;
   font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 
   --background: oklch(0.975 0.004 264);
   --foreground: oklch(0.28 0.02 264);
@@ -86,8 +89,8 @@ select {
 }
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: "Geist Variable", Inter, system-ui, sans-serif;
+  --font-heading: "Inter Variable", Inter, system-ui, sans-serif;
+  --font-sans: "Inter Variable", Inter, system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -165,11 +168,34 @@ select {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
-    @apply font-sans;
+    @apply font-sans antialiased;
+  }
+  body {
+    @apply bg-background text-sm leading-relaxed text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-semibold tracking-tight text-foreground;
+  }
+  h1 {
+    @apply text-2xl leading-tight;
+  }
+  h2 {
+    @apply text-xl leading-snug;
+  }
+  h3 {
+    @apply text-base leading-snug;
+  }
+  code,
+  kbd,
+  samp,
+  pre {
+    @apply font-mono;
   }
 }
 
