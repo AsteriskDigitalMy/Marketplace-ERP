@@ -1,0 +1,134 @@
+---
+description: UI/UX standards for the Marketplace-ERP frontend — shadcn/ui conventions, brand color palette (#002379), accessibility and interaction patterns. Apply when building or modifying any UI.
+globs:
+  - "src/**/*.tsx"
+  - "src/**/*.ts"
+  - "src/**/*.css"
+  - "index.html"
+alwaysApply: false
+---
+
+# Marketplace-Loyalty UI/UX Rules
+
+## Stack
+
+- Vite + React + TypeScript (strict). UI built **exclusively** with shadcn/ui components on Tailwind CSS.
+- Add shadcn components via the CLI (`npx shadcn@latest add <component>`) into `src/components/ui/`. Never hand-write a replacement for a component shadcn already provides (button, dialog, table, form, select, toast, etc.).
+- `src/components/ui/` is generated code: restyle via tokens/variants, do not fork component logic. App-specific composites live in `src/components/shared/`.
+- Icons: `lucide-react` only. Charts: shadcn Chart components (Recharts).
+- Never hardcode colors in components (`bg-[#002379]` is forbidden). Use semantic Tailwind classes backed by the CSS variables below (`bg-primary`, `text-muted-foreground`, …).
+
+## Color palette
+
+Brand primary is **#002379** (deep navy, hsl(223 100% 24%)) — anchored as step 800 of the primary scale.
+
+### Primary — "Marketplace Navy"
+
+| Step | Hex | Usage |
+| --- | --- | --- |
+| 50 | `#E8EDFF` | Tinted backgrounds, selected rows |
+| 100 | `#D4DEFF` | Hover tints, badges background |
+| 200 | `#A9BDFF` | Borders on tinted surfaces |
+| 300 | `#7E9BFF` | Decorative, charts |
+| 400 | `#5379FF` | Links on dark surfaces, charts |
+| 500 | `#2857F0` | Interactive accents, focus glow |
+| 600 | `#1240C4` | Link text, hover state of primary buttons |
+| 700 | `#06309C` | Active/pressed state of primary buttons |
+| **800** | **`#002379`** | **Brand primary — buttons, sidebar, key actions** |
+| 900 | `#001A59` | Dark surfaces, portal hero background |
+| 950 | `#001038` | Darkest surface, dark-mode background |
+
+### Accent — "Reward Gold" (complementary to navy; reserved for loyalty moments)
+
+| Step | Hex | Usage |
+| --- | --- | --- |
+| 100 | `#FFF3D6` | Gold tinted backgrounds |
+| 400 | `#FFC233` | Points icons, tier highlights |
+| 500 | `#FFB200` | Points values, celebration moments, "Redeem" emphasis |
+| 600 | `#D99700` | Gold text on light backgrounds (meets contrast) |
+
+Gold is an *earned-value* signal: points balances, rewards, tier badges, celebrations. Do not use it for generic CTAs or decoration — navy stays the workhorse.
+
+### Semantic
+
+| Role | Hex | Notes |
+| --- | --- | --- |
+| Success | `#16A34A` | Points earned, fulfilled, active |
+| Warning | `#F59E0B` | Expiring points, low inventory |
+| Destructive | `#DC2626` | Revoke, delete, failed deliveries |
+| Info | `#0284C7` | Neutral notices |
+
+### Neutrals
+
+Use Tailwind **slate** (cool gray, harmonizes with navy). Body text `slate-900` on white; secondary text `slate-500`; borders `slate-200`; page background `slate-50` (admin) / white (portal).
+
+### shadcn CSS variables (`src/styles/globals.css`)
+
+```css
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 223 100% 24%;            /* #002379 */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 223 100% 95%;          /* primary-50 */
+  --secondary-foreground: 223 100% 24%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --accent: 223 100% 95%;             /* subtle hover surface */
+  --accent-foreground: 223 100% 24%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 223 100% 24%;
+  --radius: 0.5rem;
+  /* brand extras */
+  --gold: 42 100% 50%;                /* #FFB200 */
+  --gold-foreground: 36 100% 15%;
+  --success: 142 72% 36%;
+  --warning: 38 92% 50%;
+  --info: 199 97% 40%;
+}
+```
+
+Dark mode: invert around `primary-950` (`#001038`) as background, keep `--primary` at a lighter step (use primary-400 `#5379FF` for sufficient contrast) — define `.dark` overrides when dark mode is scheduled.
+
+## Typography & spacing
+
+- Font: Inter (variable), system-ui fallback. Tabular numerals (`font-variant-numeric: tabular-nums`) for points values and tables.
+- Type scale: page title `text-2xl font-semibold`, section `text-lg font-semibold`, body `text-sm`, captions `text-xs text-muted-foreground`. Don't invent intermediate sizes.
+- Spacing on the 4px grid; standard page padding `p-6` (admin), `p-4` (portal mobile). Card gaps `gap-4` or `gap-6`.
+- Points values are first-class content: display with thousands separators, gold color for emphasis contexts, and never truncated.
+
+## Layout
+
+- Admin: shadcn `Sidebar` navigation + topbar; content max-width `max-w-7xl`; usable from 1024px and up.
+- Portal: mobile-first (design at 360px, enhance upward); single-column flows; bottom-reachable primary actions on mobile.
+- Tables on mobile collapse to stacked cards — never horizontal scroll for primary content.
+
+## Interaction & state patterns
+
+- **Every async view has 4 designed states:** loading (skeletons matching final layout — no spinners-as-pages), empty (explain + primary action), error (human message + retry), success.
+- **Forms:** React Hook Form + Zod. Validate on blur, re-validate on change after first error. Errors inline under fields; never only in a toast. Submit buttons show inline loading and disable; never disable submit pre-emptively for untouched forms.
+- **Destructive or irreversible actions** (revoke points, delete rule, cancel redemption): `ConfirmDialog` restating the concrete effect ("Remove 500 points from Jane — new balance 750"); destructive button styled `variant="destructive"`. High-risk deletes require typed confirmation.
+- **Feedback:** `toast` (sonner) for results of background actions; success toasts are brief, error toasts persist until dismissed and say what to do next. Never use `alert()`/`confirm()`.
+- **Optimistic updates** for toggles and adjustments via TanStack Query, with rollback + error toast on failure.
+- **Dialogs vs Sheets vs pages:** quick confirmation/single-field → `Dialog`; inspect-heavy side content (payloads, details) → `Sheet`; anything with > ~6 fields or multi-step → dedicated page.
+- Loyalty celebration moments (tier-up, redemption success) may use animation, but must be dismissible and respect `prefers-reduced-motion`.
+
+## Accessibility (non-negotiable)
+
+- WCAG 2.1 AA. Text contrast ≥ 4.5:1 — note: gold `#FFB200` on white fails for text; use `gold-600 #D99700` for text, reserve 500 for icons/large numerals ≥ 24px.
+- Full keyboard operability; visible focus rings (`--ring` navy) never removed.
+- Every input labelled (no placeholder-as-label); icons-only buttons get `aria-label`; meaning never conveyed by color alone (pair badges with text).
+- Announce async result states to screen readers (toast lib handles this; verify).
+
+## Copy & tone
+
+- Plain, encouraging language in the portal ("You earned 120 points"); precise, factual language in admin ("+120 earn · order #1042").
+- Sentence case everywhere (buttons, titles, labels). No exclamation marks in admin; sparing use in portal celebrations.
+- Numbers, dates, currency formatted via shared utils (locale-aware) — never inline `toFixed`/string concat.
