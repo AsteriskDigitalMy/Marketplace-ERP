@@ -14,7 +14,7 @@ export function PermissionGate({ allowed, children }: PermissionGateProps) {
     return <>{children}</>
   }
   return (
-    <Card className="mx-auto mt-12 max-w-lg border-destructive/30">
+    <Card className="mx-auto mt-8 max-w-lg border-border shadow-[var(--shadow-card)]">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-destructive">
           <ShieldAlert className="size-5" />

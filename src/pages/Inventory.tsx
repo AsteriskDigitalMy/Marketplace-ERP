@@ -1,3 +1,17 @@
+import { AlertTriangle } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { ContentPanel } from '@/components/layout/ContentPanel'
+import { PageHeader } from '@/components/pms/PageHeader'
+
 const inventory = [
   { sku: 'SKU-1001', name: 'Wireless Headphones', stock: 142, reorder: 50, warehouse: 'East' },
   { sku: 'SKU-1002', name: 'USB-C Dock', stock: 28, reorder: 40, warehouse: 'West' },
@@ -7,46 +21,52 @@ const inventory = [
 
 export default function Inventory() {
   return (
-    <div className="page">
-      <section className="page-intro">
-        <h2>Inventory</h2>
-        <p>Track stock levels, reorder points, and warehouse allocation.</p>
-      </section>
+    <div className="space-y-6">
+      <PageHeader
+        title="Inventory"
+        description="Track stock levels, reorder points, and warehouse allocation."
+      />
 
-      <section className="panel">
-        <div className="panel-header">
-          <h3>Stock Overview</h3>
-          <button type="button" className="primary-button">
-            Add Product
-          </button>
-        </div>
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>SKU</th>
-                <th>Product</th>
-                <th>On Hand</th>
-                <th>Reorder At</th>
-                <th>Warehouse</th>
-              </tr>
-            </thead>
-            <tbody>
-              {inventory.map((item) => (
-                <tr key={item.sku}>
-                  <td>{item.sku}</td>
-                  <td>{item.name}</td>
-                  <td className={item.stock < item.reorder ? 'text-warning' : ''}>
-                    {item.stock}
-                  </td>
-                  <td>{item.reorder}</td>
-                  <td>{item.warehouse}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <ContentPanel
+        title="Stock Overview"
+        actions={
+          <Button size="sm">Add Product</Button>
+        }
+        noPadding
+      >
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>SKU</TableHead>
+              <TableHead>Product</TableHead>
+              <TableHead>On Hand</TableHead>
+              <TableHead>Reorder At</TableHead>
+              <TableHead>Warehouse</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {inventory.map((item) => {
+              const low = item.stock < item.reorder
+              return (
+                <TableRow key={item.sku}>
+                  <TableCell className="font-mono text-xs">{item.sku}</TableCell>
+                  <TableCell className="font-medium">{item.name}</TableCell>
+                  <TableCell>
+                    <span className={low ? 'inline-flex items-center gap-1.5 font-semibold text-destructive' : ''}>
+                      {low ? <AlertTriangle className="size-3.5" /> : null}
+                      {item.stock}
+                    </span>
+                  </TableCell>
+                  <TableCell>{item.reorder}</TableCell>
+                  <TableCell>
+                    <Badge variant="outline">{item.warehouse}</Badge>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      </ContentPanel>
     </div>
   )
 }

@@ -77,7 +77,8 @@ export default function ManualRecalculatePage() {
   }, [active, load])
 
   useEffect(() => {
-    if (active?.Status === 'completed') {
+    if (active?.Status === 'completed' && active.Id !== toastedCompleteId.current) {
+      toastedCompleteId.current = active.Id
       toast.success(`Re-calculation complete. ${active.OverwrittenCount} value(s) overwritten.`)
       setActive(null)
       void load()

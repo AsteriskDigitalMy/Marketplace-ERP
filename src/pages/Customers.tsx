@@ -1,3 +1,15 @@
+import { Button } from '@/components/ui/button'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { ContentPanel } from '@/components/layout/ContentPanel'
+import { PageHeader } from '@/components/pms/PageHeader'
+
 const customers = [
   { id: 'CUS-301', name: 'Northwind Traders', email: 'ops@northwind.com', orders: 48, lifetime: '$84,200' },
   { id: 'CUS-302', name: 'Blue Ocean LLC', email: 'buyers@blueocean.io', orders: 22, lifetime: '$31,450' },
@@ -7,44 +19,40 @@ const customers = [
 
 export default function Customers() {
   return (
-    <div className="page">
-      <section className="page-intro">
-        <h2>Customers</h2>
-        <p>View buyer accounts, order history, and lifetime value.</p>
-      </section>
+    <div className="space-y-6">
+      <PageHeader
+        title="Customers"
+        description="View buyer accounts, order history, and lifetime value."
+      />
 
-      <section className="panel">
-        <div className="panel-header">
-          <h3>Customer Directory</h3>
-          <button type="button" className="primary-button">
-            Add Customer
-          </button>
-        </div>
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Orders</th>
-                <th>Lifetime Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {customers.map((customer) => (
-                <tr key={customer.id}>
-                  <td>{customer.id}</td>
-                  <td>{customer.name}</td>
-                  <td>{customer.email}</td>
-                  <td>{customer.orders}</td>
-                  <td>{customer.lifetime}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <ContentPanel
+        title="Customer Directory"
+        actions={<Button size="sm">Add Customer</Button>}
+        noPadding
+      >
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>ID</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Email</TableHead>
+              <TableHead>Orders</TableHead>
+              <TableHead>Lifetime Value</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {customers.map((customer) => (
+              <TableRow key={customer.id}>
+                <TableCell className="font-mono text-xs">{customer.id}</TableCell>
+                <TableCell className="font-medium">{customer.name}</TableCell>
+                <TableCell className="text-muted-foreground">{customer.email}</TableCell>
+                <TableCell>{customer.orders}</TableCell>
+                <TableCell className="font-semibold">{customer.lifetime}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </ContentPanel>
     </div>
   )
 }

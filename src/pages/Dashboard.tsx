@@ -1,8 +1,51 @@
+import { DollarSign, Package, ShoppingBag, Users } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { ContentPanel } from '@/components/layout/ContentPanel'
+import { StatCard } from '@/components/layout/StatCard'
+import { PageHeader } from '@/components/pms/PageHeader'
+
 const stats = [
-  { label: 'Revenue (MTD)', value: '$128,450', change: '+12.4%' },
-  { label: 'Open Orders', value: '342', change: '+8' },
-  { label: 'Low Stock Items', value: '17', change: '-3' },
-  { label: 'Active Customers', value: '1,204', change: '+26' },
+  {
+    label: 'Revenue (MTD)',
+    value: '$128,450',
+    change: '+12.4% vs last month',
+    changeTone: 'positive' as const,
+    icon: DollarSign,
+    iconClassName: 'bg-emerald-500/10 text-emerald-600',
+  },
+  {
+    label: 'Open Orders',
+    value: '342',
+    change: '+8 new today',
+    changeTone: 'positive' as const,
+    icon: ShoppingBag,
+    iconClassName: 'bg-primary/10 text-primary',
+  },
+  {
+    label: 'Low Stock Items',
+    value: '17',
+    change: '-3 since yesterday',
+    changeTone: 'negative' as const,
+    icon: Package,
+    iconClassName: 'bg-amber-500/10 text-amber-600',
+  },
+  {
+    label: 'Active Customers',
+    value: '1,204',
+    change: '+26 this week',
+    changeTone: 'positive' as const,
+    icon: Users,
+    iconClassName: 'bg-violet-500/10 text-violet-600',
+  },
 ]
 
 const recentOrders = [
@@ -12,56 +55,61 @@ const recentOrders = [
   { id: 'ORD-10479', customer: 'Apex Supplies', total: '$1,275', status: 'Delivered' },
 ]
 
+function statusBadge(status: string) {
+  const map: Record<string, 'warning' | 'default' | 'secondary' | 'success'> = {
+    Processing: 'warning',
+    Pending: 'secondary',
+    Shipped: 'default',
+    Delivered: 'success',
+  }
+  return <Badge variant={map[status] ?? 'secondary'}>{status}</Badge>
+}
+
 export default function Dashboard() {
   return (
-    <div className="page">
-      <section className="page-intro">
-        <h2>Dashboard</h2>
-        <p>Overview of marketplace performance, orders, and inventory health.</p>
-      </section>
+    <div className="space-y-6">
+      <PageHeader
+        title="Dashboard"
+        description="Central hub for marketplace performance, orders, and inventory health."
+      />
 
-      <section className="stat-grid">
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
         {stats.map((stat) => (
-          <article key={stat.label} className="stat-card">
-            <p className="stat-label">{stat.label}</p>
-            <p className="stat-value">{stat.value}</p>
-            <p className="stat-change">{stat.change} vs last month</p>
-          </article>
+          <StatCard key={stat.label} {...stat} />
         ))}
-      </section>
+      </div>
 
-      <section className="panel">
-        <div className="panel-header">
-          <h3>Recent Orders</h3>
-          <span className="panel-meta">Last 24 hours</span>
-        </div>
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Order</th>
-                <th>Customer</th>
-                <th>Total</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentOrders.map((order) => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
-                  <td>{order.customer}</td>
-                  <td>{order.total}</td>
-                  <td>
-                    <span className={`badge badge--${order.status.toLowerCase()}`}>
-                      {order.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <ContentPanel
+        title="Recent Orders"
+        description="Last 24 hours"
+        actions={
+          <Button variant="outline" size="sm">
+            View all
+          </Button>
+        }
+        noPadding
+      >
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Order</TableHead>
+              <TableHead>Customer</TableHead>
+              <TableHead>Total</TableHead>
+              <TableHead>Status</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {recentOrders.map((order) => (
+              <TableRow key={order.id}>
+                <TableCell className="font-medium">{order.id}</TableCell>
+                <TableCell>{order.customer}</TableCell>
+                <TableCell>{order.total}</TableCell>
+                <TableCell>{statusBadge(order.status)}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </ContentPanel>
     </div>
   )
 }

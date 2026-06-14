@@ -27,7 +27,7 @@ export function RecalculationBanner() {
   if (!active) return null
 
   return (
-    <div className="fixed inset-x-0 top-0 z-50 border-b bg-background/95 px-4 py-2 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/80">
+    <div className="fixed inset-x-0 top-16 z-40 border-b border-primary/20 bg-card/95 px-4 py-2 shadow-sm backdrop-blur-md">
       <Alert className="mx-auto max-w-5xl border-primary/30 bg-primary/5 py-2">
         <Loader2 className="size-4 animate-spin" />
         <AlertDescription className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">

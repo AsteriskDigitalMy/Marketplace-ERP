@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
-import { cn } from '@/lib/utils'
-import { Badge } from '@/components/ui/badge'
+import { Outlet } from 'react-router-dom'
+import { ModuleLayout } from '@/components/pms/ModuleLayout'
 import { fetchProjectNavBadges } from '@/services/pms/project/project-service'
 
 export default function PmsProjectLayout() {
@@ -31,36 +30,13 @@ export default function PmsProjectLayout() {
   ]
 
   return (
-    <div className="space-y-6">
-      <div>
-        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">PMS</p>
-        <h2 className="text-lg font-semibold">Project Management</h2>
-      </div>
-      <nav className="flex flex-wrap gap-2 border-b pb-3" aria-label="PMS projects">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.end}
-            className={({ isActive }) =>
-              cn(
-                'inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
-                isActive
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
-              )
-            }
-          >
-            {item.label}
-            {item.badge ? (
-              <Badge variant="secondary" className="h-5 min-w-5 justify-center px-1 text-xs">
-                {item.badge}
-              </Badge>
-            ) : null}
-          </NavLink>
-        ))}
-      </nav>
+    <ModuleLayout
+      section="PMS · 3.1.3"
+      title="Project Management"
+      description="Initiation, tasks, progress tracking, issues, Gantt charts, and acceptance workflows."
+      navItems={navItems}
+    >
       <Outlet />
-    </div>
+    </ModuleLayout>
   )
 }

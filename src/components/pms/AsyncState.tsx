@@ -59,9 +59,9 @@ export function AsyncState({
 
   if (empty) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-lg border border-dashed py-16 text-center">
-        <Inbox className="mb-3 size-10 text-muted-foreground" />
-        <h3 className="text-lg font-medium">{emptyTitle}</h3>
+      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border bg-card py-16 text-center shadow-[var(--shadow-card)]">
+        <Inbox className="mb-3 size-10 text-muted-foreground/70" />
+        <h3 className="text-base font-semibold text-foreground">{emptyTitle}</h3>
         {emptyDescription ? (
           <p className="mt-1 max-w-sm text-sm text-muted-foreground">{emptyDescription}</p>
         ) : null}
