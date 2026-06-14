@@ -124,7 +124,7 @@ export default function AccountDetailPage() {
         description={account?.LoginAccount}
         actions={
           <>
-            <Button asChild variant="outline" size="sm">
+            <Button asChild variant="light" size="sm">
               <Link to="/pms/admin/accounts">Back</Link>
             </Button>
             <Button asChild variant="secondary" size="sm">
@@ -182,7 +182,7 @@ export default function AccountDetailPage() {
               <h3 className="font-medium">Lifecycle actions</h3>
               <Button
                 type="button"
-                variant="outline"
+                variant="light"
                 className="w-full justify-start"
                 onClick={() => setConfirmAction(account.Status === 'active' ? 'disable' : 'activate')}
               >
@@ -190,7 +190,7 @@ export default function AccountDetailPage() {
               </Button>
               <Button
                 type="button"
-                variant="outline"
+                variant="light"
                 className="w-full justify-start"
                 onClick={() => setConfirmAction('reset')}
               >

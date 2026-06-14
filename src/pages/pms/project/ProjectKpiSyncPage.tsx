@@ -52,7 +52,7 @@ export default function ProjectKpiSyncPage() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-medium">KPI sync monitor</h3>
-        <Button variant="outline" size="sm" onClick={() => void refresh()} disabled={refreshing}>
+        <Button variant="light" size="sm" onClick={() => void refresh()} disabled={refreshing}>
           {refreshing ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
           Refresh
         </Button>

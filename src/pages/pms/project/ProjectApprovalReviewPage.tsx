@@ -134,7 +134,7 @@ export default function ProjectApprovalReviewPage() {
               title={`Review ${project.Code}`}
               description={project.Name}
               actions={
-                <Button asChild variant="outline" size="sm">
+                <Button asChild variant="light" size="sm">
                   <Link to="/pms/projects/approvals">Back to inbox</Link>
                 </Button>
               }

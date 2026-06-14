@@ -62,7 +62,7 @@ export default function AccountRolesPage() {
         title="Role Binding"
         description={accountName}
         actions={
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="light" size="sm">
             <Link to={`/pms/admin/accounts/${id}`}>Back to account</Link>
           </Button>
         }

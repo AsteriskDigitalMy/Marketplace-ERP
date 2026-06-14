@@ -182,7 +182,7 @@ export default function DataFillPage() {
           <div className="flex flex-wrap gap-2 border-t pt-4">
             <Button
               type="button"
-              variant="outline"
+              variant="light"
               onClick={() => {
                 if (dirty) setDiscardOpen(true)
                 else navigate('/pms/data-collection/my-tasks')

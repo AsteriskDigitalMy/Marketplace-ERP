@@ -93,7 +93,7 @@ export default function DataReviewDetailPage() {
                 title={review.IndicatorName}
                 description={`${review.SubmitterName} · ${review.PeriodLabel} · ${review.ReviewLevel} level`}
                 actions={
-                  <Button asChild variant="outline" size="sm">
+                  <Button asChild variant="light" size="sm">
                     <Link to="/pms/data-collection/reviews">Back to queue</Link>
                   </Button>
                 }

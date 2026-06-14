@@ -135,7 +135,7 @@ export default function TaskDurationChangePage() {
               ) : null}
             </div>
             <div className="flex gap-2">
-              <Button type="button" variant="outline" asChild>
+              <Button type="button" variant="light" asChild>
                 <Link to="/pms/tasks/my">Cancel</Link>
               </Button>
               <Button type="submit" disabled={submitting}>

@@ -114,7 +114,7 @@ export function GanttChart({ tasks }: GanttChartProps) {
             ))}
           </div>
         </div>
-        <Button variant="outline" size="sm" onClick={exportImage}>
+        <Button variant="light" size="sm" onClick={exportImage}>
           <Download className="mr-2 size-4" />
           Export image
         </Button>

@@ -191,7 +191,7 @@ export default function KpiIndicatorCreatePage() {
         title="New KPI Indicator"
         description="KPI Library → New Indicator"
         actions={
-          <Button type="button" variant="outline" size="sm" onClick={handleCancel}>
+          <Button type="button" variant="light" size="sm" onClick={handleCancel}>
             Back to library
           </Button>
         }
@@ -224,7 +224,7 @@ export default function KpiIndicatorCreatePage() {
               />
 
               <div className="flex flex-wrap gap-2 border-t pt-4">
-                <Button type="button" variant="outline" onClick={handleCancel}>
+                <Button type="button" variant="light" onClick={handleCancel}>
                   Cancel
                 </Button>
                 <Button

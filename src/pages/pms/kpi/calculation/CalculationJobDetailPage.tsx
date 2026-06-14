@@ -193,7 +193,7 @@ export default function CalculationJobDetailPage() {
                       key={f}
                       type="button"
                       size="sm"
-                      variant={resultFilter === f ? 'default' : 'outline'}
+                      variant={resultFilter === f ? 'default' : 'light'}
                       onClick={() => setResultFilter(f)}
                     >
                       {f === 'all' ? 'All' : f.charAt(0).toUpperCase() + f.slice(1)}

@@ -220,7 +220,7 @@ export default function ParametersPage() {
             </div>
           ) : null}
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => setEditing(null)}>
+            <Button type="button" variant="light" onClick={() => setEditing(null)}>
               Cancel
             </Button>
             <Button type="button" onClick={handleSave} disabled={submitting}>

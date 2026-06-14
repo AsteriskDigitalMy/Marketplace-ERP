@@ -192,7 +192,7 @@ export function FormulaEditor({
                 <Button
                   key={fn}
                   type="button"
-                  variant="outline"
+                  variant="light"
                   size="sm"
                   className="h-7 font-mono text-xs"
                   onClick={() => insertToken(`${fn}(`, true)}
@@ -225,7 +225,7 @@ export function FormulaEditor({
         <div className="flex flex-wrap items-center gap-2">
           <Button
             type="button"
-            variant="outline"
+            variant="light"
             onClick={() => void runValidation(expression)}
             disabled={readOnly || validating || !expression.trim()}
           >

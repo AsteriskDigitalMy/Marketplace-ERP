@@ -157,7 +157,7 @@ export default function OrgEditPage() {
         title="Edit Organization Unit"
         description={unit?.Code}
         actions={
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="light" size="sm">
             <Link to="/pms/admin/org">Back to tree</Link>
           </Button>
         }
@@ -256,7 +256,10 @@ export default function OrgEditPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={() => void handleDisable()}>
+            <AlertDialogAction
+              variant={unit?.IsDisabled ? 'default' : 'destructive-solid'}
+              onClick={() => void handleDisable()}
+            >
               Confirm
             </AlertDialogAction>
           </AlertDialogFooter>

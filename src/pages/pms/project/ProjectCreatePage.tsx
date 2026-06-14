@@ -213,7 +213,7 @@ export default function ProjectCreatePage() {
         actions={
           <Button
             type="button"
-            variant="outline"
+            variant="light"
             size="sm"
             onClick={() => {
               if (form.formState.isDirty) setDiscardOpen(true)
@@ -334,7 +334,7 @@ export default function ProjectCreatePage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-base">KPI binding</CardTitle>
-            <Button type="button" variant="outline" size="sm" onClick={() => setKpiPickerOpen(true)}>
+            <Button type="button" variant="light" size="sm" onClick={() => setKpiPickerOpen(true)}>
               Select KPIs
             </Button>
           </CardHeader>
@@ -369,7 +369,7 @@ export default function ProjectCreatePage() {
         </Card>
 
         <div className="flex flex-wrap gap-2">
-          <Button type="button" variant="outline" disabled={submitting} onClick={() => void save(true)}>
+          <Button type="button" variant="light" disabled={submitting} onClick={() => void save(true)}>
             Save draft
           </Button>
           <Button type="button" disabled={submitting} onClick={() => void save(false)}>

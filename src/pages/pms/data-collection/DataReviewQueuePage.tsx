@@ -93,7 +93,7 @@ export default function DataReviewQueuePage() {
                 <SelectItem value="department">Department</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" onClick={() => { setLevel('all'); setSearch('') }}>
+            <Button variant="light" onClick={() => { setLevel('all'); setSearch('') }}>
               Reset filters
             </Button>
           </div>

@@ -62,7 +62,7 @@ export default function KpiFormulaEditorPage() {
               title="Formula editor"
               description={`${indicator.Code} — ${indicator.Name}`}
               actions={
-                <Button asChild variant="outline" size="sm">
+                <Button asChild variant="light" size="sm">
                   <Link to={`/pms/kpi/indicators/${id}`}>Back to indicator</Link>
                 </Button>
               }

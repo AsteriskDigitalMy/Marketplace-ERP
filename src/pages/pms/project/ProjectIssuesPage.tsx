@@ -280,7 +280,7 @@ export default function ProjectIssuesPage() {
           />
           <DialogFooter>
             <Button
-              variant="outline"
+              variant="light"
               onClick={async () => {
                 if (!verifyTarget) return
                 await verifyProjectIssue(verifyTarget.Id, 'return', verifyComment)

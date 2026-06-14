@@ -196,7 +196,7 @@ export default function FillingRulesPage() {
                 </TableCell>
                 <TableCell className="text-right space-x-1">
                   <Button
-                    variant="ghost"
+                    variant="light"
                     size="sm"
                     onClick={() => {
                       setEditing(rule)
@@ -205,7 +205,7 @@ export default function FillingRulesPage() {
                   >
                     Edit
                   </Button>
-                  <Button variant="light" size="sm" onClick={() => setDeleteTarget(rule)}>
+                  <Button variant="destructive-solid" size="sm" onClick={() => setDeleteTarget(rule)}>
                     Delete
                   </Button>
                 </TableCell>
@@ -236,6 +236,7 @@ export default function FillingRulesPage() {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
+              variant="destructive-solid"
               onClick={() => {
                 if (!deleteTarget) return
                 void deleteFillingRule(deleteTarget.Id).then(() => {

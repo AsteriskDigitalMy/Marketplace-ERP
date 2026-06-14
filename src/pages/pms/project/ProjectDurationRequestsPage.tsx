@@ -142,7 +142,7 @@ export default function ProjectDurationRequestsPage() {
               <Textarea value={opinion} onChange={(e) => setOpinion(e.target.value)} rows={3} />
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => void submitReview('rejected')}>
+              <Button variant="destructive-solid" onClick={() => void submitReview('rejected')}>
                 Reject
               </Button>
               <Button onClick={() => void submitReview('approved')}>Approve</Button>

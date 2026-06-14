@@ -75,12 +75,12 @@ export default function ProjectProgressImportPage() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium">Excel / CSV import</h3>
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="light" size="sm">
             <Link to={`/pms/projects/${project.Id}/progress`}>Back to batch update</Link>
           </Button>
         </div>
 
-        <Button variant="outline" size="sm" onClick={downloadTemplate}>
+        <Button variant="light" size="sm" onClick={downloadTemplate}>
           Download template
         </Button>
 

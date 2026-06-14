@@ -65,7 +65,7 @@ export default function AccountImportPage() {
       <PageHeader
         title="Bulk Account Import"
         actions={
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="light" size="sm">
             <Link to="/pms/admin/accounts">Back</Link>
           </Button>
         }
@@ -75,7 +75,7 @@ export default function AccountImportPage() {
           <p className="text-sm text-muted-foreground">
             Download the official template, fill employee rows, then upload for line-by-line validation.
           </p>
-          <Button type="button" variant="outline" onClick={() => toast.info('Template download started (mock)')}>
+          <Button type="button" variant="light" onClick={() => toast.info('Template download started (mock)')}>
             Download template
           </Button>
           <div className="space-y-2">

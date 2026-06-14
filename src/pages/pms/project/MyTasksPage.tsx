@@ -129,7 +129,7 @@ export default function MyTasksPage() {
         title="My tasks"
         description="Personal queue for progress updates."
         actions={
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="light" size="sm">
             <Link to="/pms/projects">All projects</Link>
           </Button>
         }
@@ -172,7 +172,7 @@ export default function MyTasksPage() {
                     <div className="flex items-center justify-between">
                       <span className="text-sm">{task.ProgressPct}%</span>
                       <div className="flex gap-2">
-                        <Button size="sm" variant="outline" asChild>
+                        <Button size="sm" variant="light" asChild>
                           <Link to={`/pms/tasks/${task.Id}/duration-change`}>
                             Duration change
                           </Link>
@@ -236,7 +236,7 @@ export default function MyTasksPage() {
             </div>
             <IssueReportSection value={issue} onChange={setIssue} />
             <div className="flex gap-2">
-              <Button variant="outline" onClick={() => setActiveTask(null)}>
+              <Button variant="light" onClick={() => setActiveTask(null)}>
                 Cancel
               </Button>
               <Button onClick={() => void handleSubmit()} disabled={submitting}>

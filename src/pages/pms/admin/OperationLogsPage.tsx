@@ -70,7 +70,7 @@ export default function OperationLogsPage() {
         title="Operation Logs"
         description="Immutable audit trail — no delete or tamper actions"
         actions={
-          <Button type="button" variant="outline" size="sm" onClick={() => toast.info('Export started (mock CSV)')}>
+          <Button type="button" variant="light" size="sm" onClick={() => toast.info('Export started (mock CSV)')}>
             Export
           </Button>
         }

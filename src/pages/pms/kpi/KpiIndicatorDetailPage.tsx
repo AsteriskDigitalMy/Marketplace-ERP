@@ -227,7 +227,7 @@ export default function KpiIndicatorDetailPage() {
             description={`KPI Library → ${indicator.Code}`}
             actions={
               <div className="flex flex-wrap gap-2">
-                <Button asChild variant="outline" size="sm">
+                <Button asChild variant="light" size="sm">
                   <Link to="/pms/kpi/indicators">Back</Link>
                 </Button>
                 {hasPermission('kpi.manage') && !editing ? (
@@ -237,7 +237,7 @@ export default function KpiIndicatorDetailPage() {
                     </Button>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="outline" size="sm">
+                        <Button variant="light" size="sm">
                           <MoreHorizontal className="size-4" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -326,7 +326,7 @@ export default function KpiIndicatorDetailPage() {
                       <div className="flex gap-2 border-t pt-4">
                         <Button
                           type="button"
-                          variant="outline"
+                          variant="light"
                           onClick={() => {
                             setEditing(false)
                             form.reset()
@@ -513,7 +513,7 @@ export default function KpiIndicatorDetailPage() {
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction
-                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  variant="destructive-solid"
                   onClick={() => void handleDelete()}
                 >
                   Delete

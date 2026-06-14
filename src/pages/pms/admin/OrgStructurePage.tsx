@@ -185,7 +185,7 @@ export default function OrgStructurePage() {
                 </div>
               </dl>
               <div className="mt-4 flex flex-col gap-2">
-                <Button asChild variant="outline" size="sm">
+                <Button asChild variant="light" size="sm">
                   <Link to={`/pms/admin/org/${selectedNode.Id}/edit`}>Edit / Disable</Link>
                 </Button>
                 <Button asChild variant="light" size="sm">

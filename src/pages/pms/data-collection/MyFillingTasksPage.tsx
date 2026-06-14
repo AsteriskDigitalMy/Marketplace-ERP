@@ -94,7 +94,7 @@ export default function MyFillingTasksPage() {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button variant={canFill ? 'default' : 'ghost'} size="sm" asChild>
+                    <Button variant={canFill ? 'default' : 'light'} size="sm" asChild>
                       <Link to={`/pms/data-collection/fill/${t.Id}`}>
                         {canFill ? 'Fill' : 'View'}
                       </Link>

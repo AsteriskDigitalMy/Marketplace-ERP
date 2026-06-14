@@ -41,7 +41,7 @@ export function IssueReportSection({ value, onChange }: IssueReportSectionProps)
     <div className="space-y-3">
       <Button
         type="button"
-        variant="outline"
+        variant="light"
         size="sm"
         onClick={() => {
           const next = !open

@@ -1,3 +1,16 @@
+/**
+ * Metronic button mapping (billing/basic and global patterns):
+ * - default (primary)  → Upgrade Plan, Save, Done, main CTAs
+ * - light              → Cancel Plan, Add New, Export, table actions, pagination
+ * - outline            → neutral bordered actions (rare secondary)
+ * - outline-primary    → bordered primary emphasis
+ * - link               → Edit Billing, Download All, Learn more
+ * - link-muted         → Order History, secondary nav text actions
+ * - clear              → icon-only / minimal toolbar controls
+ * - destructive        → soft danger (cancel destructive flows)
+ * - destructive-solid  → Delete, Remove, Report
+ * - success            → confirm / approve actions
+ */
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Slot } from "radix-ui"
@@ -11,17 +24,30 @@ const buttonVariants = cva(
       variant: {
         default:
           "border-transparent bg-primary text-primary-foreground shadow-sm hover:bg-primary-hover active:bg-primary-active",
+        primary:
+          "border-transparent bg-primary text-primary-foreground shadow-sm hover:bg-primary-hover active:bg-primary-active",
         light:
           "border-transparent bg-btn-light text-btn-light-foreground hover:bg-btn-light-hover",
         outline:
-          "border-border bg-card text-foreground shadow-xs hover:bg-muted",
+          "border-border bg-card text-foreground hover:bg-muted",
+        "outline-primary":
+          "border-primary/30 bg-card text-primary hover:border-primary/50 hover:bg-primary/5",
         secondary:
           "border-transparent bg-secondary text-secondary-foreground hover:bg-muted",
+        clear:
+          "border-transparent bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground",
         ghost:
           "border-transparent bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground",
+        link:
+          "h-auto border-transparent bg-transparent px-0 text-primary shadow-none hover:text-primary-hover hover:underline hover:underline-offset-4",
+        "link-muted":
+          "h-auto border-transparent bg-transparent px-0 text-muted-foreground shadow-none hover:text-primary hover:underline hover:underline-offset-4",
         destructive:
           "border-transparent bg-destructive/10 text-destructive hover:bg-destructive/15 focus-visible:ring-destructive/20",
-        link: "border-transparent bg-transparent text-primary underline-offset-4 hover:text-primary-hover hover:underline",
+        "destructive-solid":
+          "border-transparent bg-destructive text-white shadow-sm hover:bg-destructive/90 focus-visible:ring-destructive/30",
+        success:
+          "border-transparent bg-success text-success-foreground shadow-sm hover:bg-success/90",
       },
       size: {
         default: "h-10 px-4 text-sm",
@@ -32,8 +58,21 @@ const buttonVariants = cva(
         "icon-xs": "size-7 [&_svg:not([class*='size-'])]:size-3.5",
         "icon-sm": "size-8",
         "icon-lg": "size-12 [&_svg:not([class*='size-'])]:size-5",
+        link: "h-auto px-0 text-sm",
       },
     },
+    compoundVariants: [
+      {
+        variant: ["link", "link-muted"],
+        size: "default",
+        className: "h-auto px-0",
+      },
+      {
+        variant: ["link", "link-muted"],
+        size: "sm",
+        className: "h-auto px-0 text-xs",
+      },
+    ],
     defaultVariants: {
       variant: "default",
       size: "default",

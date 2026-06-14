@@ -175,7 +175,7 @@ export default function DictionariesPage() {
                         <TableCell>
                           <Button
                             type="button"
-                            variant="ghost"
+                            variant="light"
                             size="sm"
                             onClick={() => openItemEditor(item, index)}
                           >

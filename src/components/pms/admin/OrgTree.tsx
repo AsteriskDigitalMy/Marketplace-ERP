@@ -80,7 +80,7 @@ function TreeNode({
         {hasChildren ? (
           <Button
             type="button"
-            variant="ghost"
+            variant="clear"
             size="icon"
             className="size-7 shrink-0"
             onClick={() => onToggleExpand(node.Id)}

@@ -173,7 +173,7 @@ export default function RolesPage() {
                     </Button>
                     <Button
                       type="button"
-                      variant="ghost"
+                      variant="destructive-solid"
                       size="sm"
                       disabled={role.BoundUserCount > 0}
                       onClick={() => void handleDelete(role)}

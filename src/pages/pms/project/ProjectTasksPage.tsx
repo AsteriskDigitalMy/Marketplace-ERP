@@ -199,7 +199,7 @@ export default function ProjectTasksPage() {
                     {canManage ? (
                       <div className="flex justify-end gap-1">
                         <Button
-                          variant="ghost"
+                          variant="light"
                           size="sm"
                           onClick={() => {
                             setEditing(t)
@@ -209,7 +209,7 @@ export default function ProjectTasksPage() {
                           Edit
                         </Button>
                         <Button
-                          variant="ghost"
+                          variant="destructive-solid"
                           size="sm"
                           disabled={t.Status !== 'not_started'}
                           onClick={() => void handleDelete(t)}
@@ -248,7 +248,7 @@ export default function ProjectTasksPage() {
               <p className="text-muted-foreground">
                 {quickView.PlannedStart} → {quickView.PlannedEnd}
               </p>
-              <Button asChild size="sm" variant="outline">
+              <Button asChild size="sm" variant="light">
                 <Link to="/pms/tasks/my">Update progress</Link>
               </Button>
             </div>

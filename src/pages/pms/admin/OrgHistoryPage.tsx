@@ -81,7 +81,7 @@ export default function OrgHistoryPage() {
         title="Version History"
         description={unitName}
         actions={
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="light" size="sm">
             <Link to={`/pms/admin/org/${id}/edit`}>Back to edit</Link>
           </Button>
         }
@@ -97,7 +97,7 @@ export default function OrgHistoryPage() {
                   {new Date(v.SnapshotAt).toLocaleString()} — {v.Summary}
                 </p>
                 <div className="mt-3 flex gap-2">
-                  <Button type="button" size="sm" variant="outline" onClick={() => setPreview(v)}>
+                  <Button type="button" size="sm" variant="light" onClick={() => setPreview(v)}>
                     Preview snapshot
                   </Button>
                   <Button type="button" size="sm" onClick={() => setRollbackId(v.Id)}>

@@ -91,7 +91,7 @@ export default function AccountCreatePage() {
       <PageHeader
         title="Create Account"
         actions={
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="light" size="sm">
             <Link to="/pms/admin/accounts">Back</Link>
           </Button>
         }

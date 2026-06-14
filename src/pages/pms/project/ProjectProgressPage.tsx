@@ -82,7 +82,7 @@ export default function ProjectProgressPage() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium">Leader batch progress</h3>
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="light" size="sm">
             <Link to={`/pms/projects/${project.Id}/progress/import`}>Excel import</Link>
           </Button>
         </div>

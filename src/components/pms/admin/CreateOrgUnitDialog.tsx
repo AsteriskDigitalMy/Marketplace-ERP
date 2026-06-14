@@ -244,7 +244,7 @@ export function CreateOrgUnitDialog({
               />
             </div>
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={handleClose} disabled={submitting}>
+              <Button type="button" variant="light" onClick={handleClose} disabled={submitting}>
                 Cancel
               </Button>
               <Button type="submit" disabled={submitting}>
