@@ -38,7 +38,14 @@ function bandsForCategory(category: TrafficLightCategory) {
   }))
 }
 
-/** Resolve traffic-light color from global rule config (3.1.6.3). */
+/** Resolve traffic-light color from global rule config (3.1.6.3).
+ *
+ * Consumers: cockpit cards/drill-down, KPI calculation badges, appraisal grades.
+ *
+ * @param value - Numeric metric value (percentage, days, or score depending on category)
+ * @param category - Rule category: progress, delay, or performance
+ * @param metricKey - Optional KPI/metric id to match scoped rules before global fallback
+ */
 export function getStatusColor(
   value: number,
   category: TrafficLightCategory,

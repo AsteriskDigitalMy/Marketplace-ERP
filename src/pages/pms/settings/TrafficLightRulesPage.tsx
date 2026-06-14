@@ -33,6 +33,7 @@ import { AsyncState } from '@/components/pms/AsyncState'
 import { PermissionGate } from '@/components/pms/PermissionGate'
 import { TrafficLightRuleDialog } from '@/components/pms/settings/TrafficLightRuleDialog'
 import { usePmsAuth } from '@/contexts/pms-auth-context'
+import { MOCK_ADMIN_USER_ID } from '@/lib/pms/constants'
 import type { TrafficLightRule } from '@/models/pms/configuration'
 import {
   deleteTrafficLightRule,
@@ -43,6 +44,10 @@ function formatBand(bands: TrafficLightRule['Bands'], color: 'green' | 'yellow' 
   const band = bands.find((b) => b.Color === color)
   if (!band) return '—'
   return `${band.Min} – ${band.Max}`
+}
+
+function formatUpdatedBy(userId: string): string {
+  return userId === MOCK_ADMIN_USER_ID ? 'System Administrator' : userId.slice(0, 8)
 }
 
 export default function TrafficLightRulesPage() {
@@ -75,7 +80,11 @@ export default function TrafficLightRulesPage() {
   }, [category])
 
   return (
-    <PermissionGate allowed={hasPermission('settings.manage')}>
+    <PermissionGate
+      allowed={hasPermission('settings.manage')}
+      backHref="/pms/cockpit"
+      backLabel="Back to cockpit"
+    >
       <PageHeader
         title="Traffic Light Rules"
         description="Global color threshold standards for progress, delay, and performance indicators across dashboards and lists."
@@ -125,6 +134,7 @@ export default function TrafficLightRulesPage() {
                   <TableHead>Yellow</TableHead>
                   <TableHead>Red</TableHead>
                   <TableHead>Updated</TableHead>
+                  <TableHead>Updated by</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -144,6 +154,9 @@ export default function TrafficLightRulesPage() {
                     <TableCell>{formatBand(rule.Bands, 'red')}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {new Date(rule.UpdatedAt).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {formatUpdatedBy(rule.UpdatedBy)}
                     </TableCell>
                     <TableCell className="space-x-2 text-right">
                       <Button

@@ -7,9 +7,16 @@ import { Link } from 'react-router-dom'
 interface PermissionGateProps {
   allowed: boolean
   children: ReactNode
+  backHref?: string
+  backLabel?: string
 }
 
-export function PermissionGate({ allowed, children }: PermissionGateProps) {
+export function PermissionGate({
+  allowed,
+  children,
+  backHref = '/pms',
+  backLabel = 'Back to PMS',
+}: PermissionGateProps) {
   if (allowed) {
     return <>{children}</>
   }
@@ -24,7 +31,7 @@ export function PermissionGate({ allowed, children }: PermissionGateProps) {
       <CardContent className="space-y-4 text-sm text-muted-foreground">
         <p>You do not have permission to view this page. Contact your system administrator.</p>
         <Button asChild variant="light">
-          <Link to="/pms">Back to PMS</Link>
+          <Link to={backHref}>{backLabel}</Link>
         </Button>
       </CardContent>
     </Card>

@@ -52,15 +52,37 @@ export async function deleteTrafficLightRule(id: string): Promise<void> {
 
 export function validateBandOverlap(
   bands: TrafficLightRule['Bands'],
-): { ok: boolean; message?: string } {
-  const sorted = [...bands].sort((a, b) => a.Min - b.Min)
-  for (let i = 0; i < sorted.length; i++) {
-    if (sorted[i].Min > sorted[i].Max) {
-      return { ok: false, message: 'Min must be less than or equal to max' }
+): {
+  ok: boolean
+  message?: string
+  fieldErrors?: Partial<Record<'green' | 'yellow' | 'red', string>>
+} {
+  const fieldErrors: Partial<Record<'green' | 'yellow' | 'red', string>> = {}
+
+  for (const band of bands) {
+    if (band.Min > band.Max) {
+      fieldErrors[band.Color] = 'Min must be less than or equal to max'
     }
-    if (i > 0 && sorted[i].Min <= sorted[i - 1].Max) {
-      return { ok: false, message: 'Bands must not overlap' }
+    if (band.Min < 0 && band.Color !== 'red') {
+      fieldErrors[band.Color] = 'Min cannot be negative for this band'
     }
   }
+
+  const sorted = [...bands].sort((a, b) => a.Min - b.Min)
+  for (let i = 0; i < sorted.length; i++) {
+    if (i > 0 && sorted[i].Min <= sorted[i - 1].Max) {
+      fieldErrors[sorted[i].Color] = 'Bands must not overlap'
+      fieldErrors[sorted[i - 1].Color] = 'Bands must not overlap'
+    }
+  }
+
+  if (Object.keys(fieldErrors).length > 0) {
+    return {
+      ok: false,
+      message: 'Fix band range errors before saving',
+      fieldErrors,
+    }
+  }
+
   return { ok: true }
 }

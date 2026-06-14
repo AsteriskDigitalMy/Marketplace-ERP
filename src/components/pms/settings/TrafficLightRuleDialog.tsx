@@ -61,6 +61,9 @@ export function TrafficLightRuleDialog({
   const [yellow, setYellow] = useState<BandForm>({ Min: '70', Max: '89.99' })
   const [red, setRed] = useState<BandForm>({ Min: '0', Max: '69.99' })
   const [error, setError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<
+    Partial<Record<'green' | 'yellow' | 'red', string>>
+  >({})
   const [dirty, setDirty] = useState(false)
   const [discardOpen, setDiscardOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -69,6 +72,7 @@ export function TrafficLightRuleDialog({
     if (!open) return
     setDirty(false)
     setError(null)
+    setFieldErrors({})
     if (initial) {
       setCategory(initial.Category)
       setMetricScope(initial.MetricScope)
@@ -105,8 +109,10 @@ export function TrafficLightRuleDialog({
     const validation = validateBandOverlap(bands)
     if (!validation.ok) {
       setError(validation.message ?? 'Invalid bands')
+      setFieldErrors(validation.fieldErrors ?? {})
       return
     }
+    setFieldErrors({})
     setSubmitting(true)
     setError(null)
     try {
@@ -177,31 +183,38 @@ export function TrafficLightRuleDialog({
 
             {(
               [
-                ['Green', green, setGreen, 'default'] as const,
-                ['Yellow', yellow, setYellow, 'secondary'] as const,
-                ['Red', red, setRed, 'destructive'] as const,
+                ['Green', 'green', green, setGreen, 'default'] as const,
+                ['Yellow', 'yellow', yellow, setYellow, 'secondary'] as const,
+                ['Red', 'red', red, setRed, 'destructive'] as const,
               ] as const
-            ).map(([label, band, setter, variant]) => (
-              <div key={label} className="grid grid-cols-[80px_1fr_1fr] items-center gap-2">
-                <Badge variant={variant}>{label}</Badge>
-                <Input
-                  type="number"
-                  placeholder="Min"
-                  value={band.Min}
-                  onChange={(e) => {
-                    markDirty()
-                    setter({ ...band, Min: e.target.value })
-                  }}
-                />
-                <Input
-                  type="number"
-                  placeholder="Max"
-                  value={band.Max}
-                  onChange={(e) => {
-                    markDirty()
-                    setter({ ...band, Max: e.target.value })
-                  }}
-                />
+            ).map(([label, colorKey, band, setter, variant]) => (
+              <div key={label} className="space-y-1">
+                <div className="grid grid-cols-[80px_1fr_1fr] items-center gap-2">
+                  <Badge variant={variant}>{label}</Badge>
+                  <Input
+                    type="number"
+                    placeholder="Min"
+                    value={band.Min}
+                    aria-invalid={!!fieldErrors[colorKey]}
+                    onChange={(e) => {
+                      markDirty()
+                      setter({ ...band, Min: e.target.value })
+                    }}
+                  />
+                  <Input
+                    type="number"
+                    placeholder="Max"
+                    value={band.Max}
+                    aria-invalid={!!fieldErrors[colorKey]}
+                    onChange={(e) => {
+                      markDirty()
+                      setter({ ...band, Max: e.target.value })
+                    }}
+                  />
+                </div>
+                {fieldErrors[colorKey] ? (
+                  <p className="pl-[88px] text-xs text-destructive">{fieldErrors[colorKey]}</p>
+                ) : null}
               </div>
             ))}
 
