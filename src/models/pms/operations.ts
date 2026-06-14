@@ -205,6 +205,41 @@ export const PdcaExecutionTaskSchema = z.object({
   ProgressNotes: z.array(PdcaProgressNoteSchema),
 })
 
+export const ReportCycleSchema = z.enum(['daily', 'weekly', 'monthly', 'quarterly'])
+
+export const ReportCategorySchema = z.enum([
+  'production',
+  'quality',
+  'supply_chain',
+  'performance',
+  'cost',
+])
+
+export const ReportCatalogItemSchema = z.object({
+  Id: UuidSchema,
+  Name: NonEmptyStringSchema,
+  Category: ReportCategorySchema,
+  Description: NonEmptyStringSchema.max(500),
+  SupportedCycles: z.array(ReportCycleSchema).min(1),
+  LastGeneratedAt: DateTimeSchema.nullable(),
+})
+
+export const GeneratedReportSectionSchema = z.object({
+  Title: NonEmptyStringSchema,
+  Columns: z.array(NonEmptyStringSchema),
+  Rows: z.array(z.array(z.union([z.string(), z.number()]))),
+  Summary: z.record(z.string(), z.number()).nullable(),
+})
+
+export const GeneratedReportSchema = z.object({
+  ReportId: UuidSchema,
+  ReportName: NonEmptyStringSchema,
+  Cycle: ReportCycleSchema,
+  PeriodLabel: NonEmptyStringSchema,
+  GeneratedAt: DateTimeSchema,
+  Sections: z.array(GeneratedReportSectionSchema),
+})
+
 export const RoleCockpitCardSchema = z.object({
   Id: UuidSchema,
   Label: NonEmptyStringSchema,
@@ -296,5 +331,10 @@ export type AppraisalEmployeeRecord = z.infer<typeof AppraisalEmployeeRecordSche
 export type PdcaProposal = z.infer<typeof PdcaProposalSchema>
 export type PdcaExecutionTask = z.infer<typeof PdcaExecutionTaskSchema>
 export type PdcaProgressNote = z.infer<typeof PdcaProgressNoteSchema>
+export type ReportCycle = z.infer<typeof ReportCycleSchema>
+export type ReportCategory = z.infer<typeof ReportCategorySchema>
+export type ReportCatalogItem = z.infer<typeof ReportCatalogItemSchema>
+export type GeneratedReportSection = z.infer<typeof GeneratedReportSectionSchema>
+export type GeneratedReport = z.infer<typeof GeneratedReportSchema>
 export type RoleCockpit = z.infer<typeof RoleCockpitSchema>
 export type DrillDownRequest = z.infer<typeof DrillDownRequestSchema>

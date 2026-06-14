@@ -27,6 +27,7 @@ export type PmsPermission =
   | 'appraisal.final'
   | 'pdca.submit'
   | 'pdca.manage'
+  | 'reports.view'
 
 interface PmsAuthContextValue {
   userId: string
@@ -65,6 +66,7 @@ const ADMIN_PERMISSIONS: PmsPermission[] = [
   'appraisal.final',
   'pdca.submit',
   'pdca.manage',
+  'reports.view',
 ]
 
 export function PmsAuthProvider({ children }: { children: ReactNode }) {

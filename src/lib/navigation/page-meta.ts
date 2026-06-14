@@ -56,6 +56,7 @@ const MODULE_ROOTS: { prefix: string; label: string; href: string }[] = [
   { prefix: '/pms/alerts', label: 'Exception Alerts', href: '/pms/alerts' },
   { prefix: '/pms/appraisal', label: 'Performance Appraisal', href: '/pms/appraisal/schemes' },
   { prefix: '/pms/pdca', label: 'PDCA Improvement', href: '/pms/pdca/proposals' },
+  { prefix: '/pms/reports', label: 'Report Center', href: '/pms/reports' },
   { prefix: '/pms/settings', label: 'PMS Settings', href: '/pms/settings/traffic-lights' },
 ]
 

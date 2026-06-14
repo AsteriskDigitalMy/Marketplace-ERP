@@ -10,6 +10,7 @@ import {
   Bell,
   ClipboardCheck,
   RefreshCw,
+  FileBarChart,
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -87,6 +88,14 @@ const modules = [
     section: '3.1.9',
     icon: RefreshCw,
     accent: 'bg-teal-500/10 text-teal-600',
+  },
+  {
+    title: 'Report Center',
+    description: 'Industry-standard fixed reports with preview, PDF, Excel export, and print.',
+    to: '/pms/reports',
+    section: '3.1.10',
+    icon: FileBarChart,
+    accent: 'bg-slate-500/10 text-slate-600',
   },
 ]
 

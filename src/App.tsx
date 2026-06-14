@@ -82,6 +82,7 @@ import PdcaProposalEditorPage from './pages/pms/pdca/PdcaProposalEditorPage'
 import PdcaProposalDetailPage from './pages/pms/pdca/PdcaProposalDetailPage'
 import PdcaExecutionPage from './pages/pms/pdca/PdcaExecutionPage'
 import PdcaTasksPage from './pages/pms/pdca/PdcaTasksPage'
+import ReportCenterPage from './pages/pms/reports/ReportCenterPage'
 
 export default function App() {
   return (
@@ -129,6 +130,8 @@ export default function App() {
               <Route path="proposals/:id/execution" element={<PdcaExecutionPage />} />
               <Route path="tasks" element={<PdcaTasksPage />} />
             </Route>
+
+            <Route path="pms/reports" element={<ReportCenterPage />} />
 
             <Route path="pms/kpi" element={<PmsKpiLayout />}>
               <Route index element={<Navigate to="indicators" replace />} />

@@ -437,3 +437,20 @@ select {
     @apply flex-row flex-wrap ps-0;
   }
 }
+
+@media print {
+  .no-print,
+  .app-sidebar,
+  .app-header {
+    display: none !important;
+  }
+
+  .app-content {
+    padding: 0 !important;
+  }
+
+  .report-preview-print {
+    border: none !important;
+    box-shadow: none !important;
+  }
+}

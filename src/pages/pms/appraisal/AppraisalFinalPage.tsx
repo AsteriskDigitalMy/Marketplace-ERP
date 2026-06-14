@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import {
   Table,
   TableBody,
@@ -25,6 +34,7 @@ import {
   fetchAppraisalRecords,
   submitFinalReview,
 } from '@/services/pms/appraisal/appraisal-workflow-service'
+import { QUARTERLY_APPRAISAL_REPORT_ID } from '@/lib/pms/report-helpers'
 
 export default function AppraisalFinalPage() {
   const { hasPermission } = usePmsAuth()
@@ -34,6 +44,9 @@ export default function AppraisalFinalPage() {
   const [activeId, setActiveId] = useState<string | null>(null)
   const [approve, setApprove] = useState<boolean | null>(null)
   const [opinion, setOpinion] = useState('')
+  const [publishOpen, setPublishOpen] = useState(false)
+  const [cycleLabel, setCycleLabel] = useState('')
+  const [publishedCount, setPublishedCount] = useState(0)
 
   const load = async () => {
     try {
@@ -70,7 +83,31 @@ export default function AppraisalFinalPage() {
       await submitFinalReview(r.Id, true, 'Bulk approved')
     }
     toast.success(`Approved ${targets.length} employees`)
+    const cycles = await fetchAppraisalCycles()
+    const generated = cycles.find((c) => c.Status === 'generated')
+    if (generated) {
+      const all = await fetchAppraisalRecords(generated.Id)
+      const published = all.filter((r) => r.Status === 'published')
+      if (published.length === all.length && all.length > 0) {
+        setCycleLabel(generated.Label)
+        setPublishedCount(published.length)
+        setPublishOpen(true)
+      }
+    }
     void load()
+  }
+
+  const checkCyclePublish = async () => {
+    const cycles = await fetchAppraisalCycles()
+    const generated = cycles.find((c) => c.Status === 'generated')
+    if (!generated) return
+    const all = await fetchAppraisalRecords(generated.Id)
+    const published = all.filter((r) => r.Status === 'published')
+    if (published.length === all.length && all.length > 0) {
+      setCycleLabel(generated.Label)
+      setPublishedCount(published.length)
+      setPublishOpen(true)
+    }
   }
 
   return (
@@ -161,6 +198,7 @@ export default function AppraisalFinalPage() {
                       setApprove(null)
                       void load()
                       setActiveId(null)
+                      if (approve) void checkCyclePublish()
                     })
                   }}
                 >
@@ -171,6 +209,33 @@ export default function AppraisalFinalPage() {
           ) : null}
         </div>
       </AsyncState>
+
+      <Dialog open={publishOpen} onOpenChange={setPublishOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Cycle publish — network wide</DialogTitle>
+            <DialogDescription>
+              {cycleLabel}: all {publishedCount} employee results are approved and ready to publish.
+            </DialogDescription>
+          </DialogHeader>
+          <p className="text-sm text-muted-foreground">
+            Results will sync to employee personal centers (mock). Generate the quarterly appraisal
+            summary report from Report Center.
+          </p>
+          <DialogFooter className="gap-2 sm:justify-between">
+            <Button variant="light" onClick={() => setPublishOpen(false)}>
+              Close
+            </Button>
+            <Button asChild>
+              <Link
+                to={`/pms/reports?category=performance&report=${QUARTERLY_APPRAISAL_REPORT_ID}`}
+              >
+                Quarterly appraisal report
+              </Link>
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </PermissionGate>
   )
 }
