@@ -13,7 +13,63 @@ Frontend requirement documents for Marketplace-ERP modules. Each subsection is a
 
 ## 3.1 KPI / PMS — Performance Management System
 
-Operational workflow modules: role cockpits, exception alerts, appraisal lifecycle, PDCA closed-loop, and standardized reports. Route prefix: `/pms/`. For read-only BI analytics, see [3.7 Business Intelligence](#37-business-intelligence-bi-visualization-dashboard).
+KPI and Project Management subsystem: system administration, indicator library, project lifecycle, data collection, calculation engine, cockpits, alerts, appraisal, PDCA, and reports. Route prefix: `/pms/`. For read-only BI analytics, see [3.7 Business Intelligence](#37-business-intelligence-bi-visualization-dashboard).
+
+### 3.1.1 System Basic Management
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.1.1.1-organizational-unit-creation.md](./3.1.1.1-organizational-unit-creation.md) | F-BASE-001 — Organizational unit creation |
+| 2 | [3.1.1.2-organizational-unit-editing-disabling.md](./3.1.1.2-organizational-unit-editing-disabling.md) | F-BASE-002 — Org unit editing & disabling |
+| 3 | [3.1.1.3-org-structure-version-rollback.md](./3.1.1.3-org-structure-version-rollback.md) | F-BASE-003 — Org structure version rollback |
+| 4 | [3.1.1.4-system-account-creation.md](./3.1.1.4-system-account-creation.md) | F-BASE-004 — System account creation |
+| 5 | [3.1.1.5-account-lifecycle-management.md](./3.1.1.5-account-lifecycle-management.md) | F-BASE-005 — Account lifecycle management |
+| 6 | [3.1.1.6-role-permission-configuration.md](./3.1.1.6-role-permission-configuration.md) | F-BASE-006 — Role permission configuration |
+| 7 | [3.1.1.7-user-role-binding.md](./3.1.1.7-user-role-binding.md) | F-BASE-007 — User role binding |
+| 8 | [3.1.1.8-global-dictionary-maintenance.md](./3.1.1.8-global-dictionary-maintenance.md) | F-BASE-008 — Global dictionary maintenance |
+| 9 | [3.1.1.9-operation-log-query.md](./3.1.1.9-operation-log-query.md) | F-BASE-009 — Operation log query |
+| 10 | [3.1.1.10-system-parameter-settings.md](./3.1.1.10-system-parameter-settings.md) | F-BASE-010 — System parameter settings |
+
+### 3.1.2 KPI Indicator Library Management
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.1.2.1-kpi-indicator-addition.md](./3.1.2.1-kpi-indicator-addition.md) | F-KPI-001 — New KPI indicator addition |
+| 2 | [3.1.2.2-kpi-indicator-lifecycle.md](./3.1.2.2-kpi-indicator-lifecycle.md) | F-KPI-002 — Indicator edit/disable/delete |
+| 3 | [3.1.2.3-kpi-formula-editor.md](./3.1.2.3-kpi-formula-editor.md) | F-KPI-003 — KPI formula visual editor |
+
+### 3.1.3 Project Management
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.1.3.1-project-initiation.md](./3.1.3.1-project-initiation.md) | F-PROJ-001 — Project initiation |
+| 2 | [3.1.3.2-project-initiation-approval.md](./3.1.3.2-project-initiation-approval.md) | F-PROJ-002 — Initiation approval |
+| 3 | [3.1.3.3-sub-task-creation.md](./3.1.3.3-sub-task-creation.md) | F-PROJ-003 — Sub-task creation & assignment |
+| 4 | [3.1.3.4-project-progress-updates.md](./3.1.3.4-project-progress-updates.md) | F-PROJ-004 — Multi-mode progress updates |
+| 5 | [3.1.3.5-task-duration-change.md](./3.1.3.5-task-duration-change.md) | F-PROJ-005 — Task duration change |
+| 6 | [3.1.3.6-issue-reporting.md](./3.1.3.6-issue-reporting.md) | F-PROJ-006 — Execution issue reporting |
+| 7 | [3.1.3.7-issue-closed-loop.md](./3.1.3.7-issue-closed-loop.md) | F-PROJ-007 — Issue closed-loop handling |
+| 8 | [3.1.3.8-kpi-data-sync.md](./3.1.3.8-kpi-data-sync.md) | F-PROJ-008 — Project data → KPI sync |
+| 9 | [3.1.3.9-gantt-chart.md](./3.1.3.9-gantt-chart.md) | F-PROJ-009 — Automatic Gantt chart |
+| 10 | [3.1.3.10-project-acceptance-initiation.md](./3.1.3.10-project-acceptance-initiation.md) | F-PROJ-010 — Acceptance application |
+| 11 | [3.1.3.11-project-acceptance-approval.md](./3.1.3.11-project-acceptance-approval.md) | F-PROJ-011 — Acceptance approval |
+
+### 3.1.4 Data Collection and Filling
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.1.4.1-periodic-filling-tasks.md](./3.1.4.1-periodic-filling-tasks.md) | F-DATA-001 — Periodic filling task push |
+| 2 | [3.1.4.2-manual-data-entry.md](./3.1.4.2-manual-data-entry.md) | F-DATA-002 — Manual form data entry |
+| 3 | [3.1.4.3-multi-level-data-review.md](./3.1.4.3-multi-level-data-review.md) | F-DATA-003 — Multi-level data review |
+
+### 3.1.5 KPI Calculation and Statistical Analysis
+
+| # | File | Section |
+|---|------|---------|
+| 1 | [3.1.5.1-scheduled-batch-calculation.md](./3.1.5.1-scheduled-batch-calculation.md) | F-CALC-001 — Scheduled batch calculation |
+| 2 | [3.1.5.2-manual-recalculation.md](./3.1.5.2-manual-recalculation.md) | F-CALC-002 — Manual re-calculation |
+
+### 3.1.6–3.1.10 Cockpit, Alerts, Appraisal, PDCA & Reports
 
 | # | File | Section |
 |---|------|---------|
