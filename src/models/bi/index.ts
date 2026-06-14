@@ -34,3 +34,4 @@ export const BiDashboardPayloadSchema = z.object({
 
 export type BiDashboardPayload = z.infer<typeof BiDashboardPayloadSchema>
 export type BiKpiCard = z.infer<typeof BiKpiCardSchema>
+export type BiChartSeries = z.infer<typeof BiChartSeriesSchema>

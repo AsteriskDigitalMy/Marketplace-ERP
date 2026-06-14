@@ -1,147 +1,156 @@
-import { useState } from 'react'
-import { DollarSign, Package, ShoppingBag, Users } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import { DataTable, DataTablePagination } from '@/components/layout/DataTable'
-import { TableAvatar, TableCellPrimary } from '@/components/layout/TableCellPrimary'
+  BarChart3,
+  Boxes,
+  Factory,
+  Gauge,
+  Layers,
+  Link2,
+  Workflow,
+} from 'lucide-react'
 import { StatCard } from '@/components/layout/StatCard'
 import { PageHeader } from '@/components/pms/PageHeader'
-import { useClientDataTable } from '@/hooks/use-client-data-table'
+import { AsyncState } from '@/components/pms/AsyncState'
+import { ModuleHomeCard } from '@/components/shared/ModuleHomeCard'
+import { fetchErpLauncherData, type ErpLauncherData } from '@/services/launcher/erp-dashboard-service'
 
-const stats = [
+const moduleCards = [
   {
-    label: 'Revenue (MTD)',
-    value: '$128,450',
-    change: '+12.4% vs last month',
-    changeTone: 'positive' as const,
-    icon: DollarSign,
-    iconClassName: 'bg-emerald-500/10 text-emerald-600',
+    key: 'PMS',
+    title: 'Performance Management',
+    description: 'KPI, projects, appraisal, PDCA, and reporting.',
+    to: '/pms',
+    icon: Workflow,
+    accent: 'bg-primary/10 text-primary',
+    status: 'live' as const,
+    section: '3.1',
   },
   {
-    label: 'Open Orders',
-    value: '342',
-    change: '+8 new today',
-    changeTone: 'positive' as const,
-    icon: ShoppingBag,
-    iconClassName: 'bg-primary/10 text-primary',
+    key: 'PDM',
+    title: 'Product Data',
+    description: 'Products, BOM, routing, processes, and cost data.',
+    to: '/pdm',
+    icon: Layers,
+    accent: 'bg-violet-500/10 text-violet-600',
+    status: 'live' as const,
+    section: '3.2',
   },
   {
-    label: 'Low Stock Items',
-    value: '17',
-    change: '-3 since yesterday',
-    changeTone: 'negative' as const,
-    icon: Package,
-    iconClassName: 'bg-amber-500/10 text-amber-600',
+    key: 'SCM',
+    title: 'Supply Chain',
+    description: 'Sales, procurement, scheduling, and logistics.',
+    to: '/scm',
+    icon: Boxes,
+    accent: 'bg-emerald-500/10 text-emerald-600',
+    status: 'live' as const,
+    section: '3.3',
   },
   {
-    label: 'Active Customers',
-    value: '1,204',
-    change: '+26 this week',
-    changeTone: 'positive' as const,
-    icon: Users,
-    iconClassName: 'bg-violet-500/10 text-violet-600',
+    key: 'MES',
+    title: 'Manufacturing Execution',
+    description: 'Work orders, shop floor, quality, and equipment.',
+    to: '/mes',
+    icon: Factory,
+    accent: 'bg-amber-500/10 text-amber-600',
+    status: 'live' as const,
+    section: '3.4',
+  },
+  {
+    key: 'WMS',
+    title: 'Warehouse Management',
+    description: 'Inbound, outbound, inventory, and traceability.',
+    to: '/wms',
+    icon: Boxes,
+    accent: 'bg-cyan-500/10 text-cyan-600',
+    status: 'live' as const,
+    section: '3.5',
+  },
+  {
+    key: 'SAP',
+    title: 'SAP Integration',
+    description: 'Financial sync monitors and exception handling.',
+    to: '/sap',
+    icon: Link2,
+    accent: 'bg-slate-500/10 text-slate-600',
+    status: 'live' as const,
+    section: '3.6',
+  },
+  {
+    key: 'BI',
+    title: 'Business Intelligence',
+    description: 'Dashboards, analytics, and execution kanbans.',
+    to: '/bi',
+    icon: BarChart3,
+    accent: 'bg-indigo-500/10 text-indigo-600',
+    status: 'live' as const,
+    section: '3.7',
   },
 ]
-
-const recentOrders = [
-  { id: 'ORD-10482', customer: 'Northwind Traders', total: '$2,480', status: 'Processing' },
-  { id: 'ORD-10481', customer: 'Blue Ocean LLC', total: '$890', status: 'Shipped' },
-  { id: 'ORD-10480', customer: 'Summit Retail', total: '$4,120', status: 'Pending' },
-  { id: 'ORD-10479', customer: 'Apex Supplies', total: '$1,275', status: 'Delivered' },
-  { id: 'ORD-10478', customer: 'Horizon Foods', total: '$3,200', status: 'Processing' },
-  { id: 'ORD-10477', customer: 'Pacific Textiles', total: '$1,890', status: 'Shipped' },
-]
-
-function statusBadge(status: string) {
-  const map: Record<string, 'warning' | 'default' | 'secondary' | 'success'> = {
-    Processing: 'warning',
-    Pending: 'secondary',
-    Shipped: 'default',
-    Delivered: 'success',
-  }
-  return <Badge variant={map[status] ?? 'secondary'}>{status}</Badge>
-}
 
 export default function Dashboard() {
-  const [search, setSearch] = useState('')
-  const filtered = recentOrders.filter((o) => {
-    if (!search.trim()) return true
-    const q = search.toLowerCase()
-    return o.id.toLowerCase().includes(q) || o.customer.toLowerCase().includes(q)
-  })
-  const table = useClientDataTable(filtered, { pageSize: 5 })
+  const [data, setData] = useState<ErpLauncherData | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const load = async () => {
+    setError(null)
+    try {
+      setData(await fetchErpLauncherData())
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Failed to load launcher')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    void load()
+  }, [])
+
+  const statsMap = new Map(data?.modules.map((m) => [m.module, m.stats]) ?? [])
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Dashboard"
-        description="Central hub for marketplace performance, orders, and inventory health."
+        title="ERP Console"
+        description="Unified launcher for all marketplace ERP modules."
       />
 
-      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.map((stat) => (
-          <StatCard key={stat.label} {...stat} />
-        ))}
-      </div>
+      <AsyncState loading={loading} error={error} onRetry={() => { setLoading(true); void load() }}>
+        {data ? (
+          <>
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+              {data.quickStats.map((stat) => (
+                <StatCard
+                  key={stat.label}
+                  label={stat.label}
+                  value={stat.value}
+                  change={stat.change}
+                  changeTone="neutral"
+                  icon={Gauge}
+                  iconClassName="bg-primary/10 text-primary"
+                />
+              ))}
+            </div>
 
-      <DataTable
-        title="Recent Orders"
-        description="Last 24 hours"
-        count={filtered.length}
-        search={search}
-        onSearchChange={setSearch}
-        searchPlaceholder="Search recent orders…"
-        toolbarActions={
-          <Button variant="light" size="sm">
-            View all
-          </Button>
-        }
-        footer={
-          <DataTablePagination
-            page={table.page}
-            pageSize={table.pageSize}
-            totalItems={table.totalItems}
-            totalPages={table.totalPages}
-            rangeStart={table.rangeStart}
-            rangeEnd={table.rangeEnd}
-            onPageChange={table.setPage}
-            onPageSizeChange={table.setPageSize}
-          />
-        }
-      >
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Order</TableHead>
-              <TableHead>Total</TableHead>
-              <TableHead>Status</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {table.pageData.map((order) => (
-              <TableRow key={order.id}>
-                <TableCell>
-                  <TableCellPrimary
-                    title={order.id}
-                    subtitle={order.customer}
-                    leading={<TableAvatar label={order.customer} />}
-                  />
-                </TableCell>
-                <TableCell className="font-medium">{order.total}</TableCell>
-                <TableCell>{statusBadge(order.status)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </DataTable>
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {moduleCards.map((mod) => (
+                <ModuleHomeCard
+                  key={mod.key}
+                  title={mod.title}
+                  description={mod.description}
+                  to={mod.to}
+                  icon={mod.icon}
+                  accent={mod.accent}
+                  status={mod.status}
+                  section={mod.section}
+                  stats={statsMap.get(mod.key)}
+                />
+              ))}
+            </div>
+          </>
+        ) : null}
+      </AsyncState>
     </div>
   )
 }

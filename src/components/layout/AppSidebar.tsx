@@ -2,20 +2,14 @@ import { useEffect, useState, type ComponentType } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import {
   BarChart3,
-  Bell,
   Boxes,
-  Building2,
-  Calculator,
-  ClipboardCheck,
-  ClipboardList,
-  FolderKanban,
-  Gauge,
+  Factory,
+  Layers,
   LayoutDashboard,
+  Link2,
   Minus,
   Plus,
   Settings,
-  ShoppingCart,
-  Users,
   Workflow,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -23,31 +17,123 @@ import { cn } from '@/lib/utils'
 interface NavLeaf {
   to: string
   label: string
-  icon?: ComponentType<{ className?: string }>
   end?: boolean
 }
 
-const erpNav: NavLeaf[] = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { to: '/inventory', label: 'Inventory', icon: Boxes },
-  { to: '/orders', label: 'Orders', icon: ShoppingCart },
-  { to: '/customers', label: 'Customers', icon: Users },
-  { to: '/reports', label: 'Reports', icon: BarChart3 },
+interface NavGroup {
+  id: string
+  title: string
+  icon: ComponentType<{ className?: string }>
+  prefix: string
+  items: NavLeaf[]
+}
+
+const erpNav = [
+  { to: '/', label: 'ERP Console', icon: LayoutDashboard, end: true },
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
 
-const pmsNav: NavLeaf[] = [
-  { to: '/pms', label: 'Overview', icon: Workflow, end: true },
-  { to: '/pms/admin/org', label: 'Administration', icon: Building2 },
-  { to: '/pms/kpi/indicators', label: 'KPI Indicators', icon: BarChart3 },
-  { to: '/pms/projects', label: 'Projects', icon: FolderKanban },
-  { to: '/pms/data-collection/my-tasks', label: 'Data Collection', icon: ClipboardList },
-  { to: '/pms/kpi/calculation/jobs', label: 'KPI Calculation', icon: Calculator },
-  { to: '/pms/cockpit', label: 'KPI Cockpit', icon: Gauge },
-  { to: '/pms/alerts', label: 'Exception Alerts', icon: Bell },
-  { to: '/pms/appraisal/schemes', label: 'Performance Appraisal', icon: ClipboardCheck },
-  { to: '/pms/pdca/proposals', label: 'PDCA Improvement', icon: ClipboardList },
-  { to: '/pms/reports', label: 'Report Center', icon: BarChart3 },
+const moduleGroups: NavGroup[] = [
+  {
+    id: 'pms',
+    title: 'Performance Management',
+    icon: Workflow,
+    prefix: '/pms',
+    items: [
+      { to: '/pms', label: 'Overview', end: true },
+      { to: '/pms/admin/org', label: 'Administration' },
+      { to: '/pms/kpi/indicators', label: 'KPI Indicators' },
+      { to: '/pms/projects', label: 'Projects' },
+      { to: '/pms/data-collection/my-tasks', label: 'Data Collection' },
+      { to: '/pms/kpi/calculation/jobs', label: 'KPI Calculation' },
+      { to: '/pms/cockpit', label: 'KPI Cockpit' },
+      { to: '/pms/alerts', label: 'Exception Alerts' },
+      { to: '/pms/appraisal/schemes', label: 'Performance Appraisal' },
+      { to: '/pms/pdca/proposals', label: 'PDCA Improvement' },
+      { to: '/pms/reports', label: 'Report Center' },
+    ],
+  },
+  {
+    id: 'pdm',
+    title: 'Product Data (PDM)',
+    icon: Layers,
+    prefix: '/pdm',
+    items: [
+      { to: '/pdm', label: 'Overview', end: true },
+      { to: '/pdm/projects', label: 'Projects' },
+      { to: '/pdm/designs', label: 'Designs' },
+      { to: '/pdm/sampling', label: 'Sampling' },
+      { to: '/pdm/bom', label: 'BOM' },
+      { to: '/pdm/changes', label: 'Changes' },
+    ],
+  },
+  {
+    id: 'scm',
+    title: 'Supply Chain (SCM)',
+    icon: Boxes,
+    prefix: '/scm',
+    items: [
+      { to: '/scm', label: 'Overview', end: true },
+      { to: '/scm/customers', label: 'Customers' },
+      { to: '/scm/orders', label: 'Sales orders' },
+      { to: '/scm/suppliers', label: 'Suppliers' },
+      { to: '/scm/purchase-orders', label: 'Purchase orders' },
+      { to: '/scm/scheduling', label: 'Scheduling' },
+      { to: '/portal/orders', label: 'Customer portal' },
+    ],
+  },
+  {
+    id: 'mes',
+    title: 'Manufacturing (MES)',
+    icon: Factory,
+    prefix: '/mes',
+    items: [
+      { to: '/mes', label: 'Overview', end: true },
+      { to: '/mes/work-orders', label: 'Work orders' },
+      { to: '/mes/quality', label: 'Quality' },
+      { to: '/mes/equipment', label: 'Equipment' },
+      { to: '/mes/pad', label: 'Pad home' },
+    ],
+  },
+  {
+    id: 'wms',
+    title: 'Warehouse (WMS)',
+    icon: Boxes,
+    prefix: '/wms',
+    items: [
+      { to: '/wms', label: 'Overview', end: true },
+      { to: '/wms/inbound', label: 'Inbound' },
+      { to: '/wms/outbound', label: 'Outbound' },
+      { to: '/wms/materials', label: 'Materials' },
+      { to: '/wms/pda', label: 'PDA home' },
+    ],
+  },
+  {
+    id: 'sap',
+    title: 'SAP Integration',
+    icon: Link2,
+    prefix: '/sap',
+    items: [
+      { to: '/sap', label: 'Overview', end: true },
+      { to: '/sap/p2p', label: 'P2P (AP)' },
+      { to: '/sap/o2c', label: 'O2C (AR)' },
+      { to: '/sap/logs', label: 'Sync logs' },
+      { to: '/sap/exceptions', label: 'Exceptions' },
+    ],
+  },
+  {
+    id: 'bi',
+    title: 'Business Intelligence',
+    icon: BarChart3,
+    prefix: '/bi',
+    items: [
+      { to: '/bi', label: 'Home', end: true },
+      { to: '/bi/executive', label: 'Executive cockpit' },
+      { to: '/bi/operations/scm', label: 'SCM dashboard' },
+      { to: '/bi/operations/mes', label: 'MES dashboard' },
+      { to: '/bi/kanban/workshop', label: 'Workshop kanban' },
+    ],
+  },
 ]
 
 function MenuBullet() {
@@ -87,7 +173,12 @@ function MenuLeafLink({ to, label, end }: NavLeaf) {
   )
 }
 
-function MenuTopLink({ to, label, icon: Icon, end }: NavLeaf & { icon: ComponentType<{ className?: string }> }) {
+function MenuTopLink({
+  to,
+  label,
+  icon: Icon,
+  end,
+}: NavLeaf & { icon: ComponentType<{ className?: string }> }) {
   return (
     <div className="kt-menu-item">
       <NavLink
@@ -104,26 +195,40 @@ function MenuTopLink({ to, label, icon: Icon, end }: NavLeaf & { icon: Component
   )
 }
 
-function PmsAccordion({ open, onToggle }: { open: boolean; onToggle: () => void }) {
+function ModuleAccordion({
+  group,
+  open,
+  onToggle,
+}: {
+  group: NavGroup
+  open: boolean
+  onToggle: () => void
+}) {
   const location = useLocation()
-  const isGroupActive = location.pathname.startsWith('/pms')
+  const isGroupActive = location.pathname.startsWith(group.prefix)
 
   return (
-    <div className={cn('kt-menu-item', open && 'kt-menu-item--show', isGroupActive && 'kt-menu-item--here')}>
+    <div
+      className={cn(
+        'kt-menu-item',
+        open && 'kt-menu-item--show',
+        isGroupActive && 'kt-menu-item--here',
+      )}
+    >
       <button
         type="button"
         className="kt-menu-link kt-menu-link--top w-full"
         onClick={onToggle}
         aria-expanded={open}
       >
-        <MenuIcon icon={Workflow} />
-        <span className="kt-menu-title">Performance Management</span>
+        <MenuIcon icon={group.icon} />
+        <span className="kt-menu-title">{group.title}</span>
         <span className="kt-menu-arrow">
           {open ? <Minus className="size-2.5" aria-hidden /> : <Plus className="size-2.5" aria-hidden />}
         </span>
       </button>
       <div className="kt-menu-accordion">
-        {pmsNav.map((item) => (
+        {group.items.map((item) => (
           <MenuLeafLink key={item.to} {...item} />
         ))}
       </div>
@@ -133,14 +238,18 @@ function PmsAccordion({ open, onToggle }: { open: boolean; onToggle: () => void 
 
 export default function AppSidebar() {
   const location = useLocation()
-  const isPmsRoute = location.pathname.startsWith('/pms')
-  const [pmsOpen, setPmsOpen] = useState(isPmsRoute)
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
-    if (isPmsRoute) {
-      setPmsOpen(true)
+    const active = moduleGroups.find((g) => location.pathname.startsWith(g.prefix))
+    if (active) {
+      setOpenGroups((prev) => ({ ...prev, [active.id]: true }))
     }
-  }, [isPmsRoute])
+  }, [location.pathname])
+
+  const toggleGroup = (id: string) => {
+    setOpenGroups((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
 
   return (
     <aside className="app-sidebar">
@@ -156,11 +265,18 @@ export default function AppSidebar() {
         <nav className="kt-menu" aria-label="Main navigation">
           <MenuHeading>Applications</MenuHeading>
           {erpNav.map((item) => (
-            <MenuTopLink key={item.to} {...item} icon={item.icon!} />
+            <MenuTopLink key={item.to} {...item} icon={item.icon} />
           ))}
 
           <MenuHeading>Modules</MenuHeading>
-          <PmsAccordion open={pmsOpen} onToggle={() => setPmsOpen((value) => !value)} />
+          {moduleGroups.map((group) => (
+            <ModuleAccordion
+              key={group.id}
+              group={group}
+              open={!!openGroups[group.id]}
+              onToggle={() => toggleGroup(group.id)}
+            />
+          ))}
         </nav>
       </div>
     </aside>
