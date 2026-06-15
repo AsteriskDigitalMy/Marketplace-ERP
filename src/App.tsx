@@ -5,7 +5,7 @@ import { PmsAuthProvider } from '@/contexts/pms-auth-context'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
 import Settings from './pages/Settings'
-import { ErpModuleRoutes, LegacyRedirects } from './routes/erp-module-routes'
+import { erpModuleRoutes, legacyRedirectRoutes } from './routes/erp-module-routes'
 import PmsHomePage from './pages/pms/PmsHomePage'
 import PmsAdminLayout from './components/pms/PmsAdminLayout'
 import OrgStructurePage from './pages/pms/admin/OrgStructurePage'
@@ -89,8 +89,8 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="settings" element={<Settings />} />
-            <LegacyRedirects />
-            <ErpModuleRoutes />
+            {legacyRedirectRoutes}
+            {erpModuleRoutes}
 
             <Route path="pms" element={<PmsHomePage />} />
             <Route path="pms/cockpit" element={<CockpitPage />} />

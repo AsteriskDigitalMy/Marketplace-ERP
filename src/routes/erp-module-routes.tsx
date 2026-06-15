@@ -1,3 +1,4 @@
+import type { ReactElement } from 'react'
 import { Navigate, Route } from 'react-router-dom'
 import PdmLayout from '@/components/pdm/PdmLayout'
 import ScmLayout from '@/components/scm/ScmLayout'
@@ -86,111 +87,104 @@ import BiHomePage, {
 } from '@/pages/bi/BiPages'
 import PortalOrdersPage from '@/pages/portal/PortalOrdersPage'
 
-export function ErpModuleRoutes() {
-  return (
-    <>
-      <Route path="portal/orders" element={<PortalOrdersPage />} />
+/** Route elements must be direct children of <Route>; export as arrays for spreading in App.tsx. */
+export const legacyRedirectRoutes: ReactElement[] = [
+  <Route key="legacy-inventory" path="inventory" element={<Navigate to="/wms/materials" replace />} />,
+  <Route key="legacy-orders" path="orders" element={<Navigate to="/scm/orders" replace />} />,
+  <Route key="legacy-customers" path="customers" element={<Navigate to="/scm/customers" replace />} />,
+  <Route key="legacy-reports" path="reports" element={<Navigate to="/bi/reports" replace />} />,
+]
 
-      <Route path="pdm" element={<PdmLayout />}>
-        <Route index element={<PdmHomePage />} />
-        <Route path="projects" element={<PdmProjectsPage />} />
-        <Route path="designs" element={<PdmDesignsPage />} />
-        <Route path="sampling" element={<PdmSamplingPage />} />
-        <Route path="finalization" element={<PdmFinalizationPage />} />
-        <Route path="processes" element={<PdmProcessesPage />} />
-        <Route path="working-hours" element={<PdmWorkingHoursPage />} />
-        <Route path="routing" element={<PdmRoutingPage />} />
-        <Route path="bom" element={<PdmBomPage />} />
-        <Route path="cost-pricing" element={<PdmCostPricingPage />} />
-        <Route path="changes" element={<PdmChangesPage />} />
-      </Route>
+export const erpModuleRoutes: ReactElement[] = [
+  <Route key="portal-orders" path="portal/orders" element={<PortalOrdersPage />} />,
 
-      <Route path="scm" element={<ScmLayout />}>
-        <Route index element={<ScmHomePage />} />
-        <Route path="customers" element={<ScmCustomersPage />} />
-        <Route path="orders" element={<ScmOrdersPage />} />
-        <Route path="suppliers" element={<ScmSuppliersPage />} />
-        <Route path="procurement" element={<ScmProcurementPage />} />
-        <Route path="purchase-orders" element={<ScmPurchaseOrdersPage />} />
-        <Route path="scheduling" element={<ScmSchedulingPage />} />
-        <Route path="subcontracting" element={<ScmSubcontractingPage />} />
-        <Route path="import-export" element={<ScmImportExportPage />} />
-        <Route path="reports" element={<ScmReportsPage />} />
-      </Route>
+  <Route key="pdm" path="pdm" element={<PdmLayout />}>
+    <Route index element={<PdmHomePage />} />
+    <Route path="projects" element={<PdmProjectsPage />} />
+    <Route path="designs" element={<PdmDesignsPage />} />
+    <Route path="sampling" element={<PdmSamplingPage />} />
+    <Route path="finalization" element={<PdmFinalizationPage />} />
+    <Route path="processes" element={<PdmProcessesPage />} />
+    <Route path="working-hours" element={<PdmWorkingHoursPage />} />
+    <Route path="routing" element={<PdmRoutingPage />} />
+    <Route path="bom" element={<PdmBomPage />} />
+    <Route path="cost-pricing" element={<PdmCostPricingPage />} />
+    <Route path="changes" element={<PdmChangesPage />} />
+  </Route>,
 
-      <Route path="mes" element={<MesLayout />}>
-        <Route index element={<MesHomePage />} />
-        <Route path="work-orders" element={<MesWorkOrdersPage />} />
-        <Route path="scheduling" element={<MesSchedulingPage />} />
-        <Route path="cutting" element={<MesCuttingPage />} />
-        <Route path="sewing" element={<MesSewingPage />} />
-        <Route path="post-processing" element={<MesPostProcessingPage />} />
-        <Route path="traceability" element={<MesTraceabilityPage />} />
-        <Route path="quality" element={<MesQualityPage />} />
-        <Route path="rework" element={<MesReworkPage />} />
-        <Route path="equipment" element={<MesEquipmentPage />} />
-        <Route path="tooling" element={<MesToolingPage />} />
-        <Route path="personnel" element={<MesPersonnelPage />} />
-        <Route path="wages" element={<MesWagesPage />} />
-        <Route path="costs" element={<MesCostsPage />} />
-        <Route path="reports" element={<MesReportsPage />} />
-        <Route path="pad" element={<MesPadHomePage />} />
-      </Route>
+  <Route key="scm" path="scm" element={<ScmLayout />}>
+    <Route index element={<ScmHomePage />} />
+    <Route path="customers" element={<ScmCustomersPage />} />
+    <Route path="orders" element={<ScmOrdersPage />} />
+    <Route path="suppliers" element={<ScmSuppliersPage />} />
+    <Route path="procurement" element={<ScmProcurementPage />} />
+    <Route path="purchase-orders" element={<ScmPurchaseOrdersPage />} />
+    <Route path="scheduling" element={<ScmSchedulingPage />} />
+    <Route path="subcontracting" element={<ScmSubcontractingPage />} />
+    <Route path="import-export" element={<ScmImportExportPage />} />
+    <Route path="reports" element={<ScmReportsPage />} />
+  </Route>,
 
-      <Route path="wms" element={<WmsLayout />}>
-        <Route index element={<WmsHomePage />} />
-        <Route path="locations" element={<WmsLocationsPage />} />
-        <Route path="materials" element={<WmsMaterialsPage />} />
-        <Route path="strategies" element={<WmsStrategiesPage />} />
-        <Route path="inbound" element={<WmsInboundPage />} />
-        <Route path="outbound" element={<WmsOutboundPage />} />
-        <Route path="transfers" element={<WmsTransfersPage />} />
-        <Route path="alerts" element={<WmsAlertsPage />} />
-        <Route path="batches" element={<WmsBatchesPage />} />
-        <Route path="reservations" element={<WmsReservationsPage />} />
-        <Route path="stock-taking" element={<WmsStockTakingPage />} />
-        <Route path="traceability" element={<WmsTraceabilityPage />} />
-        <Route path="reports" element={<WmsReportsPage />} />
-        <Route path="pda" element={<WmsPdaHomePage />} />
-      </Route>
+  <Route key="mes" path="mes" element={<MesLayout />}>
+    <Route index element={<MesHomePage />} />
+    <Route path="work-orders" element={<MesWorkOrdersPage />} />
+    <Route path="scheduling" element={<MesSchedulingPage />} />
+    <Route path="cutting" element={<MesCuttingPage />} />
+    <Route path="sewing" element={<MesSewingPage />} />
+    <Route path="post-processing" element={<MesPostProcessingPage />} />
+    <Route path="traceability" element={<MesTraceabilityPage />} />
+    <Route path="quality" element={<MesQualityPage />} />
+    <Route path="rework" element={<MesReworkPage />} />
+    <Route path="equipment" element={<MesEquipmentPage />} />
+    <Route path="tooling" element={<MesToolingPage />} />
+    <Route path="personnel" element={<MesPersonnelPage />} />
+    <Route path="wages" element={<MesWagesPage />} />
+    <Route path="costs" element={<MesCostsPage />} />
+    <Route path="reports" element={<MesReportsPage />} />
+    <Route path="pad" element={<MesPadHomePage />} />
+  </Route>,
 
-      <Route path="sap" element={<SapLayout />}>
-        <Route index element={<SapHomePage />} />
-        <Route path="config" element={<SapConfigPage />} />
-        <Route path="master-data" element={<SapMasterDataPage />} />
-        <Route path="p2p" element={<SapP2pPage />} />
-        <Route path="o2c" element={<SapO2cPage />} />
-        <Route path="costing" element={<SapCostingPage />} />
-        <Route path="inventory" element={<SapInventoryPage />} />
-        <Route path="logs" element={<SapLogsPage />} />
-        <Route path="exceptions" element={<SapExceptionsPage />} />
-      </Route>
+  <Route key="wms" path="wms" element={<WmsLayout />}>
+    <Route index element={<WmsHomePage />} />
+    <Route path="locations" element={<WmsLocationsPage />} />
+    <Route path="materials" element={<WmsMaterialsPage />} />
+    <Route path="strategies" element={<WmsStrategiesPage />} />
+    <Route path="inbound" element={<WmsInboundPage />} />
+    <Route path="outbound" element={<WmsOutboundPage />} />
+    <Route path="transfers" element={<WmsTransfersPage />} />
+    <Route path="alerts" element={<WmsAlertsPage />} />
+    <Route path="batches" element={<WmsBatchesPage />} />
+    <Route path="reservations" element={<WmsReservationsPage />} />
+    <Route path="stock-taking" element={<WmsStockTakingPage />} />
+    <Route path="traceability" element={<WmsTraceabilityPage />} />
+    <Route path="reports" element={<WmsReportsPage />} />
+    <Route path="pda" element={<WmsPdaHomePage />} />
+  </Route>,
 
-      <Route path="bi" element={<BiLayout />}>
-        <Route index element={<BiHomePage />} />
-        <Route path="executive" element={<BiExecutivePage />} />
-        <Route path="operations/scm" element={<BiScmDashboardPage />} />
-        <Route path="operations/mes" element={<BiMesDashboardPage />} />
-        <Route path="operations/wms" element={<BiWmsDashboardPage />} />
-        <Route path="operations/finance" element={<BiFinanceDashboardPage />} />
-        <Route path="operations/kpi" element={<BiKpiDashboardPage />} />
-        <Route path="kanban/workshop" element={<BiWorkshopKanbanPage />} />
-        <Route path="kanban/warehouse" element={<BiWarehouseKanbanPage />} />
-        <Route path="reports/designer" element={<BiReportDesignerPage />} />
-        <Route path="reports" element={<BiMyReportsPage />} />
-        <Route path="alerts" element={<BiAlertsPage />} />
-      </Route>
-    </>
-  )
-}
+  <Route key="sap" path="sap" element={<SapLayout />}>
+    <Route index element={<SapHomePage />} />
+    <Route path="config" element={<SapConfigPage />} />
+    <Route path="master-data" element={<SapMasterDataPage />} />
+    <Route path="p2p" element={<SapP2pPage />} />
+    <Route path="o2c" element={<SapO2cPage />} />
+    <Route path="costing" element={<SapCostingPage />} />
+    <Route path="inventory" element={<SapInventoryPage />} />
+    <Route path="logs" element={<SapLogsPage />} />
+    <Route path="exceptions" element={<SapExceptionsPage />} />
+  </Route>,
 
-export function LegacyRedirects() {
-  return (
-    <>
-      <Route path="inventory" element={<Navigate to="/wms/materials" replace />} />
-      <Route path="orders" element={<Navigate to="/scm/orders" replace />} />
-      <Route path="customers" element={<Navigate to="/scm/customers" replace />} />
-      <Route path="reports" element={<Navigate to="/bi/reports" replace />} />
-    </>
-  )
-}
+  <Route key="bi" path="bi" element={<BiLayout />}>
+    <Route index element={<BiHomePage />} />
+    <Route path="executive" element={<BiExecutivePage />} />
+    <Route path="operations/scm" element={<BiScmDashboardPage />} />
+    <Route path="operations/mes" element={<BiMesDashboardPage />} />
+    <Route path="operations/wms" element={<BiWmsDashboardPage />} />
+    <Route path="operations/finance" element={<BiFinanceDashboardPage />} />
+    <Route path="operations/kpi" element={<BiKpiDashboardPage />} />
+    <Route path="kanban/workshop" element={<BiWorkshopKanbanPage />} />
+    <Route path="kanban/warehouse" element={<BiWarehouseKanbanPage />} />
+    <Route path="reports/designer" element={<BiReportDesignerPage />} />
+    <Route path="reports" element={<BiMyReportsPage />} />
+    <Route path="alerts" element={<BiAlertsPage />} />
+  </Route>,
+]
